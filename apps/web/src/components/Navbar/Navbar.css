@@ -6,12 +6,14 @@
 
 /* ── Block: navbar ────────────────────────────────────────── */
 .navbar {
-  /* Fixed to the top of the viewport, above everything else */
+  /* Master Scale Adjustment — change this single value to resize everything */
+  --nav-scale: 1.0;
+
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--navbar-height);
+  height: calc(80px * var(--nav-scale));
   background-color: var(--color-bg-secondary);
   border-bottom: 1px solid rgba(166, 226, 46, 0.1);
   z-index: 1000;
@@ -41,6 +43,11 @@
   align-items: center;
 }
 
+.navbar__logo-img {
+  height: calc(120px * var(--nav-scale));
+  width: auto;
+}
+
 /* ── Element: nav (center zone) ───────────────────────────── */
 .navbar__nav {
   /* Hidden by default on mobile; shown on desktop */
@@ -50,15 +57,12 @@
 .navbar__nav-list {
   display: flex;
   align-items: center;
-  gap: var(--space-xl);
+  gap: calc(32px * var(--nav-scale));
 }
 
-.navbar__nav-item {
-  /* No additional styles needed; gap handles spacing */
-}
 
 .navbar__nav-link {
-  font-size: var(--font-size-md);
+  font-size: calc(16px * var(--nav-scale));
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
@@ -96,10 +100,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-sm) var(--space-lg);
+  padding: calc(12px * var(--nav-scale)) calc(24px * var(--nav-scale));
   background-color: var(--color-btn-primary);
   color: var(--color-text-secondary);
-  font-size: var(--font-size-md);
+  font-size: calc(16px * var(--nav-scale));
   font-weight: var(--font-weight-medium);
   /* Pill shape as specified */
   border-radius: var(--border-radius-pill);
@@ -121,10 +125,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
   color: var(--color-text-secondary);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-2xl);
   border-radius: var(--border-radius-sm);
   transition: color var(--transition-fast);
 }
@@ -145,7 +149,7 @@
 
 /* Modifier: open state — expand the drawer */
 .navbar__mobile-menu--open {
-  max-height: 200px;
+  max-height: 600px;
 }
 
 .navbar__mobile-list {
