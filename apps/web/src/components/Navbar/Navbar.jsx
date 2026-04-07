@@ -37,8 +37,9 @@ export default function Navbar() {
             <Image
               src="/assets/images/logo.png"
               alt="Leap Laboratories"
-              width={120}
-              height={36}
+              width={1920}
+              height={1080}
+              className="navbar__logo-img"
               priority
             />
           </Link>
