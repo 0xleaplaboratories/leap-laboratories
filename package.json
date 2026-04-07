@@ -1,0 +1,24 @@
+{
+  "name": "leap-laboratories",
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,json,md}\"",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "turbo": "^2.9.4"
+  },
+  "dependencies": {
+    "turbo-linux-64": "^2.8.17"
+  }
+}

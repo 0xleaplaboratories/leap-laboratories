@@ -1,0 +1,195 @@
+/* ============================================================
+   NAVBAR COMPONENT STYLES
+   BEM: .navbar, .navbar__*, .navbar__*--*
+   All color/spacing values use CSS variables from globals.css
+   ============================================================ */
+
+/* ── Block: navbar ────────────────────────────────────────── */
+.navbar {
+  /* Fixed to the top of the viewport, above everything else */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--navbar-height);
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid rgba(166, 226, 46, 0.1);
+  z-index: 1000;
+}
+
+/* ── Element: container ───────────────────────────────────── */
+.navbar__container {
+  max-width: var(--max-content-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  /* Three-zone layout: logo | nav | actions */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Element: logo ────────────────────────────────────────── */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar__logo a {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Element: nav (center zone) ───────────────────────────── */
+.navbar__nav {
+  /* Hidden by default on mobile; shown on desktop */
+  display: none;
+}
+
+.navbar__nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.navbar__nav-item {
+  /* No additional styles needed; gap handles spacing */
+}
+
+.navbar__nav-link {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+/* Underline animation on hover */
+.navbar__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-text-primary);
+  transition: width var(--transition-normal);
+}
+
+.navbar__nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+.navbar__nav-link:hover::after {
+  width: 100%;
+}
+
+/* ── Element: actions (right zone) ───────────────────────── */
+.navbar__actions {
+  display: none;
+  align-items: center;
+}
+
+/* ── Element: login button ────────────────────────────────── */
+.navbar__login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-btn-primary);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  /* Pill shape as specified */
+  border-radius: var(--border-radius-pill);
+  border: 2px solid transparent;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.navbar__login-btn:hover {
+  background-color: transparent;
+  color: var(--color-hover-primary);
+  border-color: var(--color-hover-primary);
+}
+
+/* ── Element: hamburger (mobile only) ─────────────────────── */
+.navbar__hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xl);
+  border-radius: var(--border-radius-sm);
+  transition: color var(--transition-fast);
+}
+
+.navbar__hamburger:hover {
+  color: var(--color-text-primary);
+}
+
+/* ── Element: mobile menu (drawer) ────────────────────────── */
+.navbar__mobile-menu {
+  /* Hidden by default; no height, no overflow */
+  max-height: 0;
+  overflow: hidden;
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid rgba(166, 226, 46, 0.1);
+  transition: max-height var(--transition-normal);
+}
+
+/* Modifier: open state — expand the drawer */
+.navbar__mobile-menu--open {
+  max-height: 200px;
+}
+
+.navbar__mobile-list {
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.navbar__mobile-link {
+  display: block;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) 0;
+  transition: color var(--transition-fast);
+}
+
+.navbar__mobile-link:hover {
+  color: var(--color-text-primary);
+}
+
+.navbar__login-btn--mobile {
+  width: 100%;
+  margin-top: var(--space-sm);
+}
+
+/* ── Responsive: Desktop (≥ 768px) ───────────────────────── */
+@media (min-width: 768px) {
+  /* Show the desktop nav and actions */
+  .navbar__nav {
+    display: flex;
+  }
+
+  .navbar__actions {
+    display: flex;
+  }
+
+  /* Hide the hamburger icon entirely */
+  .navbar__hamburger {
+    display: none;
+  }
+
+  /* Ensure the mobile drawer is never functional/visible */
+  .navbar__mobile-menu {
+    display: none;
+  }
+}
