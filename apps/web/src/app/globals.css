@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 /* ============================================================
    LEAP LABORATORIES — Global Stylesheet
    - CSS custom properties (design tokens)
@@ -29,7 +31,7 @@
   --color-hover-accent: #F8F8F2;
 
   /* Typography */
-  --font-primary: 'Inter', 'Segoe UI', sans-serif;
+  --font-primary: 'JetBrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
   --font-size-base: 16px;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;
@@ -52,7 +54,7 @@
   --space-3xl: 64px;
 
   /* Layout */
-  --navbar-height: 64px;
+  --navbar-height: 160px;
   --max-content-width: 1200px;
 
   /* Borders */
