@@ -7,14 +7,14 @@
 /* ── Block: navbar ────────────────────────────────────────── */
 .navbar {
   /* Master Scale Adjustment — change this single value to resize everything */
-  --nav-scale: 1.0;
+  --nav-scale: 0.95;
 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: calc(80px * var(--nav-scale));
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-primary);
   border-bottom: 1px solid rgba(166, 226, 46, 0.1);
   z-index: 1000;
 }
@@ -44,7 +44,7 @@
 }
 
 .navbar__logo-img {
-  height: calc(120px * var(--nav-scale));
+  height: calc(110px * var(--nav-scale));
   width: auto;
 }
 
@@ -77,12 +77,12 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--color-text-primary);
+  background-color: var(--color-hover-secondary);
   transition: width var(--transition-normal);
 }
 
 .navbar__nav-link:hover {
-  color: var(--color-text-primary);
+  color: var(--color-hover-secondary);
 }
 
 .navbar__nav-link:hover::after {
@@ -100,14 +100,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: calc(12px * var(--nav-scale)) calc(24px * var(--nav-scale));
+  padding: calc(4px * var(--nav-scale)) calc(24px * var(--nav-scale));
   background-color: var(--color-btn-primary);
   color: var(--color-text-secondary);
   font-size: calc(16px * var(--nav-scale));
   font-weight: var(--font-weight-medium);
   /* Pill shape as specified */
   border-radius: var(--border-radius-pill);
-  border: 2px solid transparent;
+  border: 0.1px solid transparent;
   transition:
     background-color var(--transition-fast),
     color var(--transition-fast),
@@ -116,8 +116,8 @@
 
 .navbar__login-btn:hover {
   background-color: transparent;
-  color: var(--color-hover-primary);
-  border-color: var(--color-hover-primary);
+  color: var(--color-hover-secondary);
+  border-color: var(--color-hover-secondary);
 }
 
 /* ── Element: hamburger (mobile only) ─────────────────────── */
@@ -168,7 +168,7 @@
 }
 
 .navbar__mobile-link:hover {
-  color: var(--color-text-primary);
+  color: var(--color-hover-secondary);
 }
 
 .navbar__login-btn--mobile {

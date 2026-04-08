@@ -1,39 +1,43 @@
 import Navbar from '@/components/Navbar/Navbar';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <main className="page-wrapper">
+    <main className={styles.pageWrapper}>
       <Navbar />
       
-      <section id="hero" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-primary)' }}>
-        <div className="container">
-          <h1 style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-3xl)', textAlign: 'center' }}>
-            Welcome to Leap Laboratories
-          </h1>
-          <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-xl)', textAlign: 'center', marginTop: 'var(--space-md)' }}>
-            Empowering innovation through learning and research.
-          </p>
+      <section id="hero" className={styles.hero}>
+        <div className={styles.container}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>
+              <code>&#123;?&#125;</code> Learn <br />
+              <code>&lt;/&gt;</code> Build <br />
+            </h1>
+            <p className={styles.heroDescription}>
+              Learn in Academy, Build in Labs,<br/>Innovate with us.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section id="articles" style={{ padding: 'var(--space-3xl) 0', background: 'var(--color-bg-secondary)' }}>
-        <div className="container">
-          <h2 style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-2xl)' }}>Articles</h2>
-          <p style={{ marginTop: 'var(--space-md)' }}>Discover our latest research and insights.</p>
+      <section id="articles" className={`${styles.section} ${styles.bgSecondary}`}>
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>Articles</h2>
+          <p className={styles.sectionText}>Discover our latest research and insights.</p>
         </div>
       </section>
 
-      <section id="gallery" style={{ padding: 'var(--space-3xl) 0', background: 'var(--color-bg-primary)' }}>
-        <div className="container">
-          <h2 style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-2xl)' }}>Gallery</h2>
-          <p style={{ marginTop: 'var(--space-md)' }}>A visual journey through our projects.</p>
+      <section id="gallery" className={`${styles.section} ${styles.bgPrimary}`}>
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>Gallery</h2>
+          <p className={styles.sectionText}>A visual journey through our projects.</p>
         </div>
       </section>
 
-      <section id="contact" style={{ padding: 'var(--space-3xl) 0', background: 'var(--color-bg-secondary)' }}>
-        <div className="container">
-          <h2 style={{ color: 'var(--color-text-primary)', fontSize: 'var(--font-size-2xl)' }}>Contact</h2>
-          <p style={{ marginTop: 'var(--space-md)' }}>Get in touch with us.</p>
+      <section id="contact" className={`${styles.section} ${styles.bgSecondary}`}>
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>Contact</h2>
+          <p className={styles.sectionText}>Get in touch with us.</p>
         </div>
       </section>
     </main>

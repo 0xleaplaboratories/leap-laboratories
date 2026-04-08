@@ -16,8 +16,8 @@
   --color-text-accent: #AC6218;
 
   /* Colors: Background */
-  --color-bg-primary: #1E1F1C;
-  --color-bg-secondary: #272822;
+  --color-bg-primary: #141413;
+  --color-bg-secondary: #000000;
   --color-bg-accent: #AC6218;
 
   /* Colors: Button */
@@ -60,7 +60,7 @@
   /* Borders */
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
-  --border-radius-pill: 9999px;
+  --border-radius-pill: 8px;
 
   /* Transitions */
   --transition-fast: 150ms ease;

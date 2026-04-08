@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import './Navbar.css';
+import styles from './Navbar.module.css';
 
 // The four center navigation links.
 // Each item scrolls to a section on the same page via an anchor href.
@@ -28,31 +28,31 @@ export default function Navbar() {
   };
 
   return (
-    <header className="navbar">
-      <div className="navbar__container">
+    <header className={styles.navbar}>
+      <div className={styles.navbar__container}>
 
         {/* ── LEFT ZONE: Logo ────────────────────────────────── */}
-        <div className="navbar__logo">
+        <div className={styles.navbar__logo}>
           <Link href="/" aria-label="Leap Laboratories home">
             <Image
               src="/assets/images/logo.png"
               alt="Leap Laboratories"
               width={1920}
               height={1080}
-              className="navbar__logo-img"
+              className={styles['navbar__logo-img']}
               priority
             />
           </Link>
         </div>
 
         {/* ── CENTER ZONE: Navigation links (desktop) ────────── */}
-        <nav className="navbar__nav" aria-label="Main navigation">
-          <ul className="navbar__nav-list">
+        <nav className={styles.navbar__nav} aria-label="Main navigation">
+          <ul className={styles['navbar__nav-list']}>
             {NAV_LINKS.map((link) => (
-              <li key={link.href} className="navbar__nav-item">
+              <li key={link.href} className={styles['navbar__nav-item']}>
                 <a
                   href={link.href}
-                  className="navbar__nav-link"
+                  className={styles['navbar__nav-link']}
                   onClick={handleLinkClick}
                 >
                   {link.label}
@@ -63,22 +63,22 @@ export default function Navbar() {
         </nav>
 
         {/* ── RIGHT ZONE: Login button (desktop) ─────────────── */}
-        <div className="navbar__actions">
-          <Link href="/login" className="navbar__login-btn">
-            Login
+        <div className={styles.navbar__actions}>
+          <Link href="/login" className={styles['navbar__login-btn']}>
+            Come Join Us
           </Link>
         </div>
 
         {/* ── MOBILE: Hamburger toggle ────────────────────────── */}
         <button
-          className="navbar__hamburger"
+          className={styles.navbar__hamburger}
           onClick={toggleMobileMenu}
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu"
         >
           {/* Renders ☰ when closed, ✕ when open */}
-          <span className="navbar__hamburger-icon">
+          <span className={styles['navbar__hamburger-icon']}>
             {isMobileMenuOpen ? '✕' : '☰'}
           </span>
         </button>
@@ -87,24 +87,24 @@ export default function Navbar() {
       {/* ── MOBILE: Dropdown drawer ─────────────────────────── */}
       <div
         id="mobile-menu"
-        className={`navbar__mobile-menu ${isMobileMenuOpen ? 'navbar__mobile-menu--open' : ''}`}
+        className={`${styles['navbar__mobile-menu']} ${isMobileMenuOpen ? styles['navbar__mobile-menu--open'] : ''}`}
         aria-hidden={!isMobileMenuOpen}
       >
-        <ul className="navbar__mobile-list">
+        <ul className={styles['navbar__mobile-list']}>
           {NAV_LINKS.map((link) => (
-            <li key={link.href} className="navbar__mobile-item">
+            <li key={link.href} className={styles['navbar__mobile-item']}>
               <a
                 href={link.href}
-                className="navbar__mobile-link"
+                className={styles['navbar__mobile-link']}
                 onClick={handleLinkClick}
               >
                 {link.label}
               </a>
             </li>
           ))}
-          <li className="navbar__mobile-item">
-            <Link href="/login" className="navbar__login-btn navbar__login-btn--mobile">
-              Login
+          <li className={styles['navbar__mobile-item']}>
+            <Link href="/login" className={`${styles['navbar__login-btn']} ${styles['navbar__login-btn--mobile']}`}>
+              Come Join Us
             </Link>
           </li>
         </ul>
