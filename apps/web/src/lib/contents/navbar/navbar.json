@@ -1,0 +1,31 @@
+{
+    "brand": {
+        "name": "Leap Laboratories",
+        "href": "/",
+        "logo": "assets/images/logo.png"
+    },
+    "navLinks": [
+        {
+            "label": "Get Started",
+            "href": "#hero"
+        },
+        {
+            "label": "Article",
+            "href": "#articles"
+        },
+        {
+            "label": "Gallery",
+            "href": "#gallery"
+        },
+        {
+            "label": "Contact",
+            "href": "#contact"
+        }
+    ],
+    "actions": {
+        "login": {
+            "label": "Sign In/Up",
+            "href": "/login"
+        }
+    }
+}

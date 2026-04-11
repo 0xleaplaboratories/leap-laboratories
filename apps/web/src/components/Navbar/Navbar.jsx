@@ -1,31 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getJSONContent } from '@/lib/content';
 import styles from './Navbar.module.css';
 
-// The four center navigation links.
-// Each item scrolls to a section on the same page via an anchor href.
-const NAV_LINKS = [
-  { label: 'Get Started', href: '#hero' },
-  { label: 'Article',     href: '#articles' },
-  { label: 'Gallery',     href: '#gallery' },
-  { label: 'Contact',     href: '#contact' },
-];
-
 export default function Navbar() {
-  // Controls whether the mobile drawer is open or closed.
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    async function loadContent() {
+      const data = await getJSONContent('navbar/navbar');
+      setContent(data);
+    }
+    loadContent();
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
-  // Close the mobile menu when a link is clicked (UX improvement).
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
+
+  if (!content) return null;
+
+  const { brand, navLinks, actions } = content;
 
   return (
     <header className={styles.navbar}>
@@ -33,10 +36,10 @@ export default function Navbar() {
 
         {/* ── LEFT ZONE: Logo ────────────────────────────────── */}
         <div className={styles.navbar__logo}>
-          <Link href="/" aria-label="Leap Laboratories home">
+          <Link href={brand.href} aria-label={`${brand.name} home`}>
             <Image
-              src="/assets/images/logo.png"
-              alt="Leap Laboratories"
+              src={`/${brand.logo}`}
+              alt={brand.name}
               width={1920}
               height={1080}
               className={styles['navbar__logo-img']}
@@ -48,7 +51,7 @@ export default function Navbar() {
         {/* ── CENTER ZONE: Navigation links (desktop) ────────── */}
         <nav className={styles.navbar__nav} aria-label="Main navigation">
           <ul className={styles['navbar__nav-list']}>
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <li key={link.href} className={styles['navbar__nav-item']}>
                 <a
                   href={link.href}
@@ -64,8 +67,8 @@ export default function Navbar() {
 
         {/* ── RIGHT ZONE: Login button (desktop) ─────────────── */}
         <div className={styles.navbar__actions}>
-          <Link href="/login" className={styles['navbar__login-btn']}>
-            Come Join Us
+          <Link href={actions.login.href} className={styles['navbar__login-btn']}>
+            {actions.login.label}
           </Link>
         </div>
 
@@ -77,7 +80,6 @@ export default function Navbar() {
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu"
         >
-          {/* Renders ☰ when closed, ✕ when open */}
           <span className={styles['navbar__hamburger-icon']}>
             {isMobileMenuOpen ? '✕' : '☰'}
           </span>
@@ -91,7 +93,7 @@ export default function Navbar() {
         aria-hidden={!isMobileMenuOpen}
       >
         <ul className={styles['navbar__mobile-list']}>
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <li key={link.href} className={styles['navbar__mobile-item']}>
               <a
                 href={link.href}
@@ -103,8 +105,8 @@ export default function Navbar() {
             </li>
           ))}
           <li className={styles['navbar__mobile-item']}>
-            <Link href="/login" className={`${styles['navbar__login-btn']} ${styles['navbar__login-btn--mobile']}`}>
-              Come Join Us
+            <Link href={actions.login.href} className={`${styles['navbar__login-btn']} ${styles['navbar__login-btn--mobile']}`}>
+              {actions.login.label}
             </Link>
           </li>
         </ul>
