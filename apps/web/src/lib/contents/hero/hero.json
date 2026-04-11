@@ -40,8 +40,8 @@
       }
     },
     {
-      "id": "Labs.",
-      "label": "Labs.",
+      "id": "labs",
+      "label": "Labs",
       "description": "Build with us",
       "roles": [
         { "value": "developer", "label": "Developer" },
