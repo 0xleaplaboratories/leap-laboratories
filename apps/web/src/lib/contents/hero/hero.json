@@ -1,0 +1,73 @@
+{
+  "head": {
+    "logo": "assets/images/logo-square.png",
+    "title": [
+      "{?}Learn",
+      "</>Build"
+    ],
+    "tagline": "Learn in Academy, Build in Labs, Innovate with us."
+  },
+  "apps": [
+    {
+      "id": "academy",
+      "label": "Academy",
+      "description": "Learn with us",
+      "roles": [
+        { "value": "parent",  "label": "Parent"  },
+        { "value": "student", "label": "Student" },
+        { "value": "teacher", "label": "Teacher" },
+        { "value": "admin",   "label": "Admin"   }
+      ],
+      "auth": {
+        "providers": [
+          {
+            "id": "google",
+            "type": "oauth",
+            "label": "Continue with Google",
+            "icon": "google"
+          },
+          {
+            "id": "email",
+            "type": "email",
+            "label": "Continue with Email",
+            "placeholder": "Continue with Email"
+          }
+        ],
+        "flows": {
+          "signIn": { "label": "Sign In", "endpoint": "/academy/auth/signin" },
+          "signUp": { "label": "Sign Up", "endpoint": "/academy/auth/signup" }
+        }
+      }
+    },
+    {
+      "id": "builder",
+      "label": "Builder",
+      "description": "Build with us",
+      "roles": [
+        { "value": "developer", "label": "Developer" },
+        { "value": "sales",     "label": "Sales"     },
+        { "value": "client",    "label": "Client"    }
+      ],
+      "auth": {
+        "providers": [
+          {
+            "id": "google",
+            "type": "oauth",
+            "label": "Continue with Google",
+            "icon": "google"
+          },
+          {
+            "id": "email",
+            "type": "email",
+            "label": "Continue with Email",
+            "placeholder": "Enter your email"
+          }
+        ],
+        "flows": {
+          "signIn": { "label": "Sign In", "endpoint": "/builder/auth/signin" },
+          "signUp": { "label": "Sign Up", "endpoint": "/builder/auth/signup" }
+        }
+      }
+    }
+  ]
+}
