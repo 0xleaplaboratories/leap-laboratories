@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from './Hero.module.css';
 
@@ -32,7 +32,7 @@ function RoleSelector({ roles, selectedRole, onRoleChange }) {
 /**
  * AuthProviders: Renders OAuth buttons and Email input/flow logic based on JSON data.
  */
-function AuthProviders({ providers, flows, activeFlow, onFlowChange }) {
+function AuthProviders({ providers, flows, activeFlow, onFlowChange, emailRef }) {
   return (
     <div className={styles.authProviders}>
       {providers.map((provider, index) => {
@@ -74,6 +74,7 @@ function AuthProviders({ providers, flows, activeFlow, onFlowChange }) {
               )}
 
               <input
+                ref={emailRef}
                 className={styles.emailInput}
                 type="email"
                 placeholder={provider.placeholder || provider.label}
@@ -109,8 +110,22 @@ export default function HeroAuthCard({ apps }) {
   const [activeAppId, setActiveAppId] = useState(apps[0].id);
   const [selectedRole, setSelectedRole] = useState(apps[0].roles[0].value);
   const [activeFlow, setActiveFlow] = useState('signIn');
+  
+  const emailInputRef = useRef(null);
 
   const activeApp = apps.find((app) => app.id === activeAppId);
+
+  useEffect(() => {
+    const handleFocusEvent = () => {
+      if (emailInputRef.current) {
+        emailInputRef.current.focus();
+        emailInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+
+    window.addEventListener('leap:focus-auth', handleFocusEvent);
+    return () => window.removeEventListener('leap:focus-auth', handleFocusEvent);
+  }, []);
 
   const handleAppChange = (appId) => {
     const newApp = apps.find((app) => app.id === appId);
@@ -156,8 +171,10 @@ export default function HeroAuthCard({ apps }) {
           flows={activeApp.auth.flows}
           activeFlow={activeFlow}
           onFlowChange={setActiveFlow}
+          emailRef={emailInputRef}
         />
       </div>
     </div>
   );
 }
+
