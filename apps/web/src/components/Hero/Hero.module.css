@@ -47,6 +47,10 @@
 .heroLeft {
   overflow-y: auto;
   scrollbar-width: none;
+  background-image: 
+    linear-gradient(rgba(166, 226, 46, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(166, 226, 46, 0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 .heroLeft::-webkit-scrollbar {
