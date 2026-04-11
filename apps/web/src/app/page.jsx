@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar/Navbar';
+import Hero from '@/components/Hero/Hero';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -6,19 +7,7 @@ export default function Home() {
     <main className={styles.pageWrapper}>
       <Navbar />
       
-      <section id="hero" className={styles.hero}>
-        <div className={styles.container}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>
-              <code>&#123;?&#125;</code> Learn <br />
-              <code>&lt;/&gt;</code> Build <br />
-            </h1>
-            <p className={styles.heroDescription}>
-              Learn in Academy, Build in Labs,<br/>Innovate with us.
-            </p>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       <section id="articles" className={`${styles.section} ${styles.bgSecondary}`}>
         <div className={styles.container}>

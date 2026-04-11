@@ -1,11 +1,11 @@
 {
   "head": {
     "logo": "assets/images/logo-square.png",
-    "title": [
-      "{?}Learn",
-      "</>Build"
-    ],
-    "tagline": "Learn in Academy, Build in Labs, Innovate with us."
+    "tagline": [
+      "{?}Learn In Academy.",
+      "</>Build In Labs.",
+      "Innovate With Us."
+    ]
   },
   "apps": [
     {
@@ -40,8 +40,8 @@
       }
     },
     {
-      "id": "builder",
-      "label": "Builder",
+      "id": "Labs.",
+      "label": "Labs.",
       "description": "Build with us",
       "roles": [
         { "value": "developer", "label": "Developer" },
