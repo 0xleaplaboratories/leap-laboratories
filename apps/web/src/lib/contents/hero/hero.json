@@ -24,7 +24,7 @@
             "id": "google",
             "type": "oauth",
             "label": "Continue with Google",
-            "icon": "google"
+            "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Google_Favicon_2025.svg"
           },
           {
             "id": "email",
@@ -54,7 +54,7 @@
             "id": "google",
             "type": "oauth",
             "label": "Continue with Google",
-            "icon": "google"
+            "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Google_Favicon_2025.svg"
           },
           {
             "id": "email",

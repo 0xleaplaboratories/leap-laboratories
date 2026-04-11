@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import styles from './Hero.module.css';
 
 /**
@@ -45,7 +46,16 @@ function AuthProviders({ providers, flows, activeFlow, onFlowChange }) {
               type="button"
             >
               <span className={styles.oauthIcon} aria-hidden="true">
-                {provider.id === 'google' ? 'G' : '•'}
+                {provider.icon?.startsWith('http') ? (
+                  <Image 
+                    src={provider.icon} 
+                    alt={provider.label} 
+                    width={20} 
+                    height={20} 
+                  />
+                ) : (
+                  provider.id === 'google' ? 'G' : '•'
+                )}
               </span>
               {provider.label}
             </button>
