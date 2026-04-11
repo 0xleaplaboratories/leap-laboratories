@@ -60,7 +60,7 @@
             "id": "email",
             "type": "email",
             "label": "Continue with Email",
-            "placeholder": "Enter your email"
+            "placeholder": "Continue with Email"
           }
         ],
         "flows": {
