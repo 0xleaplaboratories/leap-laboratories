@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { getJSONContent } from '@/lib/content';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [content, setContent] = useState(null);
 
@@ -23,6 +25,15 @@ export default function Navbar() {
   };
 
   const handleLinkClick = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleAuthClick = (e) => {
+    // If we're on the home page, prevent routing and focus the hero card
+    if (pathname === '/') {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('leap:focus-auth'));
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -67,7 +78,11 @@ export default function Navbar() {
 
         {/* ── RIGHT ZONE: Login button (desktop) ─────────────── */}
         <div className={styles.navbar__actions}>
-          <Link href={actions.login.href} className={styles['navbar__login-btn']}>
+          <Link 
+            href={actions.login.href} 
+            className={styles['navbar__login-btn']}
+            onClick={handleAuthClick}
+          >
             {actions.login.label}
           </Link>
         </div>
@@ -105,7 +120,11 @@ export default function Navbar() {
             </li>
           ))}
           <li className={styles['navbar__mobile-item']}>
-            <Link href={actions.login.href} className={`${styles['navbar__login-btn']} ${styles['navbar__login-btn--mobile']}`}>
+            <Link 
+              href={actions.login.href} 
+              className={`${styles['navbar__login-btn']} ${styles['navbar__login-btn--mobile']}`}
+              onClick={handleAuthClick}
+            >
               {actions.login.label}
             </Link>
           </li>
