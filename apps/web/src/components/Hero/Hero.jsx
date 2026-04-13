@@ -1,11 +1,8 @@
-import Image from 'next/image';
-import { getJSONContent } from '@/lib/content';
-import HeroAuthCard from './HeroAuthCard';
-import HeroHeadline from './HeroHeadline';
-import styles from './Hero.module.css';
-
-// Classes mapping for specialized title styling fragments
-const TITLE_CLASSES = [styles.titleLearn, styles.titleBuild];
+import Image from "next/image";
+import { getJSONContent } from "@/lib/content";
+import HeroAuthCard from "./HeroAuthCard";
+import HeroHeadline from "./HeroHeadline";
+import styles from "./Hero.module.css";
 
 /**
  * Hero: Async Server Component that fetches data and renders the base layout.
@@ -13,7 +10,7 @@ const TITLE_CLASSES = [styles.titleLearn, styles.titleBuild];
  */
 export default async function Hero() {
   // Fetch hero data using the shared content utility
-  const heroData = await getJSONContent('hero/hero');
+  const heroData = await getJSONContent("hero/hero");
   if (!heroData) return null;
 
   const { head, apps } = heroData;
