@@ -168,7 +168,7 @@
   }
 
   .heroContainer {
-    flex-direction: column;
+    flex-direction: column-reverse;
     min-height: auto;
     gap: var(--space-lg);
   }
