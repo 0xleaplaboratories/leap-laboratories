@@ -6,16 +6,14 @@
 
 /* ── Block: navbar ────────────────────────────────────────── */
 .navbar {
-  /* Master Scale Adjustment — change this single value to resize everything */
-  --nav-scale: 0.95;
+  --nav-scale: 0.85;
 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(80px * var(--nav-scale));
+  height: var(--navbar-height);
   background-color: var(--color-bg-primary);
-  border-bottom: 1px solid rgba(166, 226, 46, 0.1);
   z-index: 1000;
 }
 
@@ -44,8 +42,10 @@
 }
 
 .navbar__logo-img {
-  height: calc(110px * var(--nav-scale));
+  height: calc(140px * var(--nav-scale));
   width: auto;
+  /* Filter to convert toGhost White (#F8F8F2) */
+  filter: brightness(0) invert(1) brightness(0.97) sepia(5%) saturate(150%);
 }
 
 /* ── Element: nav (center zone) ───────────────────────────── */
@@ -62,7 +62,7 @@
 
 
 .navbar__nav-link {
-  font-size: calc(16px * var(--nav-scale));
+  font-size: calc(20px * var(--nav-scale));
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
@@ -100,10 +100,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: calc(4px * var(--nav-scale)) calc(24px * var(--nav-scale));
+  padding: calc(8px * var(--nav-scale)) calc(32px * var(--nav-scale));
   background-color: var(--color-btn-primary);
   color: var(--color-text-secondary);
-  font-size: calc(16px * var(--nav-scale));
+  font-size: calc(20px * var(--nav-scale));
   font-weight: var(--font-weight-medium);
   /* Pill shape as specified */
   border-radius: var(--border-radius-pill);
@@ -143,7 +143,6 @@
   max-height: 0;
   overflow: hidden;
   background-color: var(--color-bg-secondary);
-  border-top: 1px solid rgba(166, 226, 46, 0.1);
   transition: max-height var(--transition-normal);
 }
 
@@ -195,5 +194,22 @@
   /* Ensure the mobile drawer is never functional/visible */
   .navbar__mobile-menu {
     display: none;
+  }
+}
+
+/* ── Responsive: Mobile (≤ 768px) ───────────────────────── */
+@media (max-width: 768px) {
+  .navbar {
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+
+  .navbar__container {
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+
+  .navbar__logo-img {
+    height: calc(100px * var(--nav-scale));
   }
 }

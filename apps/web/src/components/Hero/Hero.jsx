@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getJSONContent } from "@/lib/content";
+import { getJSONContent } from "@/lib/content.shared";
 import HeroAuthCard from "./HeroAuthCard";
 import HeroHeadline from "./HeroHeadline";
 import styles from "./Hero.module.css";
