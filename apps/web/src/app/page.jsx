@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
+import Services from '@/components/Services/Services';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -9,16 +10,12 @@ export default function Home() {
       
       <Hero />
 
-      <section id="articles" className={`${styles.section} ${styles.bgSecondary}`}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Articles</h2>
-          <p className={styles.sectionText}>Discover our latest research and insights.</p>
-        </div>
-      </section>
+      {/* Services Explorer Section */}
+      <Services />
 
-      <section id="gallery" className={`${styles.section} ${styles.bgPrimary}`}>
+      <section id="about-us" className={`${styles.section} ${styles.bgPrimary}`}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Gallery</h2>
+          <h2 className={styles.sectionTitle}>About Us</h2>
           <p className={styles.sectionText}>A visual journey through our projects.</p>
         </div>
       </section>

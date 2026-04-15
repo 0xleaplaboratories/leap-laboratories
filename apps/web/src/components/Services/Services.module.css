@@ -1,0 +1,694 @@
+/* ============================================================
+   SERVICES COMPONENT — CSS MODULES
+   All class names are automatically scoped to this component.
+   Reference as: styles.className  (not as string literals)
+   All color/spacing values use CSS variables from globals.css
+   ============================================================ */
+
+/* ── Section wrapper ──────────────────────────────────────── */
+.section {
+  background-color: var(--color-bg-primary);
+  padding: var(--space-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  padding: 0 var(--space-lg);
+  position: relative;
+  z-index: 2;
+}
+
+.subtitle {
+  font-size: clamp(1.4rem, 6vw, var(--font-size-3xl));
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  /* Tasteful underline accent */
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(var(--space-sm), 3vw, var(--space-xl));
+}
+
+.subtitle::before,
+.subtitle::after {
+  content: '';
+  display: block;
+  width: clamp(24px, 10vw, 80px);
+  height: 2px;
+  background: currentColor;
+}
+
+
+
+/* ── Explorer container ───────────────────────────────────── */
+.explorer {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - var(--navbar-height));
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  /* Sync border with Hero Auth Card */
+  border: 1px solid var(--color-border-subtle);
+  border-left: none;
+  border-right: none;
+  overflow: hidden;
+  background-color: var(--color-bg-secondary);
+  position: relative;
+  z-index: 2; /* Sits above potential bg elements */
+}
+
+/* ── Root Tabs ────────────────────────────────────────────── */
+.rootTabs {
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background-color: var(--color-bg-primary);
+}
+
+.rootTab {
+  flex: 1;
+  padding: var(--space-md);
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.rootTabActive {
+  opacity: 1;
+  color: var(--color-text-primary);
+  background-color: rgba(248, 248, 242, 0.05);
+  border-bottom-color: var(--color-bg-accent);
+}
+
+/* ── Mobile Control Bar ───────────────────────────────────── */
+.mobileBar {
+  display: none; /* Desktop */
+}
+
+.overlay {
+  display: none;
+}
+
+/* Branding header in the explorer */
+.explorerBranding {
+  flex-shrink: 0;
+  padding: var(--space-md) var(--space-lg);
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background-color: var(--color-bg-primary);
+}
+
+/* State: when actively resizing, prevent text selection across the whole component */
+.explorerDragging {
+  user-select: none;
+  cursor: col-resize;
+}
+
+.explorerDragging * {
+  cursor: col-resize !important;
+}
+
+/* ── Left pane ────────────────────────────────────────────── */
+.leftPane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--color-bg-secondary);
+}
+
+.treeContainer {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(248, 248, 242, 0.1) transparent;
+}
+
+.treeContainer::-webkit-scrollbar {
+  width: 4px;
+}
+
+.treeContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(248, 248, 242, 0.1);
+  border-radius: 4px;
+}
+
+/* ── Divider ──────────────────────────────────────────────── */
+.divider {
+  width: 1px;
+  flex-shrink: 0;
+  background-color: var(--color-border-subtle);
+  cursor: col-resize;
+  position: relative;
+  transition: background-color 200ms ease, width 200ms ease;
+  z-index: 10;
+}
+
+/* Invisible hit area to make it easier to grab */
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -6px;
+  right: -6px;
+  cursor: col-resize;
+}
+
+.divider:hover,
+.divider:active {
+  width: 4px;
+  background-color: var(--color-bg-accent);
+}
+
+.divider:hover::after,
+.divider:active::after {
+  color: var(--color-bg-accent);
+  opacity: 1;
+}
+
+/* Collapse arrow — centered pill */
+.divider::after {
+  content: '|||';
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  opacity: 0;
+  font-size: 10px;
+  letter-spacing: -1px;
+  pointer-events: none;
+  transition: color 200ms ease, opacity 200ms ease;
+  line-height: 1;
+  text-indent: -1px; /* optical centering */
+}
+
+.divider:hover::after {
+  color: rgba(166, 226, 46, 0.9);
+}
+
+.dividerCollapsed::after {
+  content: '›';
+  text-indent: 1px;
+}
+
+/* ── Right pane ───────────────────────────────────────────── */
+.rightPane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-bg-primary);
+}
+
+/* ── File tree ────────────────────────────────────────────── */
+.fileTree {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fileTreeHeader {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid rgba(166, 226, 46, 0.07);
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.fileTreeTitle {
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.fileTreeBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-xs) 0;
+}
+
+/* Custom scrollbar — slimmer, fainter */
+.fileTreeBody::-webkit-scrollbar { width: 3px; }
+.fileTreeBody::-webkit-scrollbar-track { background: transparent; }
+.fileTreeBody::-webkit-scrollbar-thumb {
+  background: rgba(166, 226, 46, 0.15);
+  border-radius: 2px;
+}
+.fileTreeBody::-webkit-scrollbar-thumb:hover {
+  background: rgba(166, 226, 46, 0.3);
+}
+
+/* ── Tree rows ────────────────────────────────────────────── */
+.treeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: var(--space-md);
+  background: none;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  text-align: left;
+  cursor: pointer;
+  transition: all 150ms ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.treeRow:hover,
+.treeRowActive {
+  background-color: rgba(217, 119, 87, 0.1); /* --color-bg-accent with low opacity */
+  color: var(--color-text-primary);
+  opacity: 1;
+}
+
+/* Active left-edge accent line — slightly stronger on hover/active */
+.treeRow:hover::before,
+.treeRowActive::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-bg-accent);
+  border-radius: 0 1px 1px 0;
+}
+
+/* Disabled modifier */
+.treeRowDisabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  background-image: none; /* Hide indent lines for disabled items */
+}
+
+.treeRowDisabled:hover {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+}
+
+.treeRowDisabled:hover::before {
+  display: none;
+}
+
+/* ── Tree-specific elements ───────────────────────────────── */
+.treeArrow {
+  font-size: 8px;
+  color: rgba(248, 248, 242, 0.4);
+  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1), color 180ms ease;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.treeArrowOpen {
+  transform: rotate(90deg);
+  color: var(--color-text-primary);
+}
+
+.treeIcon {
+  flex-shrink: 0;
+  opacity: 1;
+  width: 14px;
+  height: 14px;
+  /* GhostWhite color filter for inactive state */
+  filter: brightness(0) invert(1) opacity(0.6);
+  transition: all 150ms ease;
+}
+
+.treeRow:hover .treeIcon,
+.treeRowActive .treeIcon {
+  /* Targeted filter for #D97757 (--color-hover-secondary) */
+  filter: invert(56%) sepia(21%) saturate(1637%) hue-rotate(327deg) brightness(92%) contrast(85%);
+  opacity: 1;
+}
+
+.treeLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Tab bar ──────────────────────────────────────────────── */
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tabBar {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow-x: auto;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(166, 226, 46, 0.08);
+  background-color: var(--color-bg-secondary);
+  scrollbar-width: none;
+}
+
+.tabBar::-webkit-scrollbar { display: none; }
+
+/* ── Individual tab ───────────────────────────────────────── */
+.tab {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(166, 226, 46, 0.07);
+  background-color: transparent;
+  opacity: 0.45;
+  transition:
+    opacity 180ms ease,
+    background-color 180ms ease;
+  position: relative;
+}
+
+.tab:hover {
+  opacity: 0.75;
+  background-color: rgba(166, 226, 46, 0.03);
+}
+
+/* Active tab — bottom border glow */
+.tabActive {
+  opacity: 1;
+  background-color: var(--color-bg-primary);
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; /* overlap the tab bar border */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 4px,
+    var(--color-text-primary) 4px,
+    var(--color-text-primary) calc(100% - 4px),
+    transparent calc(100% - 4px)
+  );
+  box-shadow: 0 0 8px rgba(166, 226, 46, 0.4);
+}
+
+.tabLabel {
+  padding: var(--space-sm) var(--space-md);
+  padding-right: var(--space-xs);
+  background: none;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 150ms ease;
+}
+
+.tabActive .tabLabel {
+  color: var(--color-text-primary);
+}
+
+.tabClose {
+  padding: var(--space-xs) var(--space-sm);
+  background: none;
+  border: none;
+  font-size: 10px;
+  color: rgba(248, 248, 242, 0.2);
+  cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+
+/* Only reveal close button on tab hover */
+.tab:hover .tabClose {
+  opacity: 1;
+}
+
+.tabClose:hover {
+  color: var(--color-text-secondary);
+  background-color: rgba(248, 248, 242, 0.08);
+}
+
+/* ── Content panel ────────────────────────────────────────── */
+.contentPanel {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-xl) var(--space-2xl);
+}
+
+.contentPanel::-webkit-scrollbar { width: 3px; }
+.contentPanel::-webkit-scrollbar-track { background: transparent; }
+.contentPanel::-webkit-scrollbar-thumb {
+  background: rgba(166, 226, 46, 0.15);
+  border-radius: 2px;
+}
+.contentPanel::-webkit-scrollbar-thumb:hover {
+  background: rgba(166, 226, 46, 0.3);
+}
+
+/* ── Empty state ──────────────────────────────────────────── */
+.contentEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.contentEmptyText {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* ── Loading state ────────────────────────────────────────── */
+.contentLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  opacity: 0.35;
+}
+
+/* ── Error state ──────────────────────────────────────────── */
+.contentError {
+  padding: var(--space-lg);
+  background-color: rgba(172, 98, 24, 0.07);
+  border: 1px solid rgba(172, 98, 24, 0.25);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-accent);
+  box-shadow: inset 0 1px 0 rgba(255, 160, 50, 0.05);
+}
+
+.contentErrorHint {
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-sm);
+  opacity: 0.6;
+}
+
+.contentErrorHint code {
+  font-family: monospace;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ── Markdown body typography ─────────────────────────────── */
+.markdownBody {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-base);
+  max-width: 720px;
+}
+
+.markdownBody h1,
+.markdownBody h2,
+.markdownBody h3 {
+  color: var(--color-text-primary);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+}
+
+.markdownBody h1 { font-size: var(--font-size-2xl); }
+.markdownBody h2 {
+  font-size: var(--font-size-xl);
+  /* Subtle separator below h2 */
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(166, 226, 46, 0.1);
+}
+.markdownBody h3 { font-size: var(--font-size-lg); }
+
+.markdownBody p {
+  margin-bottom: var(--space-md);
+}
+
+.markdownBody ul,
+.markdownBody ol {
+  margin-bottom: var(--space-md);
+  padding-left: var(--space-xl);
+}
+
+.markdownBody li {
+  list-style: disc;
+  margin-bottom: var(--space-xs);
+}
+
+.markdownBody ol li {
+  list-style: decimal;
+}
+
+.markdownBody code {
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  background-color: rgba(166, 226, 46, 0.07);
+  color: var(--color-text-primary);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(166, 226, 46, 0.12);
+}
+
+.markdownBody pre {
+  background-color: rgba(0, 0, 0, 0.35);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(166, 226, 46, 0.08);
+  overflow-x: auto;
+  margin-bottom: var(--space-md);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.markdownBody pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.markdownBody strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.markdownBody a {
+  color: var(--color-btn-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(166, 226, 46, 0.35);
+  transition: text-decoration-color 150ms ease, opacity 150ms ease;
+}
+
+.markdownBody a:hover {
+  text-decoration-color: var(--color-btn-secondary);
+  opacity: 0.85;
+}
+
+/* ── Responsive: Mobile (< 768px) ─────────────────────────── */
+@media (max-width: 767px) {
+  .explorer {
+    flex-direction: column;
+    height: auto;
+    position: relative;
+  }
+
+  /* Drawer setup */
+  .leftPane {
+    position: fixed;
+    top: var(--navbar-height);
+    right: -100%; /* Hidden off-screen right */
+    width: 280px !important;
+    height: calc(100vh - var(--navbar-height));
+    z-index: 2000;
+    background-color: var(--color-bg-secondary);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    transition: right 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex !important;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .leftPaneOpen {
+    right: 0;
+  }
+
+  .mobileBar {
+    display: block;
+    width: 100%;
+    padding: var(--space-md);
+    background-color: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    z-index: 10;
+  }
+
+  .drawerToggle {
+    width: 100%;
+    padding: var(--space-sm);
+    background-color: var(--color-bg-secondary);
+    color: var(--color-bg-accent);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--border-radius-md);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-primary);
+    cursor: pointer;
+  }
+
+  .rightPane {
+    width: 100% !important;
+    min-height: 500px;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1500;
+    animation: fadeIn 300ms ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
