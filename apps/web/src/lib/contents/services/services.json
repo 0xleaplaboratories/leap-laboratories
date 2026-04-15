@@ -1,0 +1,298 @@
+{
+  "services": [
+    {
+      "id": "academy",
+      "label": "Academy",
+      "type": "folder",
+      "children": [
+        {
+          "id": "academy-early-years",
+          "label": "Early Years",
+          "type": "folder",
+          "children": [
+            {
+              "id": "academy-early-years-bricks",
+              "label": "Bricks",
+              "type": "leaf",
+              "href": "academy/early-years/bricks",
+              "meta": {
+                "icon": "/assets/icons/bricks.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "academy-early-years-coding-blocks-junior",
+              "label": "Coding Blocks Junior",
+              "type": "leaf",
+              "href": "academy/early-years/coding-blocks-junior",
+              "meta": {
+                "icon": "/assets/icons/coding-blocks-junior.svg",
+                "disabled": false
+              }
+            }
+          ],
+          "meta": {
+            "disabled": false,
+            "iconOpen": "/assets/icons/folder-open.svg",
+            "iconClose": "/assets/icons/folder-close.svg"
+          },
+          "href": null
+        },
+        {
+          "id": "academy-elementary",
+          "label": "Elementary",
+          "type": "folder",
+          "children": [
+            {
+              "id": "academy-elementary-coding-blocks",
+              "label": "Coding Blocks",
+              "type": "leaf",
+              "href": "academy/elementary/coding-blocks",
+              "meta": {
+                "icon": "/assets/icons/coding-blocks.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "academy-elementary-mechanics",
+              "label": "Mechanics",
+              "type": "leaf",
+              "href": "academy/elementary/mechanics",
+              "meta": {
+                "icon": "/assets/icons/mechanics.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "academy-elementary-robotics",
+              "label": "Robotics",
+              "type": "leaf",
+              "href": "academy/elementary/robotics",
+              "meta": {
+                "icon": "/assets/icons/robotics.svg",
+                "disabled": false
+              }
+            }
+          ],
+          "meta": {
+            "disabled": false,
+            "iconOpen": "/assets/icons/folder-open.svg",
+            "iconClose": "/assets/icons/folder-close.svg"
+          },
+          "href": null
+        },
+        {
+          "id": "academy-high-schools",
+          "label": "High Schools",
+          "type": "folder",
+          "children": [
+            {
+              "id": "academy-high-schools-coding-text",
+              "label": "Coding Text",
+              "type": "leaf",
+              "href": "academy/high-schools/coding-text",
+              "meta": {
+                "icon": "/assets/icons/coding-text.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "academy-high-schools-mechatronics",
+              "label": "Mechatronics",
+              "type": "leaf",
+              "href": "academy/high-schools/mechatronics",
+              "meta": {
+                "icon": "/assets/icons/mechatronics.svg",
+                "disabled": false
+              }
+            }
+          ],
+          "meta": {
+            "disabled": false,
+            "iconOpen": "/assets/icons/folder-open.svg",
+            "iconClose": "/assets/icons/folder-close.svg"
+          },
+          "href": null
+        },
+        {
+          "id": "academy-bootcamps",
+          "label": "Bootcamps",
+          "type": "folder",
+          "children": [
+            {
+              "id": "academy-bootcamps-ui-ux-design",
+              "label": "UI/UX Design",
+              "type": "leaf",
+              "href": "academy/bootcamps/ui-ux-design",
+              "meta": {
+                "icon": "/assets/icons/ui-ux-design.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "academy-bootcamps-front-end-web-development",
+              "label": "Front End Web Development",
+              "type": "leaf",
+              "href": "academy/bootcamps/front-end-web-development",
+              "meta": {
+                "icon": "/assets/icons/front-end-web-development.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "academy-bootcamps-back-end-web-development",
+              "label": "Back End Web Development",
+              "type": "leaf",
+              "href": "academy/bootcamps/back-end-web-development",
+              "meta": {
+                "icon": "/assets/icons/back-end-web-development.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "academy-bootcamps-data-analysis",
+              "label": "Data Analysis",
+              "type": "leaf",
+              "href": "academy/bootcamps/data-analysis",
+              "meta": {
+                "icon": "/assets/icons/data-analysis.svg",
+                "disabled": false
+              }
+            }
+          ],
+          "meta": {
+            "disabled": false,
+            "iconOpen": "/assets/icons/folder-open.svg",
+            "iconClose": "/assets/icons/folder-close.svg"
+          },
+          "href": null
+        }
+      ],
+      "meta": {
+        "disabled": false,
+        "iconOpen": "/assets/icons/folder-open.svg",
+        "iconClose": "/assets/icons/folder-close.svg"
+      },
+      "href": null
+    },
+    {
+      "id": "labs",
+      "label": "Labs",
+      "type": "folder",
+      "children": [
+        {
+          "id": "labs-research",
+          "label": "Research",
+          "type": "folder",
+          "children": [
+            {
+              "id": "labs-research-contact-us",
+              "label": "Contact Us",
+              "type": "leaf",
+              "href": "labs/research/contact-us",
+              "meta": {
+                "icon": "/assets/icons/contact-us.svg",
+                "disabled": false
+              }
+            }
+          ],
+          "meta": {
+            "disabled": false,
+            "iconOpen": "/assets/icons/folder-open.svg",
+            "iconClose": "/assets/icons/folder-close.svg"
+          },
+          "href": null
+        },
+        {
+          "id": "labs-system-design-and-development",
+          "label": "System Design and Development",
+          "type": "folder",
+          "children": [
+            {
+              "id": "labs-system-design-and-development-modern-web-application",
+              "label": "Modern Web Application",
+              "type": "leaf",
+              "href": "labs/system-design-and-development/modern-web-application",
+              "meta": {
+                "icon": "/assets/icons/modern-web-application.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "labs-system-design-and-development-ui-ux-web-design",
+              "label": "UI/UX Web Design",
+              "type": "leaf",
+              "href": "labs/system-design-and-development/ui-ux-web-design",
+              "meta": {
+                "icon": "/assets/icons/ui-ux-web-design.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "labs-system-design-and-development-graphic-design",
+              "label": "Graphic Design",
+              "type": "leaf",
+              "href": "labs/system-design-and-development/graphic-design",
+              "meta": {
+                "icon": "/assets/icons/graphic-design.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "labs-system-design-and-development-motion-graphics",
+              "label": "Motion Graphics",
+              "type": "leaf",
+              "href": "labs/system-design-and-development/motion-graphics",
+              "meta": {
+                "icon": "/assets/icons/motion-graphics.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "labs-system-design-and-development-illustrations",
+              "label": "Illustrations",
+              "type": "leaf",
+              "href": "labs/system-design-and-development/illustrations",
+              "meta": {
+                "icon": "/assets/icons/illustrations.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "labs-system-design-and-development-photography",
+              "label": "Photography",
+              "type": "leaf",
+              "href": "labs/system-design-and-development/photography",
+              "meta": {
+                "icon": "/assets/icons/photography.svg",
+                "disabled": false
+              }
+            },
+            {
+              "id": "labs-system-design-and-development-videography",
+              "label": "Videography",
+              "type": "leaf",
+              "href": "labs/system-design-and-development/videography",
+              "meta": {
+                "icon": "/assets/icons/videography.svg",
+                "disabled": false
+              }
+            }
+          ],
+          "meta": {
+            "disabled": false,
+            "iconOpen": "/assets/icons/folder-open.svg",
+            "iconClose": "/assets/icons/folder-close.svg"
+          },
+          "href": null
+        }
+      ],
+      "meta": {
+        "disabled": false,
+        "iconOpen": "/assets/icons/folder-open.svg",
+        "iconClose": "/assets/icons/folder-close.svg"
+      },
+      "href": null
+    }
+  ]
+}
