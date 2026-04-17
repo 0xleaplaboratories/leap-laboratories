@@ -20,12 +20,28 @@ export default function Navbar() {
     loadContent();
   }, []);
 
+  // Body scroll lock
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
+  
+  const closeMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   const handleLinkClick = () => {
-    setIsMobileMenuOpen(false);
+    closeMenu();
   };
 
   const handleAuthClick = (e) => {
@@ -34,7 +50,7 @@ export default function Navbar() {
       e.preventDefault();
       window.dispatchEvent(new CustomEvent('leap:focus-auth'));
     }
-    setIsMobileMenuOpen(false);
+    closeMenu();
   };
 
   if (!content) return null;
@@ -101,34 +117,41 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* ── MOBILE: Dropdown drawer ─────────────────────────── */}
+      {/* ── MOBILE: Drawer Overlay & Menu ───────────────────── */}
+      <div 
+        className={`${styles.navbar__overlay} ${isMobileMenuOpen ? styles['navbar__overlay--open'] : ''}`}
+        onClick={closeMenu}
+      />
+      
       <div
         id="mobile-menu"
         className={`${styles['navbar__mobile-menu']} ${isMobileMenuOpen ? styles['navbar__mobile-menu--open'] : ''}`}
         aria-hidden={!isMobileMenuOpen}
       >
-        <ul className={styles['navbar__mobile-list']}>
-          {navLinks.map((link) => (
-            <li key={link.href} className={styles['navbar__mobile-item']}>
-              <a
-                href={link.href}
-                className={styles['navbar__mobile-link']}
-                onClick={handleLinkClick}
+        <div className={styles['navbar__mobile-content']}>
+          <ul className={styles['navbar__mobile-list']}>
+            {navLinks.map((link) => (
+              <li key={link.href} className={styles['navbar__mobile-item']}>
+                <a
+                  href={link.href}
+                  className={styles['navbar__mobile-link']}
+                  onClick={handleLinkClick}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li className={styles['navbar__mobile-item']}>
+              <Link 
+                href={actions.login.href} 
+                className={`${styles['navbar__login-btn']} ${styles['navbar__login-btn--mobile']}`}
+                onClick={handleAuthClick}
               >
-                {link.label}
-              </a>
+                {actions.login.label}
+              </Link>
             </li>
-          ))}
-          <li className={styles['navbar__mobile-item']}>
-            <Link 
-              href={actions.login.href} 
-              className={`${styles['navbar__login-btn']} ${styles['navbar__login-btn--mobile']}`}
-              onClick={handleAuthClick}
-            >
-              {actions.login.label}
-            </Link>
-          </li>
-        </ul>
+          </ul>
+        </div>
       </div>
     </header>
   );
