@@ -1,0 +1,114 @@
+.home {
+  padding: var(--space-xl);
+  background-color: var(--color-bg-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  min-height: calc(100vh - var(--navbar-height));
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: var(--max-content-width);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xl);
+}
+
+/* Subtle pin / badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  background-color: hsla(var(--hue-accent), 65%, 60%, 0.1);
+  border: 1px solid hsla(var(--hue-accent), 65%, 60%, 0.2);
+  border-radius: var(--border-radius-pill);
+  color: var(--color-bg-accent);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin-bottom: var(--space-sm);
+}
+
+/* Modern Maximalist Typography */
+.headline {
+  /* min size refined to 2.2rem to prevent overflow on 320px screens */
+  font-size: clamp(2.2rem, 15vw, 12rem);
+  line-height: 0.75;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.06em;
+  color: var(--color-bg-secondary);
+  opacity: 0.95;
+  margin: 0;
+  max-width: 100%;
+  word-break: break-all; /* Safety for ultra-narrow screens */
+  user-select: none;
+  white-space: pre-line;
+}
+
+/* Balanced Description */
+.descriptionWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: calc(var(--space-md) * -1); /* Subtle overlap */
+}
+
+.description {
+  max-width: 600px;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  text-align: right;
+  opacity: 0.8;
+  margin-right: var(--space-lg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .headline {
+    font-size: clamp(2.2rem, 14vw, 10rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding: var(--space-xl) var(--space-lg);
+    min-height: auto; /* Allow content to flow on tablet/mobile if needed */
+    padding-top: var(--space-2xl);
+  }
+  
+  .headline {
+    font-size: clamp(2rem, 18vw, 6rem);
+    line-height: 0.8;
+    text-align: left;
+    word-break: normal;
+  }
+
+  .descriptionWrapper {
+    justify-content: flex-start;
+    margin-top: var(--space-xl);
+  }
+
+  .description {
+    text-align: left;
+    margin-right: 0;
+    max-width: 100%;
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home {
+    padding-top: var(--space-xl);
+  }
+  .headline {
+    font-size: clamp(1.8rem, 22vw, 4rem);
+  }
+}
