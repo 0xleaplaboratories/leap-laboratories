@@ -5,16 +5,16 @@
 // resizable divider). Both require running in the browser.
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import ServicesFileTree from './ServicesFileTree';
-import ServicesContent from './ServicesContent';
-import styles from './Services.module.css';
+import ProgramsFileTree from './ProgramsFileTree';
+import ProgramsContent from './ProgramsContent';
+import styles from './Programs.module.css';
 
-// ─── Constants ────────────────────────────────────────────────
+// ─── Constants  ────────────────────────────────────────────────
 const DEFAULT_LEFT_WIDTH_PERCENT = 30;  // Left pane starts at 30% of total width
 const MIN_LEFT_WIDTH_PERCENT     = 15;  // Drag cannot go narrower than 15%
 const MAX_LEFT_WIDTH_PERCENT     = 60;  // Drag cannot go wider than 60%
 
-export default function ServicesExplorer({ services }) {
+export default function ProgramsExplorer({ programs }) {
   const [activeRootId,      setActiveRootId]     = useState('academy'); // Default to Academy
   const [openFolderIds,    setOpenFolderIds]    = useState(new Set());
   const [openTabs,         setOpenTabs]         = useState([]);
@@ -23,13 +23,15 @@ export default function ServicesExplorer({ services }) {
   const [isLeftCollapsed,  setIsLeftCollapsed]  = useState(false);
   const [draggingActive,   setDraggingActive]   = useState(false);
   const [isDrawerOpen,     setIsDrawerOpen]     = useState(false);
-  const [isMobile,         setIsMobile]         = useState(false); // Fix hydration issue
+  const [isMobile,         setIsMobile]         = useState(false);
+  const [hasMounted,       setHasMounted]       = useState(false); // Fix hydration crash
 
   const explorerRef = useRef(null);
   const isDragging  = useRef(false);
 
   // ── Effect: Responsive Detection ──────────────────────────────
   useEffect(() => {
+    setHasMounted(true);
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize(); // Initial
     window.addEventListener('resize', handleResize);
@@ -149,14 +151,15 @@ export default function ServicesExplorer({ services }) {
   // ── Computed values ──────────────────────────────────────────
 
   
-  // Filter the services tree based on the active root tab
-  const activeRoot = services.find(s => s.id === activeRootId);
-  const filteredServices = activeRoot ? activeRoot.children : [];
+  // Filter the programs tree based on the active root tab
+  const activeRoot = programs.find(s => s.id === activeRootId);
+  const filteredPrograms = activeRoot ? activeRoot.children : [];
 
   const explorerClassName = [
     styles.explorer,
     draggingActive ? styles.explorerDragging : '',
-    isDrawerOpen ? styles.explorerDrawerShowing : ''
+    isDrawerOpen ? styles.explorerDrawerShowing : '',
+    'notranslate' // Legacy support for older browsers
   ].join(' ');
 
   const leftStyle = !isMobile 
@@ -164,19 +167,18 @@ export default function ServicesExplorer({ services }) {
     : {};
 
   return (
-    <div className={explorerClassName} ref={explorerRef}>
+    <div className={explorerClassName} ref={explorerRef} translate="no">
       
       {/* ── Mobile Control Bar ─────────────────────────────── */}
-      {isMobile && (
-        <div className={styles.mobileBar}>
-          <button 
-            className={styles.drawerToggle}
-            onClick={() => setIsDrawerOpen(prev => !prev)}
-          >
-            {isDrawerOpen ? '✕ Close Menu' : '☰ Explore Services'}
-          </button>
-        </div>
-      )}
+      <div className={`${styles.mobileBar} ${hasMounted && isMobile ? styles.showOnMobile : styles.hideAlways}`}>
+        <button 
+          className={styles.drawerToggle}
+          onClick={() => setIsDrawerOpen(prev => !prev)}
+        >
+            <span className={isDrawerOpen ? styles.hideAlways : ''}><span>☰ Explore Programs</span></span>
+            <span className={!isDrawerOpen ? styles.hideAlways : ''}><span>✕ Close Menu</span></span>
+        </button>
+      </div>
 
       {/* ── Left pane: file tree (Mobile: Drawer) ─────────── */}
       <div 
@@ -184,24 +186,24 @@ export default function ServicesExplorer({ services }) {
         style={leftStyle}
       >
 
-        <div className={styles.explorerBranding}>LEAP-LABORATORIES</div>
+        <div className={styles.explorerBranding}><span>LEAP-LABORATORIES</span></div>
 
         {/* Root Tabs */}
         <div className={styles.rootTabs}>
-          {services.map(root => (
+          {programs.map(root => (
             <button
               key={root.id}
               className={`${styles.rootTab} ${activeRootId === root.id ? styles.rootTabActive : ''}`}
               onClick={() => setActiveRootId(root.id)}
             >
-              {root.label}
+              <span>{root.label}</span>
             </button>
           ))}
         </div>
 
         <div className={styles.treeContainer}>
-          <ServicesFileTree
-            services={filteredServices}
+          <ProgramsFileTree
+            programs={filteredPrograms}
             openFolderIds={openFolderIds}
             onFolderToggle={handleFolderToggle}
             onLeafClick={handleLeafClick}
@@ -211,21 +213,19 @@ export default function ServicesExplorer({ services }) {
       </div>
 
       {/* ── Divider (Desktop Only) ────────────────────────── */}
-      {!isMobile && (
-        <div
-          className={`${styles.divider} ${isLeftCollapsed ? styles.dividerCollapsed : ''}`}
-          onMouseDown={handleDividerStart}
-          onTouchStart={handleDividerStart}
-          title={isLeftCollapsed ? 'Click to expand file tree' : 'Drag to resize · Click to collapse'}
-          role="separator"
-          aria-orientation="vertical"
-          aria-label="Resize file tree"
-        />
-      )}
+      <div
+        className={`${styles.divider} ${isLeftCollapsed ? styles.dividerCollapsed : ''} ${hasMounted && isMobile ? styles.hideAlways : styles.showOnDesktop}`}
+        onMouseDown={handleDividerStart}
+        onTouchStart={handleDividerStart}
+        title={isLeftCollapsed ? 'Click to expand file tree' : 'Drag to resize · Click to collapse'}
+        role="separator"
+        aria-orientation="vertical"
+        aria-label="Resize file tree"
+      />
 
       {/* ── Right pane: content tabs ───────────────────────── */}
       <div className={styles.rightPane}>
-        <ServicesContent
+        <ProgramsContent
           openTabs={openTabs}
           activeTabId={activeTabId}
           onTabClick={handleTabClick}
@@ -234,12 +234,10 @@ export default function ServicesExplorer({ services }) {
       </div>
 
       {/* Drawer Overlay (Mobile) */}
-      {isMobile && isDrawerOpen && (
-        <div 
-          className={styles.overlay} 
-          onClick={() => setIsDrawerOpen(false)}
-        />
-      )}
+      <div 
+        className={`${styles.overlay} ${hasMounted && isMobile && isDrawerOpen ? styles.showOnMobile : styles.hideAlways}`} 
+        onClick={() => setIsDrawerOpen(false)}
+      />
     </div>
   );
 }

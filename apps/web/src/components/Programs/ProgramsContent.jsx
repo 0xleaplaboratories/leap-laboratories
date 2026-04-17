@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { fetchServiceContent } from '@/lib/serviceActions';
-import styles from './Services.module.css';
+import { fetchProgramContent } from '@/lib/programActions';
+import styles from './Programs.module.css';
 
-export default function ServicesContent({ openTabs, activeTabId, onTabClick, onTabClose }) {
+export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onTabClose }) {
   // contentCache stores fetched markdown objects by tab id.
   // Shape: { [tabId]: { status: 'loading' | 'success' | 'error', metadata: object, content: string } }
   const contentCache = useRef({});
@@ -22,7 +22,7 @@ export default function ServicesContent({ openTabs, activeTabId, onTabClick, onT
     contentCache.current[activeTabId] = { status: 'loading', metadata: null, content: null };
     triggerRerender();
 
-    fetchServiceContent(activeTab.href)
+    fetchProgramContent(activeTab.href)
       .then((data) => {
         if (data && data.content) {
           contentCache.current[activeTabId] = { status: 'success', metadata: data.metadata, content: data.content };
@@ -32,7 +32,7 @@ export default function ServicesContent({ openTabs, activeTabId, onTabClick, onT
         triggerRerender();
       })
       .catch((error) => {
-        console.error('Failed to fetch service content:', error);
+        console.error('Failed to fetch program content:', error);
         contentCache.current[activeTabId] = { status: 'error', metadata: null, content: null };
         triggerRerender();
       });
@@ -42,7 +42,7 @@ export default function ServicesContent({ openTabs, activeTabId, onTabClick, onT
     return (
       <div className={styles.contentEmpty}>
         <p className={styles.contentEmptyText}>
-          Select a service from the file tree to view its details.
+          <span>Select a program from the file tree to view its details.</span>
         </p>
       </div>
     );
@@ -83,32 +83,24 @@ export default function ServicesContent({ openTabs, activeTabId, onTabClick, onT
       </div>
 
       <div className={styles.contentPanel} role="tabpanel">
-        {activeCache?.status === 'loading' && (
-          <div className={styles.contentLoading}>
-            <span>Loading document...</span>
-          </div>
-        )}
+        <div className={`${styles.contentLoading} ${activeCache?.status === 'loading' ? '' : styles.hideAlways}`}>
+          <span><span>Loading document...</span></span>
+        </div>
 
-        {activeCache?.status === 'error' && (
-          <div className={styles.contentError}>
-            <p>Could not load content for this service.</p>
-            <p className={styles.contentErrorHint}>
-              The document might be missing or corrupted.
-            </p>
-          </div>
-        )}
+        <div className={`${styles.contentError} ${activeCache?.status === 'error' ? '' : styles.hideAlways}`}>
+          <p><span>⚠️ Could not load content for this program.</span></p>
+          <p className={styles.contentErrorHint}>
+            <span>The document might be missing or corrupted.</span>
+          </p>
+        </div>
 
-        {activeCache?.status === 'success' && (
-          <div className={styles.markdownBody}>
-            <ReactMarkdown>{activeCache.content}</ReactMarkdown>
-          </div>
-        )}
+        <div className={`${styles.markdownBody} ${activeCache?.status === 'success' ? '' : styles.hideAlways}`}>
+          <ReactMarkdown>{activeCache?.content || ''}</ReactMarkdown>
+        </div>
 
-        {!activeCache && activeTabId && (
-          <div className={styles.contentLoading}>
-            <span>Preparing content...</span>
-          </div>
-        )}
+        <div className={`${styles.contentLoading} ${(!activeCache && activeTabId) ? '' : styles.hideAlways}`}>
+          <span><span>Preparing content...</span></span>
+        </div>
       </div>
     </div>
   );

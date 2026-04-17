@@ -1,17 +1,17 @@
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
-import Services from '@/components/Services/Services';
+import Programs from '@/components/Programs/Programs';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <main className={styles.pageWrapper}>
+    <main className={styles.pageWrapper}> 
       <Navbar />
       
       <Hero />
 
-      {/* Services Explorer Section */}
-      <Services />
+      {/* Programs Explorer Section */}
+      <Programs />
 
       <section id="about-us" className={`${styles.section} ${styles.bgPrimary}`}>
         <div className={styles.container}>

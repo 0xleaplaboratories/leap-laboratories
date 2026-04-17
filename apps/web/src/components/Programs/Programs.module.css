@@ -1,5 +1,5 @@
 /* ============================================================
-   SERVICES COMPONENT — CSS MODULES
+   PROGRAMS COMPONENT — CSS MODULES
    All class names are automatically scoped to this component.
    Reference as: styles.className  (not as string literals)
    All color/spacing values use CSS variables from globals.css
@@ -60,7 +60,8 @@
   overflow: hidden;
   background-color: var(--color-bg-secondary);
   position: relative;
-  z-index: 2; /* Sits above potential bg elements */
+  z-index: 2;
+  /* Sits above potential bg elements */
 }
 
 /* ── Root Tabs ────────────────────────────────────────────── */
@@ -68,7 +69,6 @@
   display: flex;
   flex-shrink: 0;
   border-bottom: 1px solid var(--color-border-subtle);
-  background-color: var(--color-bg-primary);
 }
 
 .rootTab {
@@ -89,13 +89,14 @@
 .rootTabActive {
   opacity: 1;
   color: var(--color-text-primary);
-  background-color: rgba(248, 248, 242, 0.05);
+  background-color: hsla(var(--hue-cyan), 80%, 67%, 0.1);
   border-bottom-color: var(--color-bg-accent);
 }
 
 /* ── Mobile Control Bar ───────────────────────────────────── */
 .mobileBar {
-  display: none; /* Desktop */
+  display: none;
+  /* Desktop */
 }
 
 .overlay {
@@ -112,7 +113,6 @@
   opacity: 0.6;
   letter-spacing: 0.1em;
   border-bottom: 1px solid var(--color-border-subtle);
-  background-color: var(--color-bg-primary);
 }
 
 /* State: when actively resizing, prevent text selection across the whole component */
@@ -133,7 +133,7 @@
   flex-shrink: 0;
   overflow: hidden;
   transition: width 240ms cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-primary);
 }
 
 .treeContainer {
@@ -204,7 +204,8 @@
   pointer-events: none;
   transition: color 200ms ease, opacity 200ms ease;
   line-height: 1;
-  text-indent: -1px; /* optical centering */
+  text-indent: -1px;
+  /* optical centering */
 }
 
 .divider:hover::after {
@@ -255,12 +256,19 @@
 }
 
 /* Custom scrollbar — slimmer, fainter */
-.fileTreeBody::-webkit-scrollbar { width: 3px; }
-.fileTreeBody::-webkit-scrollbar-track { background: transparent; }
+.fileTreeBody::-webkit-scrollbar {
+  width: 3px;
+}
+
+.fileTreeBody::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .fileTreeBody::-webkit-scrollbar-thumb {
   background: rgba(166, 226, 46, 0.15);
   border-radius: 2px;
 }
+
 .fileTreeBody::-webkit-scrollbar-thumb:hover {
   background: rgba(166, 226, 46, 0.3);
 }
@@ -287,9 +295,8 @@
   position: relative;
 }
 
-.treeRow:hover,
 .treeRowActive {
-  background-color: rgba(217, 119, 87, 0.1); /* --color-bg-accent with low opacity */
+  background-color: hsla(var(--hue-accent), 65%, 60%, 0.15);
   color: var(--color-text-primary);
   opacity: 1;
 }
@@ -311,7 +318,8 @@
 .treeRowDisabled {
   opacity: 0.25;
   cursor: not-allowed;
-  background-image: none; /* Hide indent lines for disabled items */
+  background-image: none;
+  /* Hide indent lines for disabled items */
 }
 
 .treeRowDisabled:hover {
@@ -378,7 +386,9 @@
   scrollbar-width: none;
 }
 
-.tabBar::-webkit-scrollbar { display: none; }
+.tabBar::-webkit-scrollbar {
+  display: none;
+}
 
 /* ── Individual tab ───────────────────────────────────────── */
 .tab {
@@ -400,26 +410,23 @@
 }
 
 /* Active tab — bottom border glow */
-.tabActive {
+.tabActive,
+.tabActive:hover {
   opacity: 1;
   background-color: var(--color-bg-primary);
+  cursor: default;
 }
 
 .tabActive::after {
   content: '';
   position: absolute;
-  bottom: -1px; /* overlap the tab bar border */
+  bottom: -1px;
+  /* overlap the tab bar border */
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 4px,
-    var(--color-text-primary) 4px,
-    var(--color-text-primary) calc(100% - 4px),
-    transparent calc(100% - 4px)
-  );
-  box-shadow: 0 0 8px rgba(166, 226, 46, 0.4);
+  background: var(--color-text-primary);
+  box-shadow: var(--shadow-accent);
 }
 
 .tabLabel {
@@ -472,12 +479,19 @@
   padding: var(--space-xl) var(--space-2xl);
 }
 
-.contentPanel::-webkit-scrollbar { width: 3px; }
-.contentPanel::-webkit-scrollbar-track { background: transparent; }
+.contentPanel::-webkit-scrollbar {
+  width: 3px;
+}
+
+.contentPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .contentPanel::-webkit-scrollbar-thumb {
   background: rgba(166, 226, 46, 0.15);
   border-radius: 2px;
 }
+
 .contentPanel::-webkit-scrollbar-thumb:hover {
   background: rgba(166, 226, 46, 0.3);
 }
@@ -511,18 +525,27 @@
 
 /* ── Error state ──────────────────────────────────────────── */
 .contentError {
-  padding: var(--space-lg);
-  background-color: rgba(172, 98, 24, 0.07);
-  border: 1px solid rgba(172, 98, 24, 0.25);
+  padding: var(--space-lg) var(--space-xl);
+  background-color: var(--color-danger-bg);
+  border: 1px solid var(--color-danger-border);
+  border-left: 4px solid var(--color-danger);
   border-radius: var(--border-radius-md);
-  color: var(--color-text-accent);
-  box-shadow: inset 0 1px 0 rgba(255, 160, 50, 0.05);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  margin: var(--space-md) 0;
+}
+
+.contentError p:first-child {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-danger);
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-md);
 }
 
 .contentErrorHint {
   font-size: var(--font-size-sm);
-  margin-top: var(--space-sm);
-  opacity: 0.6;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
 }
 
 .contentErrorHint code {
@@ -551,14 +574,20 @@
   letter-spacing: -0.01em;
 }
 
-.markdownBody h1 { font-size: var(--font-size-2xl); }
+.markdownBody h1 {
+  font-size: var(--font-size-2xl);
+}
+
 .markdownBody h2 {
   font-size: var(--font-size-xl);
   /* Subtle separator below h2 */
   padding-bottom: var(--space-sm);
   border-bottom: 1px solid rgba(166, 226, 46, 0.1);
 }
-.markdownBody h3 { font-size: var(--font-size-lg); }
+
+.markdownBody h3 {
+  font-size: var(--font-size-lg);
+}
 
 .markdownBody p {
   margin-bottom: var(--space-md);
@@ -623,28 +652,41 @@
   opacity: 0.85;
 }
 
+/* ── Visibility Helpers (Unified DOM) ─────────────────────── */
+.hideAlways {
+  display: none !important;
+}
+
+.showOnDesktop {
+  display: block;
+  /* default divider/bar display */
+}
+
 /* ── Responsive: Mobile (< 768px) ─────────────────────────── */
 @media (max-width: 767px) {
   .explorer {
     flex-direction: column;
     height: auto;
     position: relative;
+    border-top: none;
   }
 
   /* Drawer setup */
   .leftPane {
     position: fixed;
     top: var(--navbar-height);
-    right: -100%; /* Hidden off-screen right */
+    right: -100%;
+    /* Hidden off-screen right */
     width: 280px !important;
     height: calc(100vh - var(--navbar-height));
     z-index: 2000;
-    background-color: var(--color-bg-secondary);
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
-    transition: right 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--surface-overlay);
+    box-shadow: var(--shadow-lg);
+    transition: right 350ms var(--transition-normal);
     display: flex !important;
     flex-direction: column;
     overflow-y: auto;
+    border-left: 1px solid var(--color-border-subtle);
   }
 
   .leftPaneOpen {
@@ -652,24 +694,41 @@
   }
 
   .mobileBar {
-    display: block;
     width: 100%;
     padding: var(--space-md);
-    background-color: var(--color-bg-primary);
+    background: var(--surface-glass);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     border-bottom: 1px solid var(--color-border-subtle);
     z-index: 10;
   }
 
+  .showOnMobile {
+    display: block;
+  }
+
+  .showOnMobileFlex {
+    display: flex;
+  }
+
   .drawerToggle {
     width: 100%;
-    padding: var(--space-sm);
-    background-color: var(--color-bg-secondary);
-    color: var(--color-bg-accent);
-    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-btn-primary);
+    color: var(--color-text-primary);
     border-radius: var(--border-radius-md);
     font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
     font-family: var(--font-primary);
     cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-md);
+  }
+
+  .drawerToggle:hover {
+    background-color: var(--color-btn-hover);
+    box-shadow: var(--shadow-accent);
+    transform: translateY(-1px);
   }
 
   .rightPane {
@@ -678,7 +737,6 @@
   }
 
   .overlay {
-    display: block;
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.6);
@@ -688,7 +746,12 @@
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 }

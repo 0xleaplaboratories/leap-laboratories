@@ -6,7 +6,7 @@
 // because it receives event handler functions as props.
 
 import Image from 'next/image';
-import styles from './Services.module.css';
+import styles from './Programs.module.css';
 
 // ─── TreeNode (recursive sub-component) ──────────────────────
 function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
@@ -36,7 +36,7 @@ function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, act
           type="button"
         >
           <span className={`${styles.treeArrow} ${isOpen ? styles.treeArrowOpen : ''}`}>
-            ▶
+            <span>▶</span>
           </span>
 
           {folderIcon && (
@@ -49,7 +49,7 @@ function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, act
             />
           )}
 
-          <span className={styles.treeLabel}>{node.label}</span>
+          <span className={styles.treeLabel}><span>{node.label}</span></span>
         </button>
 
         {isOpen && node.children?.map((child) => (
@@ -86,16 +86,16 @@ function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, act
         />
       )}
 
-      <span className={styles.treeLabel}>{node.label}</span>
+      <span className={styles.treeLabel}><span>{node.label}</span></span>
     </button>
   );
 }
 
-export default function ServicesFileTree({ services, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
+export default function ProgramsFileTree({ programs, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
   return (
     <div className={styles.fileTree}>
       <div className={styles.fileTreeBody}>
-        {services.map((rootNode) => (
+        {programs.map((rootNode) => (
           <TreeNode
             key={rootNode.id}
             node={rootNode}
