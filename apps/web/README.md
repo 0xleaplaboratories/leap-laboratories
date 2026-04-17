@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Leap Laboratories: Technical Documentation
 
-## Getting Started
+## 🚀 Overview
+Leap Laboratories is a high-performance digital ecosystem architected on a modern React/Next.js stack. The platform serves as a unified gateway for two distinct operational domains: **Leap Academy** (educational services and curricula) and **Leap Labs** (research and software development consultancy). The system is engineered for scalability, utilizing a monorepo structure and a file-system-driven content pipeline.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Technical Architecture Summary
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Monorepo & Component Strategy
+The repository is managed via **Turborepo**, separating concerns into deployable `apps/` and shared `packages/`.
+- **Framework**: Next.js 14 (App Router) with React Server Components (RSC) for optimized data fetching.
+- **Interactivity**: Client-side states (hooks and event handlers) are isolated in `use client` boundary components to minimize the client-side JavaScript footprint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Styling & Design System
+The UI utilizes a standardized, algorithmic design language defined in `globals.css`.
+- **HSL Tokens**: All colors are derived from HSL (Hue, Saturation, Lightness) variables, allowing for precise programmatic control over transparency and state transitions.
+- **Glassmorphism**: Hardware-accelerated backdrop filters are applied via a global `.glass` utility, ensuring consistent high-fidelity depth across the navigation and overlay components.
+- **CSS Modules**: Strict style encapsulation is maintained using `*.module.css`, preventing global namespace collisions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Content & Data Hydration
+The platform implements a specialized **Markdown-as-a-Database** pattern.
+- **Filesystem Resolution**: Raw data is stored as curated `.md` and `.json` files in `lib/contents/`.
+- **Unified DOM Architecture**: To prevent runtime hydration errors caused by browser-based translation tools, dynamic sections (like the Programs Explorer) utilize a **"No-Swap" strategy**. UI permutations remain anchored in the DOM, with state changes managed strictly through CSS visibility toggles (`.hideAlways`, `.showOnMobile`).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure & Technical Map
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Below is a granular audit of the repository's directory and file organization.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. Root Workspace Configuration
+Orchestrates the monorepo environment and CI/CD task pipelines.
 
-## Deploy on Vercel
+| File / Folder | Technical Description |
+| :--- | :--- |
+| `apps/web/` | **Primary Application.** The deployable Next.js 14 web environment. |
+| `packages/core/` | **Shared Library.** Local package (`@leap/core`) for cross-application logic. |
+| `turbo.json` | **Pipeline Engine.** Manages build caching and task orchestration. |
+| `package.json` | **Workspace Manifest.** Defines global dependencies and monorepo scripts. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. apps/web/src/ (Source Core)
+The primary execution environment for the user interface.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### 📂 app/ (Routing & Global Context)
+- `globals.css`: Core design tokens (HSL), typography scales, and CSS resets.
+- `layout.jsx`: Root composition; handles meta-tags, global translation shields, and hydration warning suppression.
+- `page.jsx`: Main entry point orchestrating the composition of Hero, Navbar, and Programs modules.
+
+#### 📂 components/ (Modular UI)
+- **Hero/**: Manages the landing impact frame, dynamic headlines, and skeleton-backed media containers.
+- **Navbar/**: Handles the glassmorphic global navigation with staggered, high-fidelity nav-link animations.
+- **Programs/**: A complex suite (Explorer, Content, FileTree) managing the asynchronous Academy/Labs documentation viewer.
+
+#### 📂 lib/ (Technical Logic & content)
+- **contents/**: The physical repository for JSON models (`hero.json`, `navbar.json`) and Markdown curricula (`programs/`).
+- `programActions.js`: Server Actions that bridge the UI components to the filesystem content.
+- `content.server.js`: Server-side Node implementation for parsing Markdown into structured metadata.
+- `content.shared.js`: Isomorphic utility for safely fetching configuration data on both Server and Client.
+
+---
+
+## 📈 Current Project Progress
+1. **[Complete] Design System Overhaul**: Fully transitioned from hex-mapped styles to a semantic HSL property system with professional micro-interactions.
+2. **[Complete] Hydration Hardening**: Implemented the invariant DOM architecture to ensure stability across all mobile browsers and translation tools.
+3. **[Complete] Domain Migration**: Systematically refactored the entire stack from the legacy "Services" domain to the modern "Programs" branding.
