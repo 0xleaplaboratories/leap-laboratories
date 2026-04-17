@@ -1,7 +1,7 @@
 {
   "brand": {
     "name": "Leap Laboratories",
-    "href": "/",
+    "href": "#home-intro",
     "logo": "assets/images/logo-text.png"
   },
   "navLinks": [
@@ -14,8 +14,8 @@
       "href": "#programs"
     },
     {
-      "label": "About Us",
-      "href": "#about-us"
+      "label": "Contributors",
+      "href": "#contributors"
     },
     {
       "label": "Contact",
