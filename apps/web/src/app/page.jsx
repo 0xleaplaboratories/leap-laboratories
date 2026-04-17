@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
 import Programs from '@/components/Programs/Programs';
+import HomeSection from '@/components/Home/Home';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -8,15 +9,16 @@ export default function Home() {
     <main className={styles.pageWrapper}> 
       <Navbar />
       
+      <HomeSection />
+
       <Hero />
 
-      {/* Programs Explorer Section */}
       <Programs />
 
-      <section id="about-us" className={`${styles.section} ${styles.bgPrimary}`}>
+      <section id="contributors" className={`${styles.section} ${styles.bgPrimary}`}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>About Us</h2>
-          <p className={styles.sectionText}>A visual journey through our projects.</p>
+          <h2 className={styles.sectionTitle}> The Contributors</h2>
+          <p className={styles.sectionText}>Get in touch with us.</p>
         </div>
       </section>
 

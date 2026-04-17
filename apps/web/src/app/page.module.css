@@ -1,5 +1,6 @@
 .pageWrapper {
   display: block;
+  padding-top: var(--navbar-height);
 }
 
 .section {
