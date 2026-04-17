@@ -4,13 +4,12 @@
    ============================================================ */
 
 .hero {
-  min-height: 100vh;
   width: 100%;
   background-color: var(--color-bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--navbar-height) + var(--space-md)) var(--space-xl) var(--space-xl);
+  padding: var(--space-2xl) var(--space-xl);
   box-sizing: border-box;
 }
 
@@ -20,7 +19,7 @@
   gap: var(--space-xl);
   width: 100%;
   max-width: var(--max-content-width);
-  min-height: min(600px, calc(100vh - var(--navbar-height) - var(--space-2xl)));
+  min-height: 600px;
   margin: 0 auto;
   align-items: stretch;
 }
@@ -31,7 +30,7 @@
   flex: 1;
   background-color: var(--surface-overlay);
   border-radius: var(--border-radius-lg);
-  overflow: hidden;
+  overflow: visible;
   padding: var(--space-xl);
   display: flex;
   flex-direction: column;
@@ -43,21 +42,14 @@
   box-sizing: border-box;
 }
 
-.heroLeft {
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.heroLeft::-webkit-scrollbar {
-  display: none;
-}
+/* heroLeft relies on natural flow now */
 
 /* ── Right Zone: Video Container ────────────────────────── */
 .heroRight {
   padding: 0;
   background-color: var(--surface-overlay);
   border: 1px solid var(--color-border-subtle);
-  overflow: hidden;
+  overflow: hidden; /* Keep video clipped to card shape */
   position: relative;
 }
 
@@ -248,6 +240,17 @@
   cursor: pointer;
 }
 
+.drawerToggle {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg); /* Larger touch target */
+  background-color: var(--color-btn-primary);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-md);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+}
+
 .divider {
   display: flex;
   align-items: center;
@@ -332,7 +335,7 @@
 /* ── Responsive: Tablet (≤ 1100px) ──────────────────────── */
 @media (max-width: 1100px) {
   .hero {
-    padding: calc(var(--navbar-height) + var(--space-md)) var(--space-lg) var(--space-lg);
+    padding: var(--space-xl) var(--space-lg);
   }
 
   .heroContainer {
@@ -341,15 +344,15 @@
     gap: var(--space-lg);
   }
 
-  .heroLeft,
-  .heroRight {
+  .heroLeft {
     flex: none;
     width: 100%;
     border-radius: var(--border-radius-lg);
+    padding: var(--space-xl) var(--space-lg);
   }
 
-  .heroLeft {
-    padding: var(--space-xl) var(--space-lg);
+  .heroRight {
+    display: none;
   }
 
   .heroRight {
@@ -392,7 +395,7 @@
 /* ── Responsive: Mobile (≤ 480px) ───────────────────────── */
 @media (max-width: 480px) {
   .hero {
-    padding: calc(var(--navbar-height) + var(--space-sm)) var(--space-md) var(--space-md);
+    padding: var(--space-xl) var(--space-md);
   }
 
   .heroContainer {
@@ -417,7 +420,7 @@
 
   .heroTitleAnimated {
     /* Small screens: vh reins in landscape overflow, vw handles portrait */
-    font-size: clamp(1.1rem, min(5vw, 4vh), 1.6rem);
+    font-size: clamp(1.25rem, min(5vw, 4vh), 1.6rem);
   }
 
   .tabPanel {
