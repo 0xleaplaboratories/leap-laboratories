@@ -1,31 +1,31 @@
 {
-    "brand": {
-        "name": "Leap Laboratories",
-        "href": "/",
-        "logo": "assets/images/logo-text.png"
+  "brand": {
+    "name": "Leap Laboratories",
+    "href": "/",
+    "logo": "assets/images/logo-text.png"
+  },
+  "navLinks": [
+    {
+      "label": "Get Started",
+      "href": "#hero"
     },
-    "navLinks": [
-        {
-            "label": "Get Started",
-            "href": "#hero"
-        },
-        {
-            "label": "Services",
-            "href": "#services"
-        },
-        {
-            "label": "About Us",
-            "href": "#about-us"
-        },
-        {
-            "label": "Contact",
-            "href": "#contact"
-        }
-    ],
-    "actions": {
-        "login": {
-            "label": "Sign In/Up",
-            "href": "/login"
-        }
+    {
+      "label": "Programs",
+      "href": "#programs"
+    },
+    {
+      "label": "About Us",
+      "href": "#about-us"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
     }
+  ],
+  "actions": {
+    "login": {
+      "label": "Sign In/Up",
+      "href": "/login"
+    }
+  }
 }
