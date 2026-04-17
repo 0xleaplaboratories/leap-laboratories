@@ -710,15 +710,14 @@
   .showOnMobileFlex {
     display: flex;
   }
-
   .drawerToggle {
     width: 100%;
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-md) var(--space-lg);
     background-color: var(--color-btn-primary);
     color: var(--color-text-primary);
     border-radius: var(--border-radius-md);
     font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     font-family: var(--font-primary);
     cursor: pointer;
     transition: all var(--transition-fast);
