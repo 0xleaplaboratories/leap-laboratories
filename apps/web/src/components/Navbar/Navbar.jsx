@@ -11,6 +11,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [content, setContent] = useState(null);
+  
+  // Smart Scroll state
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     async function loadContent() {
@@ -19,6 +23,35 @@ export default function Navbar() {
     }
     loadContent();
   }, []);
+
+  // Smart Scroll logic
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const threshold = 150; // Distance before smart hiding begins
+
+      // Case 1: Within Home/Top zone -> Always visible
+      if (currentScrollY < threshold) {
+        setIsVisible(true);
+        setLastScrollY(currentScrollY);
+        return;
+      }
+
+      // Case 2: Scrolling down -> Hide
+      if (currentScrollY > lastScrollY && currentScrollY > threshold) {
+        setIsVisible(false);
+      } 
+      // Case 3: Scrolling up -> Show
+      else if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   // Body scroll lock
   useEffect(() => {
@@ -58,7 +91,10 @@ export default function Navbar() {
   const { brand, navLinks, actions } = content;
 
   return (
-    <header className={styles.navbar}>
+    <header 
+      className={`${styles.navbar} ${!isVisible ? styles['navbar--hidden'] : ''}`}
+      onClick={() => isMobileMenuOpen && closeMenu()}
+    >
       <div className={styles.navbar__container}>
 
         {/* ── LEFT ZONE: Logo ────────────────────────────────── */}
@@ -106,7 +142,10 @@ export default function Navbar() {
         {/* ── MOBILE: Hamburger toggle ────────────────────────── */}
         <button
           className={styles.navbar__hamburger}
-          onClick={toggleMobileMenu}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleMobileMenu();
+          }}
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu"
