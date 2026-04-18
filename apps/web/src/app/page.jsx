@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar/Navbar';
 import Hero from '@/components/Hero/Hero';
 import Programs from '@/components/Programs/Programs';
 import HomeSection from '@/components/Home/Home';
+import Contributors from '@/components/Contributors/Contributors';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -15,12 +16,7 @@ export default function Home() {
 
       <Programs />
 
-      <section id="contributors" className={`${styles.section} ${styles.bgPrimary}`}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}> The Contributors</h2>
-          <p className={styles.sectionText}>Get in touch with us.</p>
-        </div>
-      </section>
+      <Contributors />
 
       <section id="contact" className={`${styles.section} ${styles.bgSecondary}`}>
         <div className={styles.container}>
