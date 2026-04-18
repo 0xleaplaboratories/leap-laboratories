@@ -12,41 +12,46 @@
   --hue-teal: 184;
   --hue-accent: 15;
   --hue-cyan: 190;
-  
+
   /* Colors: Backgrounds */
-  --color-bg-primary:   hsl(var(--hue-teal), 50%, 23%);   /* #1E555A */
-  --color-bg-secondary: hsl(var(--hue-teal), 24%, 39%);   /* #4B777B */
-  --color-bg-accent:    hsl(var(--hue-accent), 65%, 60%);  /* #D97757 */
-  --color-bg-dark:      hsl(var(--hue-teal), 50%, 15%);
-  
+  --color-bg-primary: hsl(var(--hue-teal), 50%, 23%);
+  /* #1E555A */
+  --color-bg-secondary: hsl(var(--hue-teal), 24%, 39%);
+  /* #4B777B */
+  --color-bg-accent: hsl(var(--hue-accent), 65%, 60%);
+  /* #D97757 */
+  --color-bg-dark: hsl(var(--hue-teal), 50%, 15%);
+
   /* Semantic Surfaces */
-  --surface-base:       var(--color-bg-primary);
-  --surface-content:    var(--color-bg-secondary);
-  --surface-overlay:    hsl(var(--hue-teal), 50%, 18%);
-  --surface-glass:      hsla(var(--hue-teal), 50%, 25%, 0.7);
-  
+  --surface-base: var(--color-bg-primary);
+  --surface-content: var(--color-bg-secondary);
+  --surface-overlay: hsl(var(--hue-teal), 50%, 18%);
+  --surface-glass: hsla(var(--hue-teal), 50%, 25%, 0.7);
+
   /* Colors: Text */
-  --color-text-primary:   hsl(60, 30%, 96%);             /* #F8F8F2 */
+  --color-text-primary: hsl(60, 30%, 96%);
+  /* #F8F8F2 */
   --color-text-secondary: hsla(60, 30%, 96%, 0.85);
-  --color-text-muted:     hsla(60, 30%, 96%, 0.6);
-  --color-text-accent:    hsl(var(--hue-cyan), 80%, 67%); /* #66D9EF */
-  
+  --color-text-muted: hsla(60, 30%, 96%, 0.6);
+  --color-text-accent: hsl(var(--hue-cyan), 80%, 67%);
+  /* #66D9EF */
+
   /* Colors: Interactions */
-  --color-btn-primary:    var(--color-bg-accent);
-  --color-btn-secondary:  var(--color-text-accent);
-  --color-btn-hover:      hsl(var(--hue-accent), 70%, 55%);
-  
+  --color-btn-primary: var(--color-bg-accent);
+  --color-btn-secondary: var(--color-text-accent);
+  --color-btn-hover: hsl(var(--hue-accent), 70%, 55%);
+
   /* Colors: Borders */
-  --color-border-subtle:  hsla(60, 30%, 96%, 0.15);
-  --color-border-bright:  hsla(var(--hue-cyan), 80%, 67%, 0.3);
+  --color-border-subtle: hsla(60, 30%, 96%, 0.15);
+  --color-border-bright: hsla(var(--hue-cyan), 80%, 67%, 0.3);
 
   /* Colors: Semantic Alerts */
-  --color-danger:        hsl(0, 75%, 65%);
-  --color-danger-bg:     hsla(0, 75%, 65%, 0.1);
+  --color-danger: hsl(0, 75%, 65%);
+  --color-danger-bg: hsla(0, 75%, 65%, 0.1);
   --color-danger-border: hsla(0, 75%, 65%, 0.25);
-  --color-warning:       hsl(45, 90%, 60%);
-  --color-info:          hsl(190, 80%, 67%);
-  
+  --color-warning: hsl(45, 90%, 60%);
+  --color-info: hsl(190, 80%, 67%);
+
   /* ── Typography ────────────────────────────────────────── */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -55,11 +60,11 @@
   --font-size-xl: 1.5rem;
   --font-size-2xl: 2.5rem;
   --font-size-3xl: 3.5rem;
-  
+
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
-  
+
   --line-height-tight: 1.2;
   --line-height-base: 1.6;
   --letter-spacing-tight: -0.02em;
@@ -75,7 +80,7 @@
   --space-3xl: 96px;
 
   /* Layout */
-  --navbar-height: 112px;
+  --navbar-height: 95px;
   --max-content-width: 1400px;
   --border-radius-sm: 4px;
   --border-radius-md: 12px;
@@ -84,9 +89,9 @@
   --border-radius-pill: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.2);
-  --shadow-lg: 0 12px 24px rgba(0,0,0,0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.3);
   --shadow-accent: 0 0 20px hsla(var(--hue-accent), 65%, 60%, 0.3);
 
   /* Glassmorphism */
@@ -140,7 +145,12 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
   letter-spacing: var(--letter-spacing-tight);
@@ -157,11 +167,13 @@ a:hover {
   color: var(--color-text-accent);
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
-img, svg {
+img,
+svg {
   display: block;
   max-width: 100%;
 }
