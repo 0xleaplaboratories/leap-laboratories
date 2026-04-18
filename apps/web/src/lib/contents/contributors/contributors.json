@@ -1,0 +1,38 @@
+{
+    "title": "The Contributors",
+    "tagline": "Meet the conscious intelligentsia behind Leap Laboratories.",
+    "profile": [
+        {
+            "name": "Anik Fatmawati",
+            "expertise": [
+                "Business Development",
+                "Public Relations",
+                "Human Resource Management"
+            ],
+            "socialMedia": {},
+            "photo": "/assets/images/persons/anik-fatmawati.png"
+        },
+        {
+            "name": "Angga W. P. Sudarman",
+            "expertise": [
+                "Fullstack Web Developer",
+                "Smart Contract Engineer"
+            ],
+            "socialMedia": {
+                "github": "https://github.com/d-democrazy"
+            },
+            "photo": "/assets/images/persons/angga-wp-sudarman.png"
+        },
+        {
+            "name": "Dimas A. Sudarman",
+            "expertise": [
+                "UI/UX Web Designer",
+                "Graphic Designer",
+                "Videographer",
+                "Photographer"
+            ],
+            "socialMedia": {},
+            "photo": "/assets/images/persons/dimas-a-sudarman.png"
+        }
+    ]
+}
