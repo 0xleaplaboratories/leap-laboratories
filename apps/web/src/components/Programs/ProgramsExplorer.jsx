@@ -32,7 +32,7 @@ export default function ProgramsExplorer({ programs }) {
   // ── Effect: Responsive Detection ──────────────────────────────
   useEffect(() => {
     setHasMounted(true);
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 1100);
     handleResize(); // Initial
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -106,7 +106,7 @@ export default function ProgramsExplorer({ programs }) {
       const currX = isTouch ? moveEvent.touches[0].clientX : moveEvent.clientX;
       const currY = isTouch ? moveEvent.touches[0].clientY : moveEvent.clientY;
 
-      const isMobileNow = window.innerWidth < 768;
+      const isMobileNow = window.innerWidth < 1100;
 
       if (isMobileNow) {
         const rawPercent = ((currY - containerRect.top) / containerRect.height) * 100;
