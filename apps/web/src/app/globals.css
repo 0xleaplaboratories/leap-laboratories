@@ -52,6 +52,11 @@
   --color-warning: hsl(45, 90%, 60%);
   --color-info: hsl(190, 80%, 67%);
 
+  /* Custom Functional Colors */
+  --rgb-program-accent: 166, 226, 46;
+  --color-program-accent: rgb(var(--rgb-program-accent));
+
+
   /* ── Typography ────────────────────────────────────────── */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;

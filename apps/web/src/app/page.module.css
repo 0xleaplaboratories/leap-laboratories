@@ -7,34 +7,6 @@
   padding: var(--space-3xl) 0;
 }
 
-.hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-bg-primary);
-}
-
-.heroContent {
-  text-align: center;
-}
-
-.heroTitle {
-  color: var(--color-text-primary);
-  font-size: var(--font-size-3xl);
-  line-height: 1.2;
-}
-
-.heroDescription {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xl);
-  margin-top: var(--space-md);
-}
-
-.bgPrimary {
-  background-color: var(--color-bg-primary);
-}
-
 .bgSecondary {
   background-color: var(--color-bg-secondary);
 }
