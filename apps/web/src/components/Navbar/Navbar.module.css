@@ -254,8 +254,8 @@
   padding: var(--space-md);
 }
 
-/* ── Responsive: Desktop (≥ 768px) ───────────────────────── */
-@media (min-width: 768px) {
+/* ── Responsive: Desktop (≥ 1100px) ───────────────────────── */
+@media (min-width: 1100px) {
   /* Show the desktop nav and actions */
   .navbar__nav {
     display: flex;
@@ -276,8 +276,8 @@
   }
 }
 
-/* ── Responsive: Mobile (≤ 768px) ───────────────────────── */
-@media (max-width: 768px) {
+/* ── Responsive: Mobile (≤ 1099px) ───────────────────────── */
+@media (max-width: 1099px) {
   .navbar {
     border-bottom: none !important;
     box-shadow: none !important;

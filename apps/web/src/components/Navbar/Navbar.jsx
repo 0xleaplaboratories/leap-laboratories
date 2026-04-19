@@ -24,21 +24,44 @@ export default function Navbar() {
     loadContent();
   }, []);
 
-  // Smart Scroll logic
+  // Strict Smart Scroll & Auto-Hide logic
   useEffect(() => {
+    let idleTimer;
+
+    // Lock visibility and exit if mobile menu is open
+    if (isMobileMenuOpen) {
+      setIsVisible(true);
+      return;
+    }
+
+    const hideNavbar = () => {
+      const currentScrollY = window.scrollY;
+      // Only auto-hide if we are past the 'Home safe zone' (top 50% of viewport)
+      if (currentScrollY > window.innerHeight * 0.5) {
+        setIsVisible(false);
+      }
+    };
+
+    const resetIdleTimer = () => {
+      if (idleTimer) clearTimeout(idleTimer);
+      // Auto-hide after 2 seconds of inactivity
+      idleTimer = setTimeout(hideNavbar, 2000);
+    };
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const threshold = 150; // Distance before smart hiding begins
+      const homeThreshold = window.innerHeight * 0.5;
 
-      // Case 1: Within Home/Top zone -> Always visible
-      if (currentScrollY < threshold) {
+      // Case 1: Within top half of home section -> Always visible
+      if (currentScrollY < homeThreshold) {
         setIsVisible(true);
         setLastScrollY(currentScrollY);
+        resetIdleTimer();
         return;
       }
 
       // Case 2: Scrolling down -> Hide
-      if (currentScrollY > lastScrollY && currentScrollY > threshold) {
+      if (currentScrollY > lastScrollY) {
         setIsVisible(false);
       } 
       // Case 3: Scrolling up -> Show
@@ -47,11 +70,22 @@ export default function Navbar() {
       }
 
       setLastScrollY(currentScrollY);
+      resetIdleTimer();
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+    
+    // Initial state check
+    if (window.scrollY < window.innerHeight * 0.5) {
+      setIsVisible(true);
+    }
+    resetIdleTimer();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (idleTimer) clearTimeout(idleTimer);
+    };
+  }, [lastScrollY, isMobileMenuOpen]);
 
   // Body scroll lock
   useEffect(() => {
