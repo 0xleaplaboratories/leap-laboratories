@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './Contributors.module.css';
 
@@ -25,18 +25,38 @@ const SOCIAL_ICON_MAP = {
   instagram: {
     label: 'Instagram',
     icon: '/assets/icons/social/instagram.svg'
+  },
+  tiktok: {
+    label: 'TikTok',
+    icon: '/assets/icons/social/tiktok.svg'
   }
 };
 
 const PLACEHOLDER_PHOTO = '/assets/images/persons/placeholder.png';
 
 export default function ContributorCard({ profile }) {
-  // Local state for photo fallback
-  const [photoSrc, setPhotoSrc] = useState(profile.photo || PLACEHOLDER_PHOTO);
+  const [hasError, setHasError] = useState(false);
+  const imgRef = useRef(null);
+
+  // Check if image is already broken on mount (e.g. on refresh)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (imgRef.current && imgRef.current.complete) {
+        if (imgRef.current.naturalWidth === 0) {
+          setHasError(true);
+        }
+      }
+    }, 50); // Small delay to allow browser evaluation
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const isPlaceholder = !profile.photo || hasError;
+  const finalSrc = isPlaceholder ? PLACEHOLDER_PHOTO : profile.photo;
 
   const handleImageError = () => {
-    if (photoSrc !== PLACEHOLDER_PHOTO) {
-      setPhotoSrc(PLACEHOLDER_PHOTO);
+    if (!hasError) {
+      setHasError(true);
     }
   };
 
@@ -46,13 +66,15 @@ export default function ContributorCard({ profile }) {
     <article className={styles.card}>
       {/* ── Photo ──────────────────────────────────────────── */}
       <div className={styles.cardPhoto}>
-        <Image
-          src={photoSrc}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={imgRef}
+          key={finalSrc}
+          src={finalSrc}
           alt={`Photo of ${profile.name}`}
-          width={400}
-          height={400}
-          className={styles.cardImg}
+          className={`${styles.cardImg} ${isPlaceholder ? styles.imgPlaceholder : ''}`}
           onError={handleImageError}
+          loading="lazy"
         />
       </div>
 

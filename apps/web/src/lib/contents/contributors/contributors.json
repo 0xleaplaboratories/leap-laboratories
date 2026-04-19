@@ -3,17 +3,17 @@
     "tagline": "Meet the conscious intelligentsia behind Leap Laboratories.",
     "profile": [
         {
-            "name": "Anik Fatmawati",
+            "name": "Satoshi Nakamoto",
             "expertise": [
                 "Business Development",
                 "Public Relations",
                 "Human Resource Management"
             ],
             "socialMedia": {},
-            "photo": "/assets/images/persons/anik-fatmawati.png"
+            "photo": "/assets/images/persons/satoshi-nakamoto.png"
         },
         {
-            "name": "Angga W. P. Sudarman",
+            "name": "Angga Sudarman",
             "expertise": [
                 "Fullstack Web Developer",
                 "Smart Contract Engineer"
@@ -24,14 +24,16 @@
             "photo": "/assets/images/persons/angga-wp-sudarman.png"
         },
         {
-            "name": "Dimas A. Sudarman",
+            "name": "Dimas Sudarman",
             "expertise": [
                 "UI/UX Web Designer",
                 "Graphic Designer",
                 "Videographer",
                 "Photographer"
             ],
-            "socialMedia": {},
+            "socialMedia": {
+                "tiktok": "https://www.tiktok.com/@dimas_sudarman?_r=1&_t=ZS-95ekWhSsmF3"
+            },
             "photo": "/assets/images/persons/dimas-a-sudarman.png"
         }
     ]
