@@ -1,6 +1,6 @@
 /* ============================================================
-   HERO COMPONENT STYLES — REFINED
-   All color/spacing values use CSS variables from globals.css
+   HERO COMPONENT STYLES — HIGH-FIDELITY REFACTOR
+   Side-by-side Branding and engagement
    ============================================================ */
 
 .hero {
@@ -9,117 +9,98 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-2xl) var(--space-xl);
+  padding: 0 var(--space-xl);
   box-sizing: border-box;
+  height: 100vh;
+  /* Fixed height for absolute framing */
+  min-height: 100vh;
+  position: relative;
+  /* High z-index to allow its bleeding content to overlap sections below */
+  z-index: 10;
+  /* Ensure overflow is visible so the background decal can spill out */
+  overflow: visible;
+  scroll-margin-top: -100px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  /* Bleed UP into previous section and navbar area */
+  top: -65vh;
+  left: 0;
+  width: 100%;
+  /* Total height to bleed heavily in both directions */
+  height: 220%;
+  background-image: url('/assets/images/hero-bg.png');
+  background-size: auto 80%;
+  background-position: -25% center;
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .heroContainer {
-  display: flex;
-  flex-direction: row;
-  gap: var(--space-xl);
   width: 100%;
+  height: 100%;
+  /* Force height to parent */
   max-width: var(--max-content-width);
-  min-height: 600px;
   margin: 0 auto;
-  align-items: stretch;
-}
-
-/* ── Common Zone Container Styles ────────────────────────── */
-.heroLeft,
-.heroRight {
-  flex: 1;
-  background-color: var(--surface-overlay);
-  border-radius: var(--border-radius-lg);
-  overflow: visible;
-  padding: var(--space-xl);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   position: relative;
-  transition: all var(--transition-normal);
-  box-shadow: var(--shadow-md);
-  box-sizing: border-box;
+  z-index: 11;
+  /* Sits above the hero::before */
 }
 
-/* heroLeft relies on natural flow now */
-
-/* ── Right Zone: Video Container ────────────────────────── */
-.heroRight {
-  padding: 0;
-  background-color: var(--surface-overlay);
-  border: 1px solid var(--color-border-subtle);
-  overflow: hidden; /* Keep video clipped to card shape */
-  position: relative;
-}
-
-/* Skeleton shimmer effect */
-.heroRight::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 25%,
-    hsla(var(--hue-teal), 50%, 30%, 0.3) 50%,
-    transparent 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite linear;
-  z-index: 1;
-}
-
-@keyframes shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
-}
-
-/* ── Left Zone: Side-by-Side Headline ───────────────────── */
-.heroHeadlineWrapper {
+.heroMain {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: var(--space-xl);
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-3xl);
+  width: 100%;
+  height: 100%;
+  /* Fill container height */
+  /* Poise content downward within the verified 100vh space */
+  transform: translateY(0vh);
 }
 
-.logoContainer {
-  width: 128px;
-  flex-shrink: 0;
+/* ── Left-aligned Headline Block (Within its flex zone) ─────── */
+.headlineWrapper {
+  flex: 1;
   display: flex;
   justify-content: flex-start;
-}
-
-.heroLogo {
-  border-radius: var(--border-radius-lg);
-}
-
-.headlineContainer {
-  flex: 1;
-  min-width: 0;
-  text-align: left;
 }
 
 .heroTitleAnimated {
-  /* min(3vw, 5vh): resolves to width on portrait/square,
-     height on landscape or short screens — always fits the container */
-  font-size: clamp(1.2rem, min(3vw, 5vh), 2.22rem);
-  font-weight: var(--font-weight-bold);
-  line-height: 1.2;
+  /* Slightly larger scale with layout stability */
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.15;
   margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  text-transform: capitalize;
+  white-space: nowrap;
+  /* Prevent line breaks during typing */
+  /* Natural wrapping check removed in favor of single-line consistency */
+  break-inside: avoid;
+  text-transform: none;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
   text-align: left;
+  /* Start typing from left */
+  min-width: 0;
+  transition: opacity 0.5s ease; /* Supports mobile fade transition */
+}
+
+.fadeOut {
+  opacity: 0;
 }
 
 .cursor {
   display: inline-block;
-  color: var(--color-text-primary);
-  margin-left: 2px;
+  color: var(--color-text-accent);
+  margin-left: 4px;
   animation: blink 1s step-end infinite;
 }
 
@@ -135,130 +116,186 @@
   }
 }
 
-.titleLearn {
-  color: var(--color-bg-accent);
-}
-
+.titleLearn,
 .titleBuild {
   color: var(--color-bg-accent);
 }
 
-/* ── Auth Card ──────────────────────────────────────────── */
-.authCard {
-  width: 100%;
-  max-width: 400px;
-  background-color: var(--surface-overlay);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-  margin-top: var(--space-md);
-  text-align: left;
-  box-sizing: border-box;
+/* ── Auth Wrapper ────────────────────────────────────────── */
+.authWrapper {
+  flex: 1;
+  /* More equal distribution */
+  display: flex;
+  justify-content: center;
+  /* Centered in zone */
+  max-width: 650px;
+  /* Enlarged from 550px */
 }
 
-/* Card inner styles */
+.authCard {
+  width: 100%;
+  min-height: 600px;
+  background-color: var(--surface-overlay);
+  backdrop-filter: blur(24px); /* Enhanced depth */
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 
+              inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  text-align: left;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.authCard:focus-within {
+  border-color: var(--color-bg-accent);
+  box-shadow: 0 0 0 1px var(--color-bg-accent), 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Enlarge Authcard contents and narrow padding */
 .tabs {
   display: flex;
   border-bottom: 1px solid var(--color-border-subtle);
+  background-color: hsla(var(--hue-teal), 50%, 15%, 0.3);
 }
 
 .tab {
   flex: 1;
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-sm);
+  padding: var(--space-lg) var(--space-xl);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
   color: var(--color-text-secondary);
   opacity: 0.5;
   border: none;
   background: transparent;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: 4px solid transparent;
   transition: all var(--transition-fast);
-  font-family: var(--font-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .tabActive {
   opacity: 1;
   color: var(--color-text-primary);
-  border-bottom-color: var(--color-text-primary);
+  border-bottom-color: var(--color-bg-accent);
 }
 
 .tabPanel {
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   display: flex;
+  flex: 1;
+  /* Stretch to fill the 600px min-height */
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-xl);
+  /* More breathing room */
+  justify-content: flex-start;
 }
 
 .appDescription {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-  opacity: 0.6;
+  font-size: 1.1rem; /* Primary Tier */
+  color: var(--color-text-primary);
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: var(--space-xs); /* Tighter clustering with role */
 }
 
 .roleWrapper {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
+  background: rgba(0, 0, 0, 0.35); /* More defined backdrop */
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--space-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .roleLabel {
-  font-size: var(--font-size-xs);
+  font-size: 0.85rem; /* Label Tier */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--color-text-secondary);
 }
 
 .roleSelect {
   flex: 1;
-  padding: 4px 8px;
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: var(--font-primary);
-  font-size: var(--font-size-sm);
+  padding: 14px 18px;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-accent);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--border-radius-md);
+  font-size: 1.1rem;
+  /* Larger capture signal */
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .authProviders {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
 .oauthBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   width: 100%;
-  padding: var(--space-sm);
-  background: transparent;
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: var(--font-primary);
-  font-size: var(--font-size-sm);
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem; /* Interaction Tier */
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.oauthBtn:hover {
+  background-color: var(--color-bg-accent);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .drawerToggle {
   width: 100%;
-  padding: var(--space-md) var(--space-lg); /* Larger touch target */
-  background-color: var(--color-btn-primary);
+  padding: 22px;
+  background: linear-gradient(135deg, var(--color-bg-accent), #ff8a65);
   color: var(--color-text-primary);
+  border: none;
   border-radius: var(--border-radius-md);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-md);
+  font-weight: 900;
+  font-size: 1.15rem;
   cursor: pointer;
+  text-transform: uppercase;
+  margin-top: var(--space-sm);
+  box-shadow: 0 4px 15px rgba(217, 119, 87, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawerToggle:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(217, 119, 87, 0.5);
+  filter: brightness(1.1);
 }
 
 .divider {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  color: var(--color-text-secondary);
-  opacity: 0.6;
-  font-size: var(--font-size-xs);
-  margin: 4px 0;
+  gap: var(--space-md);
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  /* Larger divider text */
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 24px 0 8px 0; /* Locked pixel spacing */
 }
 
 .divider::before,
@@ -266,165 +303,139 @@
   content: '';
   flex: 1;
   height: 1px;
-  background-color: currentColor;
+  background-color: var(--color-border-subtle);
 }
 
 .emailBlock {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-md);
+  margin-top: 0; /* Resetting to 0 for pixel-perfect divider control */
 }
 
 .emailInput {
   width: 100%;
-  padding: var(--space-sm);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-accent);
+  padding: 16px 18px;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: var(--font-primary);
-  font-size: var(--font-size-sm);
-  box-sizing: border-box;
+  border-radius: var(--border-radius-md);
+  font-size: 1rem; /* Interaction Tier */
+  transition: all 0.2s ease;
 }
 
-.emailInput::placeholder {
-  color: var(--color-text-secondary);
-  opacity: 0.6;
+.emailInput:focus {
+  outline: none;
+  border-color: var(--color-bg-accent);
+  background-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 4px rgba(var(--hue-accent), 100%, 70%, 0.1);
 }
 
 .flowBtns {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
 }
 
 .flowBtn {
   flex: 1;
-  padding: var(--space-sm);
-  background: transparent;
+  padding: 12px 24px;
+  background: var(--color-bg-secondary);
   color: var(--color-text-secondary);
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: var(--font-primary);
-  font-size: var(--font-size-sm);
+  border-radius: var(--border-radius-pill);
+  font-size: 0.9rem; /* Action Tier (Internal) */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.flowBtn:hover {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  transform: translateY(-1px) scale(1.02);
 }
 
 .flowBtnActive {
   background-color: var(--color-btn-primary);
   color: var(--color-text-primary);
   border-color: var(--color-btn-primary);
+}
+
+.flowBtnActive:hover {
+  background-color: var(--color-btn-hover);
   box-shadow: var(--shadow-accent);
 }
 
-.flowBtn:hover:not(.flowBtnActive) {
-  background-color: hsla(var(--hue-teal), 24%, 39%, 0.3);
-}
-
-/* ── Video ──────────────────────────────────────────────── */
-.heroVideo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  position: relative;
-  z-index: 2; /* Sits above the skeleton */
-  background-color: transparent;
-}
-
-/* ── Responsive: Tablet (≤ 1100px) ──────────────────────── */
-@media (max-width: 1100px) {
+/* ── Responsive adjustments ──────────────────────── */
+@media (max-width: 1099px) {
   .hero {
-    padding: var(--space-xl) var(--space-lg);
-  }
-
-  .heroContainer {
-    flex-direction: column-reverse;
-    min-height: auto;
-    gap: var(--space-lg);
-  }
-
-  .heroLeft {
-    flex: none;
-    width: 100%;
-    border-radius: var(--border-radius-lg);
-    padding: var(--space-xl) var(--space-lg);
-  }
-
-  .heroRight {
-    display: none;
-  }
-
-  .heroRight {
-    padding: 0;
+    padding: 0 var(--space-md); /* Tighten side padding for more card width */
     height: auto;
-    min-height: auto;
+    min-height: auto; /* Removed forced 100vh to prevent massive empty gaps */
   }
 
-  .heroHeadlineWrapper {
-    max-width: 100%;
-    gap: clamp(var(--space-lg), 4vw, var(--space-xl));
-    margin-bottom: var(--space-lg);
+  .hero::before {
+    display: none; /* Omit heavy background on mobile */
   }
 
-  .logoContainer {
-    width: clamp(70px, 22vw, 128px);
-  }
-
-  .heroLogo {
-    width: 100%;
+  .heroMain {
+    flex-direction: column; /* Stacked layout */
     height: auto;
+    padding: var(--space-2xl) 0 60px 0; /* Reduced massive top padding */
+    transform: none;
+    gap: var(--space-xl);
+    justify-content: center;
   }
 
   .heroTitleAnimated {
-    /* Stacked layout: height is auto, so lean on vw with vh as the short-screen brake */
-    font-size: clamp(1.2rem, min(4vw, 4.5vh), 2.1rem);
-    line-height: 1.1;
+    font-size: clamp(1.45rem, 7.5vw, 2.4rem); /* Calibrated for single-line fit */
+    text-align: center;
+    white-space: nowrap; /* Prevent line breaks to protect layout */
+    letter-spacing: -0.05em; /* Tighter fit for mobile */
+  }
+
+  .authWrapper {
+    width: 100%;
+    max-width: none;
+    transform: translateX(0);
   }
 
   .authCard {
-    max-width: 100%;
-  }
-
-  .heroVideo {
-    width: 100%;
-    height: auto;
-  }
-}
-
-/* ── Responsive: Mobile (≤ 480px) ───────────────────────── */
-@media (max-width: 480px) {
-  .hero {
-    padding: var(--space-xl) var(--space-md);
-  }
-
-  .heroContainer {
-    gap: var(--space-md);
-  }
-
-  .heroLeft {
-    padding: var(--space-lg) var(--space-md);
-  }
-
-  .heroHeadlineWrapper {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-md);
-  }
-
-  .logoContainer {
-    width: clamp(56px, 18vw, 80px);
-  }
-
-  .heroTitleAnimated {
-    /* Small screens: vh reins in landscape overflow, vw handles portrait */
-    font-size: clamp(1.25rem, min(5vw, 4vh), 1.6rem);
+    min-height: 500px;
+    padding-bottom: var(--space-md);
   }
 
   .tabPanel {
-    padding: var(--space-md);
-    gap: var(--space-sm);
+    padding: var(--space-lg); /* Tightened internal padding */
+    gap: var(--space-lg); /* Compact spacing for mobile */
+  }
+
+  .appDescription {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .authProviders {
+    gap: var(--space-md);
+  }
+
+  .divider {
+    margin: 16px 0 8px 0; /* Tighter divider for mobile */
+  }
+
+  .drawerToggle {
+    padding: 18px; /* Tighter interaction target */
+    font-size: 1.1rem;
+  }
+
+  .headlineWrapper {
+    justify-content: center;
+    text-align: center;
   }
 }

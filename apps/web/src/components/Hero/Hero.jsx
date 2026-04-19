@@ -18,41 +18,19 @@ export default async function Hero() {
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.heroContainer}>
-        {/* ── LEFT ZONE: Copy & Interaction ─────────────────── */}
-        <div className={styles.heroLeft}>
-          <div className={styles.heroHeadlineWrapper}>
-            {/* Logo Container (Left Aligned) */}
-            <div className={styles.logoContainer}>
-              <Image
-                src={`/${head.logo}`}
-                alt="Leap Laboratories Icon"
-                width={128}
-                height={128}
-                className={styles.heroLogo}
-                priority
-              />
-            </div>
-
-            {/* Dynamic Typewriting Headline (Right Aligned) */}
+        {/* ── HORIZONTAL ZONE ────────────────── */}
+        <div className={styles.heroMain}>
+          
+          {/* Headline on Left */}
+          <div className={styles.headlineWrapper}>
             <HeroHeadline phrases={head.tagline} />
           </div>
 
-          {/* Interactive Auth Card (Client Side) */}
-          <HeroAuthCard apps={apps} />
-        </div>
+          {/* Auth Card on Right */}
+          <div className={styles.authWrapper}>
+            <HeroAuthCard apps={apps} />
+          </div>
 
-        {/* ── RIGHT ZONE: Full-bleed Visual ─────────────────── */}
-        <div className={styles.heroRight}>
-          <video
-            className={styles.heroVideo}
-            src="/assets/videos/video.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-          {/* Fallback/Overlay for the visual zone */}
-          <div className={styles.heroOverlay} />
         </div>
       </div>
     </section>

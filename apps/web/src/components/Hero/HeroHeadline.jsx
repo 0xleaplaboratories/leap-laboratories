@@ -12,79 +12,102 @@ export default function HeroHeadline({ phrases }) {
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(100);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isFading, setIsFading] = useState(false);
 
   const currentFullPhrase = phrases[currentPhraseIndex];
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 1100);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     let timeout;
 
-    const handleTyping = () => {
-      if (!isDeleting) {
-        // Typing phase
-        const nextText = currentFullPhrase.substring(0, displayText.length + 1);
-        setDisplayText(nextText);
-        setTypingSpeed(100);
-
-        if (nextText === currentFullPhrase) {
-          // Pause at the end of the phrase
-          timeout = setTimeout(() => setIsDeleting(true), 2000);
-        } else {
-          timeout = setTimeout(handleTyping, typingSpeed);
-        }
-      } else {
-        // Deleting phase
-        const nextText = currentFullPhrase.substring(0, displayText.length - 1);
-        setDisplayText(nextText);
-        setTypingSpeed(50);
-
-        if (nextText === '') {
-          setIsDeleting(false);
+    if (isMobile) {
+      // Mobile FADE transition logic
+      const handleMobileTransition = () => {
+        setIsFading(true); // Start fade out
+        
+        timeout = setTimeout(() => {
           setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
-          timeout = setTimeout(handleTyping, 500);
-        } else {
-          timeout = setTimeout(handleTyping, typingSpeed);
-        }
-      }
-    };
+          setDisplayText(phrases[(currentPhraseIndex + 1) % phrases.length]);
+          setIsFading(false); // Start fade in
+        }, 500); // Wait for fade out duration
+      };
 
-    timeout = setTimeout(handleTyping, typingSpeed);
+      // Set initial text if empty
+      if (displayText === '') setDisplayText(phrases[0]);
+
+      timeout = setTimeout(handleMobileTransition, 3000); // 3s per phrase
+    } else {
+      // Desktop TYPEWRITER logic
+      const handleTyping = () => {
+        if (!isDeleting) {
+          const nextText = currentFullPhrase.substring(0, displayText.length + 1);
+          setDisplayText(nextText);
+          setTypingSpeed(100);
+
+          if (nextText === currentFullPhrase) {
+            timeout = setTimeout(() => setIsDeleting(true), 2000);
+          } else {
+            timeout = setTimeout(handleTyping, typingSpeed);
+          }
+        } else {
+          const nextText = currentFullPhrase.substring(0, displayText.length - 1);
+          setDisplayText(nextText);
+          setTypingSpeed(50);
+
+          if (nextText === '') {
+            setIsDeleting(false);
+            setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+            timeout = setTimeout(handleTyping, 500);
+          } else {
+            timeout = setTimeout(handleTyping, typingSpeed);
+          }
+        }
+      };
+
+      timeout = setTimeout(handleTyping, typingSpeed);
+    }
 
     return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, phrases, currentPhraseIndex, currentFullPhrase, typingSpeed]);
+  }, [displayText, isDeleting, phrases, currentPhraseIndex, currentFullPhrase, typingSpeed, isMobile]);
 
   /**
    * helper to render themed spans for special markers
    */
   const renderThemedText = (text) => {
-    // Force line breaks for each word
-    const stackedText = text.replaceAll(' ', '\n');
+    const isAcademy = text.startsWith('{?}');
+    const isLabs = text.startsWith('</>');
     
-    const isAcademy = stackedText.startsWith('{?}');
-    const isLabs = stackedText.startsWith('</>');
-
     if (isAcademy || isLabs) {
-      const lines = stackedText.split('\n');
-      const firstLine = lines[0];
-      const rest = stackedText.substring(firstLine.length);
+      const parts = text.split(' ');
+      const firstWord = parts[0];
+      const rest = text.substring(firstWord.length);
       
       return (
         <>
           <span className={isAcademy ? styles.titleLearn : styles.titleBuild}>
-            {firstLine}
+            {firstWord}
           </span>
           {rest}
         </>
       );
     }
 
-    return stackedText;
+    return text;
   };
 
   return (
-    <div className={styles.headlineContainer}>
-      <h1 className={styles.heroTitleAnimated}>
+    <div className={`${styles.headlineContainer} ${isMobile ? styles.mobileHeadline : ''}`}>
+      <h1 className={`${styles.heroTitleAnimated} ${isFading ? styles.fadeOut : ''}`}>
         {renderThemedText(displayText)}
-        <span className={styles.cursor}>|</span>
+        {!isMobile && <span className={styles.cursor}>|</span>}
       </h1>
     </div>
   );
