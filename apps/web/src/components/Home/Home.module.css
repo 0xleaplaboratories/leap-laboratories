@@ -1,22 +1,49 @@
 .home {
-  padding: var(--space-xl);
-  background-color: var(--color-bg-primary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
   position: relative;
-  min-height: calc(100vh - var(--navbar-height));
-  box-sizing: border-box;
+  /* Context for background */
+  overflow: hidden;
+  /* Contain large headline and background */
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-lg);
+  /* Use scroll-padding to account for fixed navbar */
+  scroll-margin-top: var(--navbar-height);
+}
+
+/* Dynamic Branding Background */
+.background {
+  position: absolute;
+  /* Bleed 'above' the section into the navbar area */
+  top: calc(var(--navbar-height) * -1);
+  right: 0;
+  /* Stretch height to cover section + navbar space */
+  height: calc(100% + var(--navbar-height));
+  width: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right center;
+  filter: grayscale(100%);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .container {
   max-width: var(--max-content-width);
+  margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 2;
+  /* Stay above background */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-xl);
+  /* Subtly lift content upward from absolute center */
+  transform: translateY(-3vh);
 }
 
 /* Subtle pin / badge */
@@ -44,7 +71,7 @@
   text-transform: uppercase;
   letter-spacing: -0.06em;
   color: var(--color-bg-secondary);
-  opacity: 0.95;
+  opacity: 1;
   margin: 0;
   max-width: 100%;
   word-break: break-all;
@@ -79,12 +106,17 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1099px) {
   .home {
     padding: var(--space-xl) var(--space-lg);
     min-height: auto;
     /* Allow content to flow on tablet/mobile if needed */
     padding-top: var(--space-2xl);
+  }
+
+  .background {
+    display: none;
+    /* Remove background on mobile */
   }
 
   .headline {
