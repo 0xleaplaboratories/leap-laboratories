@@ -90,36 +90,36 @@ export default function ContributorCard({ profile }) {
             </span>
           ))}
         </div>
-
-        {/* Social Media links */}
-        {hasSocialMedia && (
-          <div className={styles.cardSocial}>
-            {Object.entries(profile.socialMedia).map(([platform, url]) => {
-              const info = SOCIAL_ICON_MAP[platform];
-              if (!info) return null;
-
-              return (
-                <a
-                  key={platform}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialLink}
-                  aria-label={`${profile.name} on ${info.label}`}
-                >
-                  <Image
-                    src={info.icon}
-                    alt={info.label}
-                    width={20}
-                    height={20}
-                    className={styles.socialIcon}
-                  />
-                </a>
-              );
-            })}
-          </div>
-        )}
       </div>
+
+      {/* ── Social Media links (Fixed Container) ───────────── */}
+      {hasSocialMedia && (
+        <div className={styles.cardSocial}>
+          {Object.entries(profile.socialMedia).map(([platform, url]) => {
+            const info = SOCIAL_ICON_MAP[platform];
+            if (!info) return null;
+
+            return (
+              <a
+                key={platform}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialLink}
+                aria-label={`${profile.name} on ${info.label}`}
+              >
+                <Image
+                  src={info.icon}
+                  alt={info.label}
+                  width={20}
+                  height={20}
+                  className={styles.socialIcon}
+                />
+              </a>
+            );
+          })}
+        </div>
+      )}
     </article>
   );
 }
