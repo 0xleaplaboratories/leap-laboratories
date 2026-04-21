@@ -1,25 +1,19 @@
 .home {
   position: relative;
-  /* Context for background */
   overflow: hidden;
-  /* Contain large headline and background */
   background-color: var(--color-bg-primary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: var(--space-2xl) var(--space-lg);
-  /* Use scroll-padding to account for fixed navbar */
   scroll-margin-top: var(--navbar-height);
 }
 
-/* Dynamic Branding Background */
 .background {
   position: absolute;
-  /* Bleed 'above' the section into the navbar area */
   top: calc(var(--navbar-height) * -1);
   right: 0;
-  /* Stretch height to cover section + navbar space */
   height: calc(100% + var(--navbar-height));
   width: 50%;
   background-size: contain;
@@ -37,16 +31,13 @@
   width: 100%;
   position: relative;
   z-index: 2;
-  /* Stay above background */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-xl);
-  /* Subtly lift content upward from absolute center */
   transform: translateY(-3vh);
 }
 
-/* Subtle pin / badge */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -62,9 +53,7 @@
   margin-bottom: var(--space-sm);
 }
 
-/* Modern Maximalist Typography */
 .headline {
-  /* min size refined to 2.2rem to prevent overflow on 320px screens */
   font-size: clamp(2.2rem, 15vw, 12rem);
   line-height: 0.75;
   font-weight: 900;
@@ -75,18 +64,15 @@
   margin: 0;
   max-width: 100%;
   word-break: break-all;
-  /* Safety for ultra-narrow screens */
   user-select: none;
   white-space: pre-line;
 }
 
-/* Balanced Description */
 .descriptionWrapper {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   margin-top: calc(var(--space-md) * -1);
-  /* Subtle overlap */
 }
 
 .description {
@@ -99,7 +85,6 @@
   margin-right: var(--space-lg);
 }
 
-/* Responsive adjustments */
 @media (max-width: 1200px) {
   .headline {
     font-size: clamp(2.2rem, 14vw, 10rem);
@@ -110,13 +95,11 @@
   .home {
     padding: var(--space-xl) var(--space-lg);
     min-height: auto;
-    /* Allow content to flow on tablet/mobile if needed */
     padding-top: var(--space-2xl);
   }
 
   .background {
     display: none;
-    /* Remove background on mobile */
   }
 
   .headline {

@@ -1,63 +1,39 @@
-/* ============================================================
-   LEAP LABORATORIES — Global Stylesheet
-   - CSS custom properties (design tokens)
-   - Reset and base styles
-   - Typography
-   - Utility rules
-   ============================================================ */
-
 :root {
-  /* ── Color Palette (HSL) ────────────────────────────────── */
-  /* Base Hues */
   --hue-teal: 184;
   --hue-accent: 15;
   --hue-cyan: 190;
 
-  /* Colors: Backgrounds */
   --color-bg-primary: hsl(var(--hue-teal), 50%, 23%);
-  /* #1E555A */
   --color-bg-secondary: hsl(var(--hue-teal), 24%, 39%);
-  /* #4B777B */
   --color-bg-accent: hsl(var(--hue-accent), 65%, 60%);
-  /* #D97757 */
   --color-bg-dark: hsl(var(--hue-teal), 50%, 15%);
 
-  /* Semantic Surfaces */
   --surface-base: var(--color-bg-primary);
   --surface-content: var(--color-bg-secondary);
   --surface-overlay: hsl(var(--hue-teal), 50%, 18%);
   --surface-glass: hsla(var(--hue-teal), 50%, 25%, 0.7);
 
-  /* Colors: Text */
   --color-text-primary: hsl(60, 30%, 96%);
-  /* #F8F8F2 */
   --color-text-secondary: hsla(60, 30%, 96%, 0.85);
   --color-text-muted: hsla(60, 30%, 96%, 0.6);
   --color-text-accent: hsl(var(--hue-cyan), 80%, 67%);
-  /* #66D9EF */
 
-  /* Colors: Interactions */
   --color-btn-primary: var(--color-bg-accent);
   --color-btn-secondary: var(--color-text-accent);
   --color-btn-hover: hsl(var(--hue-accent), 70%, 55%);
 
-  /* Colors: Borders */
   --color-border-subtle: hsla(60, 30%, 96%, 0.15);
   --color-border-bright: hsla(var(--hue-cyan), 80%, 67%, 0.3);
 
-  /* Colors: Semantic Alerts */
   --color-danger: hsl(0, 75%, 65%);
   --color-danger-bg: hsla(0, 75%, 65%, 0.1);
   --color-danger-border: hsla(0, 75%, 65%, 0.25);
   --color-warning: hsl(45, 90%, 60%);
   --color-info: hsl(190, 80%, 67%);
 
-  /* Custom Functional Colors */
   --rgb-program-accent: 166, 226, 46;
   --color-program-accent: rgb(var(--rgb-program-accent));
 
-
-  /* ── Typography ────────────────────────────────────────── */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;
@@ -75,7 +51,6 @@
   --letter-spacing-tight: -0.02em;
   --letter-spacing-wide: 0.05em;
 
-  /* ── Elevation & Spacing ────────────────────────────────── */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -84,7 +59,6 @@
   --space-2xl: 64px;
   --space-3xl: 96px;
 
-  /* Layout */
   --navbar-height: 95px;
   --max-content-width: 1400px;
   --border-radius-sm: 4px;
@@ -93,29 +67,24 @@
   --border-radius-xl: 40px;
   --border-radius-pill: 9999px;
 
-  /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.3);
   --shadow-accent: 0 0 20px hsla(var(--hue-accent), 65%, 60%, 0.3);
 
-  /* Glassmorphism */
   --glass-blur: 12px;
   --glass-border: 1px solid hsla(0, 0%, 100%, 0.1);
 
-  /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Responsive Tokens ────────────────────────────────────── */
 @media (max-width: 768px) {
   :root {
     --navbar-height: 80px;
   }
 }
 
-/* ── Reset ────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -124,13 +93,11 @@
   padding: 0;
 }
 
-/* ── Selection ───────────────────────────────────────────── */
 ::selection {
   background-color: hsla(var(--hue-accent), 65%, 60%, 0.3);
   color: var(--color-text-primary);
 }
 
-/* ── Typography & Base Styles ────────────────────────────── */
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -183,7 +150,6 @@ svg {
   max-width: 100%;
 }
 
-/* ── Form Elements Reset ──────────────────────────────────── */
 button,
 input,
 select,
@@ -202,7 +168,6 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
-/* ── Global Layout Utilities ──────────────────────────────── */
 .page-wrapper {
   padding-top: var(--navbar-height);
   min-height: 100vh;
@@ -214,7 +179,6 @@ a:focus-visible {
   padding: 0 var(--space-lg);
 }
 
-/* Glassmorphism Utility */
 .glass {
   background: var(--surface-glass);
   backdrop-filter: blur(var(--glass-blur));
@@ -223,7 +187,6 @@ a:focus-visible {
   box-shadow: var(--shadow-md);
 }
 
-/* Scrollbar Style */
 ::-webkit-scrollbar {
   width: 8px;
 }

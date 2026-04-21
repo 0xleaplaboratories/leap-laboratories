@@ -1,8 +1,3 @@
-/* ============================================================
-   HERO COMPONENT STYLES — HIGH-FIDELITY REFACTOR
-   Side-by-side Branding and engagement
-   ============================================================ */
-
 .hero {
   width: 100%;
   background-color: var(--color-bg-primary);
@@ -58,7 +53,6 @@
   transform: translateY(0vh);
 }
 
-/* ── Content Blocks ── */
 .headlineWrapper {
   flex: 1;
   display: flex;
@@ -101,7 +95,6 @@
   color: var(--color-bg-accent);
 }
 
-/* ── Auth Card ── */
 .authWrapper {
   flex: 1;
   display: flex;
@@ -344,10 +337,6 @@
   background-color: var(--color-btn-hover);
   box-shadow: var(--shadow-accent);
 }
-
-/* ════════════════════════════════════════════════════════════
-   RESPONSIVE OVERRIDES
-   ════════════════════════════════════════════════════════════ */
 
 @media (max-width: 1099px) {
   .hero {
