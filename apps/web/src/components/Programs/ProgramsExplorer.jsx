@@ -5,167 +5,135 @@ import ProgramsFileTree from './ProgramsFileTree';
 import ProgramsContent from './ProgramsContent';
 import styles from './Programs.module.css';
 
-const DEFAULT_LEFT_WIDTH_PERCENT = 30;
-const MIN_LEFT_WIDTH_PERCENT     = 15;
-const MAX_LEFT_WIDTH_PERCENT     = 60;
+const DEFAULT_WIDTH = 30;
+const MIN_WIDTH     = 15;
+const MAX_WIDTH     = 60;
+
+function ExplorerMobileBar({ isDrawerOpen, onToggle, show }) {
+  if (!show) return null;
+  return (
+    <div className={styles.mobileBar}>
+      <button className={styles.drawerToggle} onClick={onToggle}>
+        <span>{isDrawerOpen ? '✕ Close Menu' : '☰ Explore Programs'}</span>
+      </button>
+    </div>
+  );
+}
+
+function ExplorerSidebar({ children, width, isCollapsed, isMobile, isDrawerOpen }) {
+  const sidebarStyle = !isMobile 
+    ? (isCollapsed ? { width: '0%', overflow: 'hidden' } : { width: `${width}%` })
+    : {};
+    
+  return (
+    <aside 
+      className={`${styles.leftPane} ${isMobile && isDrawerOpen ? styles.leftPaneOpen : ''}`} 
+      style={sidebarStyle}
+    >
+      {children}
+    </aside>
+  );
+}
+
+function ResizableDivider({ isCollapsed, onStart, show }) {
+  if (!show) return null;
+  return (
+    <div
+      className={`${styles.divider} ${isCollapsed ? styles.dividerCollapsed : ''}`}
+      onMouseDown={onStart}
+      onTouchStart={onStart}
+      role="separator"
+      aria-label="Resize explorer sidebar"
+    />
+  );
+}
 
 export default function ProgramsExplorer({ programs }) {
   const [activeRootId,      setActiveRootId]     = useState('academy');
   const [openFolderIds,    setOpenFolderIds]    = useState(new Set());
   const [openTabs,         setOpenTabs]         = useState([]);
   const [activeTabId,      setActiveTabId]      = useState(null);
-  const [leftWidthPercent, setLeftWidthPercent] = useState(DEFAULT_LEFT_WIDTH_PERCENT);
+  const [leftWidth,        setLeftWidth]        = useState(DEFAULT_WIDTH);
   const [isLeftCollapsed,  setIsLeftCollapsed]  = useState(false);
-  const [draggingActive,   setDraggingActive]   = useState(false);
+  const [dragging,         setDragging]         = useState(false);
   const [isDrawerOpen,     setIsDrawerOpen]     = useState(false);
   const [isMobile,         setIsMobile]         = useState(false);
-  const [hasMounted,       setHasMounted]       = useState(false);
 
   const explorerRef = useRef(null);
-  const isDragging  = useRef(false);
 
   useEffect(() => {
-    setHasMounted(true);
     const handleResize = () => setIsMobile(window.innerWidth < 1100);
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleFolderToggle = useCallback((folderId) => {
-    setOpenFolderIds((prev) => {
+  const handleFolderToggle = useCallback((id) => {
+    setOpenFolderIds(prev => {
       const next = new Set(prev);
-      if (next.has(folderId)) {
-        next.delete(folderId);
-      } else {
-        next.add(folderId);
-      }
+      next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
   }, []);
 
   const handleLeafClick = useCallback((leaf) => {
-    const alreadyOpen = openTabs.some((tab) => tab.id === leaf.id);
-    if (alreadyOpen) {
-      setActiveTabId(leaf.id);
-    } else {
-      setOpenTabs((prev) => [...prev, { id: leaf.id, label: leaf.label, href: leaf.href }]);
-      setActiveTabId(leaf.id);
+    if (!openTabs.find(t => t.id === leaf.id)) {
+      setOpenTabs(prev => [...prev, { id: leaf.id, label: leaf.label, href: leaf.href }]);
     }
+    setActiveTabId(leaf.id);
     setIsDrawerOpen(false);
   }, [openTabs]);
 
-  const handleTabClose = useCallback((tabId) => {
-    setOpenTabs((prev) => {
-      const index   = prev.findIndex((t) => t.id === tabId);
-      const newTabs = prev.filter((t) => t.id !== tabId);
-
-      setActiveTabId((currentActiveId) => {
-        if (currentActiveId !== tabId) return currentActiveId;
-        if (newTabs.length === 0) return null;
-        const newIndex = Math.max(0, index - 1);
-        return newTabs[newIndex].id;
-      });
-
-      return newTabs;
+  const handleTabClose = useCallback((id) => {
+    setOpenTabs(prev => {
+      const index = prev.findIndex(t => t.id === id);
+      const nextTabs = prev.filter(t => t.id !== id);
+      if (activeTabId === id) {
+        setActiveTabId(nextTabs.length ? nextTabs[Math.max(0, index - 1)].id : null);
+      }
+      return nextTabs;
     });
-  }, []);
+  }, [activeTabId]);
 
-  const handleTabClick = useCallback((tabId) => {
-    setActiveTabId(tabId);
-  }, []);
-
-  const handleDividerStart = useCallback((e) => {
+  const handleDragStart = useCallback((e) => {
     const isTouch = e.type === 'touchstart';
-    const startX = isTouch ? e.touches[0].clientX : e.clientX;
-    const startY = isTouch ? e.touches[0].clientY : e.clientY;
-
     let hasMoved = false;
 
-    const onMove = (moveEvent) => {
-      if (moveEvent.cancelable) moveEvent.preventDefault();
+    const onMove = (me) => {
+      if (me.cancelable) me.preventDefault();
       hasMoved = true;
-      isDragging.current = true;
-      setDraggingActive(true);
-
-      if (!explorerRef.current) return;
-      const containerRect = explorerRef.current.getBoundingClientRect();
-      const currX = isTouch ? moveEvent.touches[0].clientX : moveEvent.clientX;
-      const currY = isTouch ? moveEvent.touches[0].clientY : moveEvent.clientY;
-
-      const isMobileNow = window.innerWidth < 1100;
-
-      if (isMobileNow) {
-        const rawPercent = ((currY - containerRect.top) / containerRect.height) * 100;
-        const clamped = Math.min(MAX_LEFT_WIDTH_PERCENT, Math.max(MIN_LEFT_WIDTH_PERCENT, rawPercent));
-        setIsLeftCollapsed(false);
-        setLeftWidthPercent(clamped);
-      } else {
-        const rawPercent = ((currX - containerRect.left) / containerRect.width) * 100;
-        const clamped = Math.min(MAX_LEFT_WIDTH_PERCENT, Math.max(MIN_LEFT_WIDTH_PERCENT, rawPercent));
-        setIsLeftCollapsed(false);
-        setLeftWidthPercent(clamped);
-      }
+      setDragging(true);
+      const rect = explorerRef.current.getBoundingClientRect();
+      const pos = isTouch ? me.touches[0] : me;
+      const raw = isMobile ? ((pos.clientY - rect.top) / rect.height) * 100 : ((pos.clientX - rect.left) / rect.width) * 100;
+      setLeftWidth(Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, raw)));
+      setIsLeftCollapsed(false);
     };
 
     const onEnd = () => {
-      if (isTouch) {
-        document.removeEventListener('touchmove', onMove);
-        document.removeEventListener('touchend', onEnd);
-      } else {
-        document.removeEventListener('mousemove', onMove);
-        document.removeEventListener('mouseup', onEnd);
-      }
-
-      setDraggingActive(false);
-      setTimeout(() => { isDragging.current = false; }, 0);
-      if (!hasMoved) {
-        setIsLeftCollapsed((prev) => !prev);
-      }
+      document.removeEventListener(isTouch ? 'touchmove' : 'mousemove', onMove);
+      document.removeEventListener(isTouch ? 'touchend' : 'mouseup', onEnd);
+      setDragging(false);
+      if (!hasMoved) setIsLeftCollapsed(v => !v);
     };
 
-    if (isTouch) {
-      document.addEventListener('touchmove', onMove, { passive: false });
-      document.addEventListener('touchend', onEnd);
-    } else {
-      document.addEventListener('mousemove', onMove);
-      document.addEventListener('mouseup', onEnd);
-    }
-  }, []);
+    document.addEventListener(isTouch ? 'touchmove' : 'mousemove', onMove, { passive: false });
+    document.addEventListener(isTouch ? 'touchend' : 'mouseup', onEnd);
+  }, [isMobile]);
 
   const activeRoot = programs.find(s => s.id === activeRootId);
-  const filteredPrograms = activeRoot ? activeRoot.children : [];
-
-  const explorerClassName = [
-    styles.explorer,
-    draggingActive ? styles.explorerDragging : '',
-    isDrawerOpen ? styles.explorerDrawerShowing : '',
-    'notranslate'
-  ].join(' ');
-
-  const leftStyle = !isMobile 
-    ? (isLeftCollapsed ? { width: '0%', overflow: 'hidden' } : { width: `${leftWidthPercent}%` })
-    : {};
 
   return (
-    <div className={explorerClassName} ref={explorerRef} translate="no">
-      <div className={`${styles.mobileBar} ${hasMounted && isMobile ? styles.showOnMobile : styles.hideAlways}`}>
-        <button 
-          className={styles.drawerToggle}
-          onClick={() => setIsDrawerOpen(prev => !prev)}
-        >
-            <span className={isDrawerOpen ? styles.hideAlways : ''}><span>☰ Explore Programs</span></span>
-            <span className={!isDrawerOpen ? styles.hideAlways : ''}><span>✕ Close Menu</span></span>
-        </button>
-      </div>
+    <div 
+      className={`${styles.explorer} ${dragging ? styles.explorerDragging : ''} ${isDrawerOpen ? styles.explorerDrawerShowing : ''}`} 
+      ref={explorerRef}
+      translate="no"
+    >
+      <ExplorerMobileBar isDrawerOpen={isDrawerOpen} onToggle={() => setIsDrawerOpen(v => !v)} show={isMobile} />
 
-      <div 
-        className={`${styles.leftPane} ${isMobile && isDrawerOpen ? styles.leftPaneOpen : ''}`} 
-        style={leftStyle}
-      >
+      <ExplorerSidebar width={leftWidth} isCollapsed={isLeftCollapsed} isMobile={isMobile} isDrawerOpen={isDrawerOpen}>
         <div className={styles.explorerBranding}><span>LEAP-LABORATORIES</span></div>
-
-        <div className={styles.rootTabs}>
+        <nav className={styles.rootTabs}>
           {programs.map(root => (
             <button
               key={root.id}
@@ -175,42 +143,32 @@ export default function ProgramsExplorer({ programs }) {
               <span>{root.label}</span>
             </button>
           ))}
-        </div>
-
+        </nav>
         <div className={styles.treeContainer}>
           <ProgramsFileTree
-            programs={filteredPrograms}
+            programs={activeRoot?.children || []}
             openFolderIds={openFolderIds}
             onFolderToggle={handleFolderToggle}
             onLeafClick={handleLeafClick}
             activeTabId={activeTabId}
           />
         </div>
-      </div>
+      </ExplorerSidebar>
 
-      <div
-        className={`${styles.divider} ${isLeftCollapsed ? styles.dividerCollapsed : ''} ${hasMounted && isMobile ? styles.hideAlways : styles.showOnDesktop}`}
-        onMouseDown={handleDividerStart}
-        onTouchStart={handleDividerStart}
-        title={isLeftCollapsed ? 'Click to expand file tree' : 'Drag to resize · Click to collapse'}
-        role="separator"
-        aria-orientation="vertical"
-        aria-label="Resize file tree"
-      />
+      <ResizableDivider isCollapsed={isLeftCollapsed} onStart={handleDragStart} show={!isMobile} />
 
-      <div className={styles.rightPane}>
+      <main className={styles.rightPane}>
         <ProgramsContent
           openTabs={openTabs}
           activeTabId={activeTabId}
-          onTabClick={handleTabClick}
+          onTabClick={id => setActiveTabId(id)}
           onTabClose={handleTabClose}
         />
-      </div>
+      </main>
 
-      <div 
-        className={`${styles.overlay} ${hasMounted && isMobile && isDrawerOpen ? styles.showOnMobile : styles.hideAlways}`} 
-        onClick={() => setIsDrawerOpen(false)}
-      />
+      {isMobile && isDrawerOpen && (
+        <div className={styles.overlay} onClick={() => setIsDrawerOpen(false)} />
+      )}
     </div>
   );
 }

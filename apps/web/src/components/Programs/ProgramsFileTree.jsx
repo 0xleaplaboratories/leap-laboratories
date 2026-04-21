@@ -3,101 +3,109 @@
 import Image from 'next/image';
 import styles from './Programs.module.css';
 
-function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
-  const isFolder   = node.id.includes('folder') ? true : (node.type === 'folder');
-  const isOpen     = isFolder && openFolderIds.has(node.id);
-  const isDisabled = node.meta?.disabled === true;
-  const isActive   = node.id === activeTabId;
+function TreeIcon({ isFolder }) {
+  const iconSrc = isFolder ? '/assets/icons/folder.svg' : '/assets/icons/file-markdown.svg';
+  return (
+    <Image
+      src={iconSrc}
+      alt={isFolder ? 'Folder' : 'File'}
+      width={14}
+      height={14}
+      className={styles.treeIcon}
+    />
+  );
+}
 
-  const indentStyle = { 
-    paddingLeft: `${depth * 24 + 16}px`,
-    '--depth': depth
-  };
-
-  if (isFolder) {
-    const folderIcon = isOpen ? node.meta?.iconOpen : node.meta?.iconClose;
-
-    return (
-      <div className={styles.treeFolder}>
-        <button
-          className={`${styles.treeRow} ${isDisabled ? styles.treeRowDisabled : ''} ${isActive ? styles.treeRowActive : ''}`}
-          style={indentStyle}
-          onClick={() => !isDisabled && onFolderToggle(node.id)}
-          disabled={isDisabled}
-          aria-expanded={isOpen}
-          type="button"
-        >
-          <span className={`${styles.treeArrow} ${isOpen ? styles.treeArrowOpen : ''}`}>
-            <span>▶</span>
-          </span>
-
-          {folderIcon && (
-            <Image
-              src={folderIcon}
-              alt=""
-              width={16}
-              height={16}
-              className={styles.treeIcon}
-            />
-          )}
-
-          <span className={styles.treeLabel}><span>{node.label}</span></span>
-        </button>
-
-        {isOpen && node.children?.map((child) => (
-          <TreeNode
-            key={child.id}
-            node={child}
-            depth={depth + 1}
-            openFolderIds={openFolderIds}
-            onFolderToggle={onFolderToggle}
-            onLeafClick={onLeafClick}
-            activeTabId={activeTabId}
-          />
-        ))}
-      </div>
-    );
-  }
-
+function TreeRow({ node, depth, isOpen, isActive, isDisabled, onToggle, onClick }) {
+  const isFolder = !!(node.id.includes('folder') || node.children);
+  
   return (
     <button
-      className={`${styles.treeRow} ${isDisabled ? styles.treeRowDisabled : ''} ${isActive ? styles.treeRowActive : ''}`}
-      style={indentStyle}
-      onClick={() => !isDisabled && onLeafClick(node)}
+      className={`${styles.treeRow} ${isActive ? styles.treeRowActive : ''} ${isDisabled ? styles.treeRowDisabled : ''}`}
+      onClick={isFolder ? onToggle : onClick}
+      style={{ paddingLeft: `${depth * 16 + 12}px` }}
       disabled={isDisabled}
-      type="button"
+      aria-expanded={isFolder ? isOpen : undefined}
     >
-      {node.meta?.icon && (
-        <Image
-          src={node.meta.icon}
-          alt=""
-          width={16}
-          height={16}
-          className={styles.treeIcon}
-        />
+      {isFolder && (
+        <span className={`${styles.treeArrow} ${isOpen ? styles.treeArrowOpen : ''}`} aria-hidden="true">
+          ▶
+        </span>
       )}
-
-      <span className={styles.treeLabel}><span>{node.label}</span></span>
+      <TreeIcon isFolder={isFolder} />
+      <span className={styles.treeLabel}>{node.label}</span>
     </button>
+  );
+}
+
+function TreeBranch({ node, depth, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
+  const isFolder = !!(node.id.includes('folder') || node.children);
+  const isOpen = openFolderIds.has(node.id);
+  const isActive = node.id === activeTabId;
+  const isDisabled = node.disabled;
+
+  const handleToggle = (e) => {
+    e.stopPropagation();
+    if (!isDisabled) onFolderToggle(node.id);
+  };
+
+  const handleLeafClick = (e) => {
+    e.stopPropagation();
+    if (!isDisabled) onLeafClick(node);
+  };
+
+  return (
+    <li className={styles.treeNode}>
+      <TreeRow 
+        node={node}
+        depth={depth}
+        isOpen={isOpen}
+        isActive={isActive}
+        isDisabled={isDisabled}
+        onToggle={handleToggle}
+        onClick={handleLeafClick}
+      />
+
+      {isFolder && isOpen && node.children && (
+        <ul className={styles.treeChildren}>
+          {node.children.map((child) => (
+            <TreeBranch
+              key={child.id}
+              node={child}
+              depth={depth + 1}
+              openFolderIds={openFolderIds}
+              onFolderToggle={onFolderToggle}
+              onLeafClick={onLeafClick}
+              activeTabId={activeTabId}
+            />
+          ))}
+        </ul>
+      )}
+    </li>
   );
 }
 
 export default function ProgramsFileTree({ programs, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
   return (
-    <div className={styles.fileTree}>
+    <nav className={styles.fileTree} aria-label="Program documentation explorer">
+      <header className={styles.fileTreeHeader}>
+        <h3 className={styles.fileTreeTitle}>EXPLORER</h3>
+      </header>
       <div className={styles.fileTreeBody}>
-        {programs.map((rootNode) => (
-          <TreeNode
-            key={rootNode.id}
-            node={rootNode}
-            depth={0}
-            openFolderIds={openFolderIds}
-            onFolderToggle={onFolderToggle}
-            onLeafClick={onLeafClick}
-            activeTabId={activeTabId}
-          />
-        ))}
+        <ul className={styles.rootTreeList}>
+          {programs.map((root) => (
+            <TreeBranch
+              key={root.id}
+              node={root}
+              depth={0}
+              openFolderIds={openFolderIds}
+              onFolderToggle={onFolderToggle}
+              onLeafClick={onLeafClick}
+              activeTabId={activeTabId}
+            />
+          ))}
+        </ul>
       </div>
-    </div>
+    </nav>
   );
 }
