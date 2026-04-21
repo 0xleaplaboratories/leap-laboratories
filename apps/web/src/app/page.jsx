@@ -9,15 +9,10 @@ export default function Home() {
   return (
     <main className={styles.pageWrapper}> 
       <Navbar />
-      
       <HomeSection />
-
       <Hero />
-
       <Programs />
-
       <Contributors />
-
       <section id="contact" className={`${styles.section} ${styles.bgSecondary}`}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Contact</h2>

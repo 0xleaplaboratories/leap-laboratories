@@ -22,18 +22,12 @@ export default function ContributorsDisplay({ title, tagline, profiles }) {
   return (
     <section className={styles.section} id="contributors">
       <div className={styles.wrapper}>
-        
-        {/* ════════════════════════════════════════════════════
-            DESKTOP LAYOUT (≥ 1024px)
-            ════════════════════════════════════════════════════ */}
         <div className={styles.desktopLayout}>
-          {/* Left Zone: Sticky header */}
           <div className={styles.leftZone}>
             <h2 className={styles.title}>{title}</h2>
             <p className={styles.tagline}>{tagline}</p>
           </div>
 
-          {/* Right Zone: Zig-zag cards */}
           <div className={styles.rightZone}>
             {profiles.map((profile, index) => (
               <div key={index} className={styles.cardWrapper}>
@@ -43,9 +37,6 @@ export default function ContributorsDisplay({ title, tagline, profiles }) {
           </div>
         </div>
 
-        {/* ════════════════════════════════════════════════════
-            MOBILE LAYOUT (< 1024px)
-            ════════════════════════════════════════════════════ */}
         <div className={styles.mobileLayout}>
           <div className={styles.mobileHeader}>
             <h2 className={styles.title}>{title}</h2>
@@ -53,7 +44,6 @@ export default function ContributorsDisplay({ title, tagline, profiles }) {
           </div>
 
           <div className={styles.carouselWrapper}>
-            {/* Prev Button */}
             <button 
               className={styles.navButton} 
               onClick={goToPrev}
@@ -62,7 +52,6 @@ export default function ContributorsDisplay({ title, tagline, profiles }) {
               ‹
             </button>
 
-            {/* Carousel Viewport */}
             <div className={styles.carouselViewport}>
               {profiles.map((profile, index) => (
                 <div 
@@ -74,7 +63,6 @@ export default function ContributorsDisplay({ title, tagline, profiles }) {
               ))}
             </div>
 
-            {/* Next Button */}
             <button 
               className={styles.navButton} 
               onClick={goToNext}
@@ -84,7 +72,6 @@ export default function ContributorsDisplay({ title, tagline, profiles }) {
             </button>
           </div>
 
-          {/* Indicators */}
           <div className={styles.dotIndicators}>
             {profiles.map((_, index) => (
               <button
@@ -96,7 +83,6 @@ export default function ContributorsDisplay({ title, tagline, profiles }) {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

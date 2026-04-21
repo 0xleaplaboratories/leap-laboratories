@@ -4,15 +4,13 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getJSONContent } from '@/lib/content.shared';
+import { getJSONContent } from '@/lib/content.server';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [content, setContent] = useState(null);
-  
-  // Smart Scroll state
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -24,11 +22,9 @@ export default function Navbar() {
     loadContent();
   }, []);
 
-  // Strict Smart Scroll & Auto-Hide logic
   useEffect(() => {
     let idleTimer;
 
-    // Lock visibility and exit if mobile menu is open
     if (isMobileMenuOpen) {
       setIsVisible(true);
       return;
@@ -36,7 +32,6 @@ export default function Navbar() {
 
     const hideNavbar = () => {
       const currentScrollY = window.scrollY;
-      // Only auto-hide if we are past the 'Home safe zone' (top 50% of viewport)
       if (currentScrollY > window.innerHeight * 0.5) {
         setIsVisible(false);
       }
@@ -44,7 +39,6 @@ export default function Navbar() {
 
     const resetIdleTimer = () => {
       if (idleTimer) clearTimeout(idleTimer);
-      // Auto-hide after 2 seconds of inactivity
       idleTimer = setTimeout(hideNavbar, 2000);
     };
 
@@ -52,7 +46,6 @@ export default function Navbar() {
       const currentScrollY = window.scrollY;
       const homeThreshold = window.innerHeight * 0.5;
 
-      // Case 1: Within top half of home section -> Always visible
       if (currentScrollY < homeThreshold) {
         setIsVisible(true);
         setLastScrollY(currentScrollY);
@@ -60,11 +53,9 @@ export default function Navbar() {
         return;
       }
 
-      // Case 2: Scrolling down -> Hide
       if (currentScrollY > lastScrollY) {
         setIsVisible(false);
       } 
-      // Case 3: Scrolling up -> Show
       else if (currentScrollY < lastScrollY) {
         setIsVisible(true);
       }
@@ -75,7 +66,6 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Initial state check
     if (window.scrollY < window.innerHeight * 0.5) {
       setIsVisible(true);
     }
@@ -87,7 +77,6 @@ export default function Navbar() {
     };
   }, [lastScrollY, isMobileMenuOpen]);
 
-  // Body scroll lock
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -112,10 +101,26 @@ export default function Navbar() {
   };
 
   const handleAuthClick = (e) => {
-    // If we're on the home page, prevent routing and focus the hero card
     if (pathname === '/') {
       e.preventDefault();
       window.dispatchEvent(new CustomEvent('leap:focus-auth'));
+    }
+    closeMenu();
+  };
+
+  const handleLogoClick = (e) => {
+    if (pathname === '/') {
+      e.preventDefault();
+      const targetId = brand?.href?.split('#')[1];
+      const targetElement = targetId ? document.getElementById(targetId) : null;
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      window.history.pushState(null, '', '/');
     }
     closeMenu();
   };
@@ -130,10 +135,12 @@ export default function Navbar() {
       onClick={() => isMobileMenuOpen && closeMenu()}
     >
       <div className={styles.navbar__container}>
-
-        {/* ── LEFT ZONE: Logo ────────────────────────────────── */}
         <div className={styles.navbar__logo}>
-          <Link href={brand.href} aria-label={`${brand.name} home`}>
+          <Link 
+            href={brand.href} 
+            aria-label={`${brand.name} home`}
+            onClick={handleLogoClick}
+          >
             <Image
               src={`/${brand.logo}`}
               alt={brand.name}
@@ -145,7 +152,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* ── CENTER ZONE: Navigation links (desktop) ────────── */}
         <nav className={styles.navbar__nav} aria-label="Main navigation">
           <ul className={styles['navbar__nav-list']}>
             {navLinks.map((link) => (
@@ -162,7 +168,6 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* ── RIGHT ZONE: Login button (desktop) ─────────────── */}
         <div className={styles.navbar__actions}>
           <Link 
             href={actions.login.href} 
@@ -173,7 +178,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* ── MOBILE: Hamburger toggle ────────────────────────── */}
         <button
           className={styles.navbar__hamburger}
           onClick={(e) => {
@@ -190,7 +194,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* ── MOBILE: Drawer Overlay & Menu ───────────────────── */}
       <div 
         className={`${styles.navbar__overlay} ${isMobileMenuOpen ? styles['navbar__overlay--open'] : ''}`}
         onClick={closeMenu}

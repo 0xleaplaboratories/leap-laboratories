@@ -4,11 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './Contributors.module.css';
 
-/**
- * SOCIAL_ICON_MAP
- * Maps platform keys from the JSON to SVG icon paths and labels.
- * If a platform key is not here, it won't be rendered.
- */
 const SOCIAL_ICON_MAP = {
   github: {
     label: 'GitHub',
@@ -38,7 +33,6 @@ export default function ContributorCard({ profile }) {
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef(null);
 
-  // Check if image is already broken on mount (e.g. on refresh)
   useEffect(() => {
     const timer = setTimeout(() => {
       if (imgRef.current && imgRef.current.complete) {
@@ -46,7 +40,7 @@ export default function ContributorCard({ profile }) {
           setHasError(true);
         }
       }
-    }, 50); // Small delay to allow browser evaluation
+    }, 50);
 
     return () => clearTimeout(timer);
   }, []);
@@ -64,9 +58,7 @@ export default function ContributorCard({ profile }) {
 
   return (
     <article className={styles.card}>
-      {/* ── Photo ──────────────────────────────────────────── */}
       <div className={styles.cardPhoto}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={imgRef}
           key={finalSrc}
@@ -78,11 +70,9 @@ export default function ContributorCard({ profile }) {
         />
       </div>
 
-      {/* ── Body ───────────────────────────────────────────── */}
       <div className={styles.cardBody}>
         <h3 className={styles.cardName}>{profile.name}</h3>
 
-        {/* Expertise tags */}
         <div className={styles.cardExpertise}>
           {profile.expertise.map((skill, index) => (
             <span key={index} className={styles.tag}>
@@ -92,7 +82,6 @@ export default function ContributorCard({ profile }) {
         </div>
       </div>
 
-      {/* ── Social Media links (Fixed Container) ───────────── */}
       {hasSocialMedia && (
         <div className={styles.cardSocial}>
           {Object.entries(profile.socialMedia).map(([platform, url]) => {

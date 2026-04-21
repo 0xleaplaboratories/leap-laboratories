@@ -1,21 +1,16 @@
 'use client';
 
-// ─── Why 'use client'? ────────────────────────────────────────
-// This component uses useState and mouse event handlers (for the
-// resizable divider). Both require running in the browser.
-
 import { useState, useRef, useCallback, useEffect } from 'react';
 import ProgramsFileTree from './ProgramsFileTree';
 import ProgramsContent from './ProgramsContent';
 import styles from './Programs.module.css';
 
-// ─── Constants  ────────────────────────────────────────────────
-const DEFAULT_LEFT_WIDTH_PERCENT = 30;  // Left pane starts at 30% of total width
-const MIN_LEFT_WIDTH_PERCENT     = 15;  // Drag cannot go narrower than 15%
-const MAX_LEFT_WIDTH_PERCENT     = 60;  // Drag cannot go wider than 60%
+const DEFAULT_LEFT_WIDTH_PERCENT = 30;
+const MIN_LEFT_WIDTH_PERCENT     = 15;
+const MAX_LEFT_WIDTH_PERCENT     = 60;
 
 export default function ProgramsExplorer({ programs }) {
-  const [activeRootId,      setActiveRootId]     = useState('academy'); // Default to Academy
+  const [activeRootId,      setActiveRootId]     = useState('academy');
   const [openFolderIds,    setOpenFolderIds]    = useState(new Set());
   const [openTabs,         setOpenTabs]         = useState([]);
   const [activeTabId,      setActiveTabId]      = useState(null);
@@ -24,21 +19,19 @@ export default function ProgramsExplorer({ programs }) {
   const [draggingActive,   setDraggingActive]   = useState(false);
   const [isDrawerOpen,     setIsDrawerOpen]     = useState(false);
   const [isMobile,         setIsMobile]         = useState(false);
-  const [hasMounted,       setHasMounted]       = useState(false); // Fix hydration crash
+  const [hasMounted,       setHasMounted]       = useState(false);
 
   const explorerRef = useRef(null);
   const isDragging  = useRef(false);
 
-  // ── Effect: Responsive Detection ──────────────────────────────
   useEffect(() => {
     setHasMounted(true);
     const handleResize = () => setIsMobile(window.innerWidth < 1100);
-    handleResize(); // Initial
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // ── Handler: folder toggle ────────────────────────────────────
   const handleFolderToggle = useCallback((folderId) => {
     setOpenFolderIds((prev) => {
       const next = new Set(prev);
@@ -51,7 +44,6 @@ export default function ProgramsExplorer({ programs }) {
     });
   }, []);
 
-  // ── Handler: leaf click ───────────────────────────────────────
   const handleLeafClick = useCallback((leaf) => {
     const alreadyOpen = openTabs.some((tab) => tab.id === leaf.id);
     if (alreadyOpen) {
@@ -60,11 +52,9 @@ export default function ProgramsExplorer({ programs }) {
       setOpenTabs((prev) => [...prev, { id: leaf.id, label: leaf.label, href: leaf.href }]);
       setActiveTabId(leaf.id);
     }
-    // Mobile: Close drawer on selection
     setIsDrawerOpen(false);
   }, [openTabs]);
 
-  // ── Handler: tab close ────────────────────────────────────────
   const handleTabClose = useCallback((tabId) => {
     setOpenTabs((prev) => {
       const index   = prev.findIndex((t) => t.id === tabId);
@@ -81,14 +71,11 @@ export default function ProgramsExplorer({ programs }) {
     });
   }, []);
 
-  // ── Handler: tab click ────────────────────────────────────────
   const handleTabClick = useCallback((tabId) => {
     setActiveTabId(tabId);
   }, []);
 
-  // ── Handler: divider drag (supports Touch & Mouse) ────────────────
   const handleDividerStart = useCallback((e) => {
-    // We only prevent default if we're actually dragging to allow scroll
     const isTouch = e.type === 'touchstart';
     const startX = isTouch ? e.touches[0].clientX : e.clientX;
     const startY = isTouch ? e.touches[0].clientY : e.clientY;
@@ -146,12 +133,6 @@ export default function ProgramsExplorer({ programs }) {
     }
   }, []);
 
-
-
-  // ── Computed values ──────────────────────────────────────────
-
-  
-  // Filter the programs tree based on the active root tab
   const activeRoot = programs.find(s => s.id === activeRootId);
   const filteredPrograms = activeRoot ? activeRoot.children : [];
 
@@ -159,7 +140,7 @@ export default function ProgramsExplorer({ programs }) {
     styles.explorer,
     draggingActive ? styles.explorerDragging : '',
     isDrawerOpen ? styles.explorerDrawerShowing : '',
-    'notranslate' // Legacy support for older browsers
+    'notranslate'
   ].join(' ');
 
   const leftStyle = !isMobile 
@@ -168,8 +149,6 @@ export default function ProgramsExplorer({ programs }) {
 
   return (
     <div className={explorerClassName} ref={explorerRef} translate="no">
-      
-      {/* ── Mobile Control Bar ─────────────────────────────── */}
       <div className={`${styles.mobileBar} ${hasMounted && isMobile ? styles.showOnMobile : styles.hideAlways}`}>
         <button 
           className={styles.drawerToggle}
@@ -180,15 +159,12 @@ export default function ProgramsExplorer({ programs }) {
         </button>
       </div>
 
-      {/* ── Left pane: file tree (Mobile: Drawer) ─────────── */}
       <div 
         className={`${styles.leftPane} ${isMobile && isDrawerOpen ? styles.leftPaneOpen : ''}`} 
         style={leftStyle}
       >
-
         <div className={styles.explorerBranding}><span>LEAP-LABORATORIES</span></div>
 
-        {/* Root Tabs */}
         <div className={styles.rootTabs}>
           {programs.map(root => (
             <button
@@ -212,7 +188,6 @@ export default function ProgramsExplorer({ programs }) {
         </div>
       </div>
 
-      {/* ── Divider (Desktop Only) ────────────────────────── */}
       <div
         className={`${styles.divider} ${isLeftCollapsed ? styles.dividerCollapsed : ''} ${hasMounted && isMobile ? styles.hideAlways : styles.showOnDesktop}`}
         onMouseDown={handleDividerStart}
@@ -223,7 +198,6 @@ export default function ProgramsExplorer({ programs }) {
         aria-label="Resize file tree"
       />
 
-      {/* ── Right pane: content tabs ───────────────────────── */}
       <div className={styles.rightPane}>
         <ProgramsContent
           openTabs={openTabs}
@@ -233,7 +207,6 @@ export default function ProgramsExplorer({ programs }) {
         />
       </div>
 
-      {/* Drawer Overlay (Mobile) */}
       <div 
         className={`${styles.overlay} ${hasMounted && isMobile && isDrawerOpen ? styles.showOnMobile : styles.hideAlways}`} 
         onClick={() => setIsDrawerOpen(false)}

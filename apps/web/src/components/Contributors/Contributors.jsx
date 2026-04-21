@@ -1,10 +1,6 @@
-import { getJSONContent } from '@/lib/content.shared';
+import { getJSONContent } from '@/lib/content.server';
 import ContributorsDisplay from './ContributorsDisplay';
 
-/**
- * Contributors (Server Component)
- * Responsible for data fetching and passing props to the Client Component.
- */
 export default async function Contributors() {
   const content = await getJSONContent('contributors/contributors');
 

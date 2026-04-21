@@ -3,10 +3,6 @@
 import { useState, useEffect } from 'react';
 import styles from './Hero.module.css';
 
-/**
- * HeroHeadline: Cycles through phrases with a typewriting effect.
- * Handles specialized styling for {?} and </> markers.
- */
 export default function HeroHeadline({ phrases }) {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
@@ -17,7 +13,6 @@ export default function HeroHeadline({ phrases }) {
 
   const currentFullPhrase = phrases[currentPhraseIndex];
 
-  // Mobile detection
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 1100);
     checkMobile();
@@ -29,23 +24,20 @@ export default function HeroHeadline({ phrases }) {
     let timeout;
 
     if (isMobile) {
-      // Mobile FADE transition logic
       const handleMobileTransition = () => {
-        setIsFading(true); // Start fade out
+        setIsFading(true);
         
         timeout = setTimeout(() => {
           setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
           setDisplayText(phrases[(currentPhraseIndex + 1) % phrases.length]);
-          setIsFading(false); // Start fade in
-        }, 500); // Wait for fade out duration
+          setIsFading(false);
+        }, 500);
       };
 
-      // Set initial text if empty
       if (displayText === '') setDisplayText(phrases[0]);
 
-      timeout = setTimeout(handleMobileTransition, 3000); // 3s per phrase
+      timeout = setTimeout(handleMobileTransition, 3000);
     } else {
-      // Desktop TYPEWRITER logic
       const handleTyping = () => {
         if (!isDeleting) {
           const nextText = currentFullPhrase.substring(0, displayText.length + 1);
@@ -78,9 +70,6 @@ export default function HeroHeadline({ phrases }) {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, phrases, currentPhraseIndex, currentFullPhrase, typingSpeed, isMobile]);
 
-  /**
-   * helper to render themed spans for special markers
-   */
   const renderThemedText = (text) => {
     const isAcademy = text.startsWith('{?}');
     const isLabs = text.startsWith('</>');

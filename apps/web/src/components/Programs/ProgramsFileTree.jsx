@@ -1,27 +1,19 @@
 'use client';
 
-// ─── Why 'use client'? ────────────────────────────────────────
-// This component renders interactive elements (clickable rows).
-// Even though it has no useState, it must be a Client Component
-// because it receives event handler functions as props.
-
 import Image from 'next/image';
 import styles from './Programs.module.css';
 
-// ─── TreeNode (recursive sub-component) ──────────────────────
 function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
-  const isFolder   = node.id.includes('folder') ? true : (node.type === 'folder'); // Robust check
+  const isFolder   = node.id.includes('folder') ? true : (node.type === 'folder');
   const isOpen     = isFolder && openFolderIds.has(node.id);
   const isDisabled = node.meta?.disabled === true;
   const isActive   = node.id === activeTabId;
 
-  // Indentation: each depth level adds 24px of left padding.
   const indentStyle = { 
     paddingLeft: `${depth * 24 + 16}px`,
     '--depth': depth
   };
 
-  // ── Folder node ──────────────────────────────────────────────
   if (isFolder) {
     const folderIcon = isOpen ? node.meta?.iconOpen : node.meta?.iconClose;
 
@@ -67,7 +59,6 @@ function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, act
     );
   }
 
-  // ── Leaf node ────────────────────────────────────────────────
   return (
     <button
       className={`${styles.treeRow} ${isDisabled ? styles.treeRowDisabled : ''} ${isActive ? styles.treeRowActive : ''}`}

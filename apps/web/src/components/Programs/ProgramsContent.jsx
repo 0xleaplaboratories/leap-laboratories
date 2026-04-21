@@ -1,16 +1,36 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { fetchProgramContent } from '@/lib/programActions';
+import { fetchProgramContent } from '@/lib/content.server';
 import styles from './Programs.module.css';
 
 export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onTabClose }) {
-  // contentCache stores fetched markdown objects by tab id.
-  // Shape: { [tabId]: { status: 'loading' | 'success' | 'error', metadata: object, content: string } }
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef(null);
+
   const contentCache = useRef({});
   const [, forceUpdate] = useState(0);
   const triggerRerender = () => forceUpdate((n) => n + 1);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!containerRef.current) return;
+
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen().catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
 
   useEffect(() => {
     if (!activeTabId) return;
@@ -82,26 +102,71 @@ export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onT
         })}
       </div>
 
-      <div className={styles.contentPanel} role="tabpanel">
-        <div className={`${styles.contentLoading} ${activeCache?.status === 'loading' ? '' : styles.hideAlways}`}>
-          <span><span>Loading document...</span></span>
+      <section 
+        ref={containerRef}
+        className={`${styles.paneStage} ${isFullscreen ? styles.contentPanelFullscreen : ''}`}
+      >
+        <div 
+          className={styles.contentPanel} 
+          role="tabpanel"
+        >
+          <div className={`${styles.contentLoading} ${activeCache?.status === 'loading' ? '' : styles.hideAlways}`}>
+            <span>Loading scientific brief...</span>
+          </div>
+
+          <div className={`${styles.contentError} ${activeCache?.status === 'error' ? '' : styles.hideAlways}`}>
+            <p><span>⚠️ DOCUMENTATION RETRIEVAL FAILED</span></p>
+            <p className={styles.contentErrorHint}>
+              <span>The requested program brief is unavailable or corrupted.</span>
+            </p>
+          </div>
+
+          <article className={`${activeCache?.status === 'success' ? '' : styles.hideAlways}`}>
+            {activeCache?.metadata?.banner && (
+              <header className={styles.docHeader}>
+                <div className={styles.docBannerWrapper}>
+                  <img 
+                    src={activeCache.metadata.banner} 
+                    alt="Program Header" 
+                    className={styles.docBannerImg} 
+                  />
+                  {activeCache?.metadata?.logo && (
+                    <div className={styles.docLogoWrapper}>
+                      <img src={activeCache.metadata.logo} alt="Logo" className={styles.docLogo} />
+                    </div>
+                  )}
+                </div>
+              </header>
+            )}
+
+            <div 
+              className={styles.markdownBody}
+              dangerouslySetInnerHTML={{ __html: activeCache?.content || '' }} 
+            />
+          </article>
+
+          <div className={`${styles.contentLoading} ${(!activeCache && activeTabId) ? '' : styles.hideAlways}`}>
+            <span>Preparing visualization stage...</span>
+          </div>
         </div>
 
-        <div className={`${styles.contentError} ${activeCache?.status === 'error' ? '' : styles.hideAlways}`}>
-          <p><span>⚠️ Could not load content for this program.</span></p>
-          <p className={styles.contentErrorHint}>
-            <span>The document might be missing or corrupted.</span>
-          </p>
-        </div>
-
-        <div className={`${styles.markdownBody} ${activeCache?.status === 'success' ? '' : styles.hideAlways}`}>
-          <ReactMarkdown>{activeCache?.content || ''}</ReactMarkdown>
-        </div>
-
-        <div className={`${styles.contentLoading} ${(!activeCache && activeTabId) ? '' : styles.hideAlways}`}>
-          <span><span>Preparing content...</span></span>
-        </div>
-      </div>
+        <button
+          className={`${styles.fullscreenBtn} ${!isFullscreen ? styles.pulseAnimation : ''}`}
+          onClick={toggleFullscreen}
+          aria-label={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+          title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+        >
+          {isFullscreen ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 14h6m0 0v6m0-6L3 21M20 10h-6m0 0V4m0 6l7-7" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 3h6m0 0v6m0-6L14 10M9 21H3m0 0v-6m0 6l7-7" />
+            </svg>
+          )}
+        </button>
+      </section>
     </div>
   );
 }

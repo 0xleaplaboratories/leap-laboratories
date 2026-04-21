@@ -1,4 +1,4 @@
-import { getJSONContent } from "@/lib/content.shared";
+import { getJSONContent } from "@/lib/content.server";
 import styles from "./Home.module.css";
 
 export default async function HomeSection() {
@@ -9,7 +9,6 @@ export default async function HomeSection() {
 
   return (
     <section id="home-intro" className={styles.home}>
-      {/* Dynamic Branding Background */}
       {background && (
         <div 
           className={styles.background} 
@@ -18,17 +17,14 @@ export default async function HomeSection() {
       )}
 
       <div className={styles.container}>
-        {/* Subtle "We are" pin */}
         <div className={styles.badge}>
           <span>We are</span>
         </div>
 
-        {/* Large Maximalist Headline */}
         <h2 className={styles.headline}>
           {headline}
         </h2>
 
-        {/* Balanced Description */}
         <div className={styles.descriptionWrapper}>
           <p className={styles.description}>
             {description}

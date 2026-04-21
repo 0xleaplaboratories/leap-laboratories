@@ -4,9 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from './Hero.module.css';
 
-/**
- * RoleSelector: Renders a dropdown to pick a user role within the active app.
- */
 function RoleSelector({ roles, selectedRole, onRoleChange }) {
   return (
     <div className={styles.roleWrapper}>
@@ -29,14 +26,10 @@ function RoleSelector({ roles, selectedRole, onRoleChange }) {
   );
 }
 
-/**
- * AuthProviders: Renders OAuth buttons and Email input/flow logic based on JSON data.
- */
 function AuthProviders({ providers, flows, activeFlow, onFlowChange, emailRef }) {
   return (
     <div className={styles.authProviders}>
       {providers.map((provider, index) => {
-        // OAuth Button
         if (provider.type === 'oauth') {
           return (
             <button
@@ -62,7 +55,6 @@ function AuthProviders({ providers, flows, activeFlow, onFlowChange, emailRef })
           );
         }
 
-        // Email / Password-less block
         if (provider.type === 'email') {
           const hasPrevious = index > 0;
           return (
@@ -103,9 +95,6 @@ function AuthProviders({ providers, flows, activeFlow, onFlowChange, emailRef })
   );
 }
 
-/**
- * HeroAuthCard: The main interactive container for the Hero section's authentication logic.
- */
 export default function HeroAuthCard({ apps }) {
   const [activeAppId, setActiveAppId] = useState(apps[0].id);
   const [selectedRole, setSelectedRole] = useState(apps[0].roles[0].value);
@@ -136,7 +125,6 @@ export default function HeroAuthCard({ apps }) {
 
   return (
     <div className={styles.authCard}>
-      {/* ── App Tabs ───────────────────────────────────────── */}
       <div className={styles.tabs} role="tablist">
         {apps.map((app) => (
           <button
@@ -152,7 +140,6 @@ export default function HeroAuthCard({ apps }) {
         ))}
       </div>
 
-      {/* ── Tab Panel ──────────────────────────────────────── */}
       <div
         role="tabpanel"
         aria-label={`${activeApp.label} authentication form`}
@@ -177,4 +164,3 @@ export default function HeroAuthCard({ apps }) {
     </div>
   );
 }
-

@@ -1,9 +1,11 @@
 import { JetBrains_Mono } from 'next/font/google';
+import 'katex/dist/katex.min.css';
+import 'highlight.js/styles/atom-one-dark.css';
 import './globals.css';
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['400', '700', '800'],
   variable: '--font-primary',
   display: 'swap',
 });
@@ -12,6 +14,9 @@ export const metadata = {
   title: 'Leap Laboratories',
   description: 'Leap Academy and Leap Labs — learning, research, and development.',
   google: 'notranslate',
+  icons: {
+    icon: '/logo-square.png',
+  },
 };
 
 export default function RootLayout({ children }) {
