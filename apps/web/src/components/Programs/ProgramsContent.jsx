@@ -6,7 +6,9 @@ import styles from './Programs.module.css';
 
 export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onTabClose }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
   const containerRef = useRef(null);
+  const contentPanelRef = useRef(null);
 
   const contentCache = useRef({});
   const [, forceUpdate] = useState(0);
@@ -34,29 +36,52 @@ export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onT
 
   useEffect(() => {
     if (!activeTabId) return;
+    
+    setCurrentPage(0);
+
     if (contentCache.current[activeTabId]) return;
 
     const activeTab = openTabs.find((t) => t.id === activeTabId);
     if (!activeTab?.href) return;
 
-    contentCache.current[activeTabId] = { status: 'loading', metadata: null, content: null };
+    contentCache.current[activeTabId] = { status: 'loading', metadata: null, content: null, pageBlocks: [] };
     triggerRerender();
 
     fetchProgramContent(activeTab.href)
       .then((data) => {
-        if (data && data.content) {
-          contentCache.current[activeTabId] = { status: 'success', metadata: data.metadata, content: data.content };
+        if (data && data.pageBlocks) {
+          contentCache.current[activeTabId] = { 
+            status: 'success', 
+            metadata: data.metadata, 
+            content: data.content,
+            pageBlocks: data.pageBlocks
+          };
         } else {
-          contentCache.current[activeTabId] = { status: 'error', metadata: null, content: null };
+          contentCache.current[activeTabId] = { status: 'error', metadata: null, content: null, pageBlocks: [] };
         }
         triggerRerender();
       })
       .catch((error) => {
         console.error('Failed to fetch program content:', error);
-        contentCache.current[activeTabId] = { status: 'error', metadata: null, content: null };
+        contentCache.current[activeTabId] = { status: 'error', metadata: null, content: null, pageBlocks: [] };
         triggerRerender();
       });
   }, [activeTabId, openTabs]);
+
+  const goToNextPage = () => {
+    const activeCache = contentCache.current[activeTabId];
+    if (currentPage < activeCache.pageBlocks.length - 1) {
+      setCurrentPage(prev => prev + 1);
+      contentPanelRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(prev => prev - 1);
+      contentPanelRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   if (openTabs.length === 0) {
     return (
@@ -69,6 +94,7 @@ export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onT
   }
 
   const activeCache = activeTabId ? contentCache.current[activeTabId] : null;
+  const hasMultiplePages = activeCache?.pageBlocks?.length > 1;
 
   return (
     <div className={styles.content}>
@@ -107,6 +133,7 @@ export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onT
         className={`${styles.paneStage} ${isFullscreen ? styles.contentPanelFullscreen : ''}`}
       >
         <div 
+          ref={contentPanelRef}
           className={styles.contentPanel} 
           role="tabpanel"
         >
@@ -121,58 +148,57 @@ export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onT
             </p>
           </div>
 
-            <article className={`${activeCache?.status === 'success' ? '' : styles.hideAlways}`}>
-              {activeCache?.metadata?.banner && (
-                <header className={styles.docHeader}>
-                  <div className={styles.docBannerWrapper}>
-                    <img 
-                      src={activeCache.metadata.banner} 
-                      alt="Program Header" 
-                      className={styles.docBannerImg} 
-                    />
-                    {activeCache?.metadata?.logo && (
-                      <div className={styles.docLogoWrapper}>
-                        <img src={activeCache.metadata.logo} alt="Logo" className={styles.docLogo} />
-                      </div>
-                    )}
-                  </div>
-                </header>
-              )}
-
-              {(activeCache?.metadata?.['teacher resources'] || activeCache?.metadata?.page) && (
-                <div className={styles.docActions}>
-                  {activeCache.metadata['teacher resources'] && (
-                    <a 
-                      href={activeCache.metadata['teacher resources']} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={styles.docResourceBtn}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                      </svg>
-                      <span>Teacher Resources</span>
-                    </a>
-                  )}
-                  {activeCache.metadata.page && (
-                    <div className={styles.docPageBadge}>
-                      <span>Page {activeCache.metadata.page}</span>
+          <article className={`${activeCache?.status === 'success' ? '' : styles.hideAlways}`}>
+            {currentPage === 0 && activeCache?.metadata?.banner && (
+              <header className={styles.docHeader}>
+                <div className={styles.docBannerWrapper}>
+                  <img 
+                    src={activeCache.metadata.banner} 
+                    alt="Program Header" 
+                    className={styles.docBannerImg} 
+                  />
+                  {activeCache?.metadata?.logo && (
+                    <div className={styles.docLogoWrapper}>
+                      <img src={activeCache.metadata.logo} alt="Logo" className={styles.docLogo} />
                     </div>
                   )}
                 </div>
-              )}
+              </header>
+            )}
 
-              <div 
-                className={styles.markdownBody}
-                dangerouslySetInnerHTML={{ __html: activeCache?.content || '' }} 
-              />
-            </article>
+            <div 
+              className={styles.markdownBody}
+              dangerouslySetInnerHTML={{ 
+                __html: activeCache?.pageBlocks?.[currentPage] || activeCache?.content || '' 
+              }} 
+            />
+          </article>
 
           <div className={`${styles.contentLoading} ${(!activeCache && activeTabId) ? '' : styles.hideAlways}`}>
             <span>Preparing visualization stage...</span>
           </div>
         </div>
+
+        {hasMultiplePages && (
+          <div className={styles.paginationActions}>
+            <button 
+              className={`${styles.pageBtn} ${styles.pageBtnPrev}`}
+              onClick={goToPrevPage}
+              disabled={currentPage === 0}
+              title="Previous Page"
+            >
+              <span>← Previous</span>
+            </button>
+            <button 
+              className={`${styles.pageBtn} ${styles.pageBtnNext}`}
+              onClick={goToNextPage}
+              disabled={currentPage === (activeCache?.pageBlocks?.length || 0) - 1}
+              title="Next Page"
+            >
+              <span>Next →</span>
+            </button>
+          </div>
+        )}
 
         <button
           className={`${styles.fullscreenBtn} ${!isFullscreen ? styles.pulseAnimation : ''}`}

@@ -24,9 +24,17 @@ export async function getMarkdownContent(relativePath) {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
     
-    const htmlContent = await compileMarkdown(content);
+    const pageStrings = content.split(/\n---\n/);
     
-    return { metadata: data, content: htmlContent };
+    const pageBlocks = await Promise.all(
+      pageStrings.map(async (p) => await compileMarkdown(p))
+    );
+    
+    return { 
+      metadata: data, 
+      content: pageBlocks[0], 
+      pageBlocks: pageBlocks 
+    };
   } catch (error) {
     console.error(`Error loading Markdown content: ${relativePath}`, error);
     return null;
