@@ -17,7 +17,7 @@
               "href": "academy/early-years/bricks",
               "meta": {
                 "icon": "/assets/icons/bricks.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -27,12 +27,11 @@
               "href": "academy/early-years/coding-blocks-junior",
               "meta": {
                 "icon": "/assets/icons/coding-blocks-junior.svg",
-                "disabled": false
+                "disabled": true
               }
             }
           ],
           "meta": {
-            "disabled": false,
             "iconOpen": "/assets/icons/folder-open.svg",
             "iconClose": "/assets/icons/folder-close.svg"
           },
@@ -60,7 +59,7 @@
               "href": "academy/elementary/mechanics",
               "meta": {
                 "icon": "/assets/icons/mechanics.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -70,12 +69,11 @@
               "href": "academy/elementary/robotics",
               "meta": {
                 "icon": "/assets/icons/robotics.svg",
-                "disabled": false
+                "disabled": true
               }
             }
           ],
           "meta": {
-            "disabled": false,
             "iconOpen": "/assets/icons/folder-open.svg",
             "iconClose": "/assets/icons/folder-close.svg"
           },
@@ -93,7 +91,7 @@
               "href": "academy/high-schools/coding-text",
               "meta": {
                 "icon": "/assets/icons/coding-text.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -103,12 +101,11 @@
               "href": "academy/high-schools/mechatronics",
               "meta": {
                 "icon": "/assets/icons/mechatronics.svg",
-                "disabled": false
+                "disabled": true
               }
             }
           ],
           "meta": {
-            "disabled": false,
             "iconOpen": "/assets/icons/folder-open.svg",
             "iconClose": "/assets/icons/folder-close.svg"
           },
@@ -126,7 +123,7 @@
               "href": "academy/bootcamps/ui-ux-design",
               "meta": {
                 "icon": "/assets/icons/ui-ux-design.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -136,7 +133,7 @@
               "href": "academy/bootcamps/front-end-web-development",
               "meta": {
                 "icon": "/assets/icons/front-end-web-development.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -146,7 +143,7 @@
               "href": "academy/bootcamps/back-end-web-development",
               "meta": {
                 "icon": "/assets/icons/back-end-web-development.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -156,12 +153,11 @@
               "href": "academy/bootcamps/data-analysis",
               "meta": {
                 "icon": "/assets/icons/data-analysis.svg",
-                "disabled": false
+                "disabled": true
               }
             }
           ],
           "meta": {
-            "disabled": false,
             "iconOpen": "/assets/icons/folder-open.svg",
             "iconClose": "/assets/icons/folder-close.svg"
           },
@@ -169,7 +165,6 @@
         }
       ],
       "meta": {
-        "disabled": false,
         "iconOpen": "/assets/icons/folder-open.svg",
         "iconClose": "/assets/icons/folder-close.svg"
       },
@@ -192,12 +187,11 @@
               "href": "labs/research/contact-us",
               "meta": {
                 "icon": "/assets/icons/contact-us.svg",
-                "disabled": false
+                "disabled": true
               }
             }
           ],
           "meta": {
-            "disabled": false,
             "iconOpen": "/assets/icons/folder-open.svg",
             "iconClose": "/assets/icons/folder-close.svg"
           },
@@ -215,7 +209,7 @@
               "href": "labs/system-design-and-development/modern-web-application",
               "meta": {
                 "icon": "/assets/icons/modern-web-application.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -225,7 +219,7 @@
               "href": "labs/system-design-and-development/ui-ux-web-design",
               "meta": {
                 "icon": "/assets/icons/ui-ux-web-design.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -235,7 +229,7 @@
               "href": "labs/system-design-and-development/graphic-design",
               "meta": {
                 "icon": "/assets/icons/graphic-design.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -245,7 +239,7 @@
               "href": "labs/system-design-and-development/motion-graphics",
               "meta": {
                 "icon": "/assets/icons/motion-graphics.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -255,7 +249,7 @@
               "href": "labs/system-design-and-development/illustrations",
               "meta": {
                 "icon": "/assets/icons/illustrations.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -265,7 +259,7 @@
               "href": "labs/system-design-and-development/photography",
               "meta": {
                 "icon": "/assets/icons/photography.svg",
-                "disabled": false
+                "disabled": true
               }
             },
             {
@@ -275,12 +269,11 @@
               "href": "labs/system-design-and-development/videography",
               "meta": {
                 "icon": "/assets/icons/videography.svg",
-                "disabled": false
+                "disabled": true
               }
             }
           ],
           "meta": {
-            "disabled": false,
             "iconOpen": "/assets/icons/folder-open.svg",
             "iconClose": "/assets/icons/folder-close.svg"
           },
@@ -288,7 +281,6 @@
         }
       ],
       "meta": {
-        "disabled": false,
         "iconOpen": "/assets/icons/folder-open.svg",
         "iconClose": "/assets/icons/folder-close.svg"
       },
