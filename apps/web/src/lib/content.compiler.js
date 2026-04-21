@@ -5,28 +5,24 @@ import remarkMath from 'remark-math';
 import remarkGemoji from 'remark-gemoji';
 import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
-import rehypeKatex from 'rehype-katex';
+import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
 
-function createCompilerPipeline() {
-  return unified()
+export async function compileMarkdown(markdownContent) {
+  const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkMath)
     .use(remarkGemoji)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
-    .use(rehypeKatex)
+    .use(rehypeSlug)
     .use(rehypeHighlight)
-    .use(rehypeStringify);
-}
-
-export async function compileMarkdown(content) {
-  if (!content) return '';
+    .use(rehypeKatex)
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(markdownContent);
   
-  const pipeline = createCompilerPipeline();
-  const result = await pipeline.process(content);
-  
-  return String(result);
+  return String(file);
 }
