@@ -1,4 +1,4 @@
-import { getJSONContent } from "@/lib/content.shared";
+import { getJSONContent } from "@/lib/content.server";
 import ProgramsExplorer from "./ProgramsExplorer";
 import styles from "./Programs.module.css";
 
