@@ -725,6 +725,54 @@
   object-fit: contain;
 }
 
+.docActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--gfm-border-subtle);
+}
+
+.docResourceBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  background: hsla(var(--hue-teal), 15%, 10%, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border-bright);
+  border-radius: var(--border-radius-pill);
+  color: var(--color-bg-accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+}
+
+.docResourceBtn:hover {
+  background: hsla(var(--hue-teal), 15%, 10%, 0.6);
+  border-color: var(--color-bg-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(var(--hue-accent), 100%, 70%, 0.15);
+  color: var(--color-text-primary);
+}
+
+.docPageBadge {
+  padding: 4px 12px;
+  background: rgba(var(--rgb-program-accent), 0.08);
+  border: 1px solid rgba(var(--rgb-program-accent), 0.15);
+  border-radius: 6px;
+  color: var(--color-program-accent);
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
 .paneStage {
   flex: 1;
   position: relative;

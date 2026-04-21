@@ -121,29 +121,53 @@ export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onT
             </p>
           </div>
 
-          <article className={`${activeCache?.status === 'success' ? '' : styles.hideAlways}`}>
-            {activeCache?.metadata?.banner && (
-              <header className={styles.docHeader}>
-                <div className={styles.docBannerWrapper}>
-                  <img 
-                    src={activeCache.metadata.banner} 
-                    alt="Program Header" 
-                    className={styles.docBannerImg} 
-                  />
-                  {activeCache?.metadata?.logo && (
-                    <div className={styles.docLogoWrapper}>
-                      <img src={activeCache.metadata.logo} alt="Logo" className={styles.docLogo} />
+            <article className={`${activeCache?.status === 'success' ? '' : styles.hideAlways}`}>
+              {activeCache?.metadata?.banner && (
+                <header className={styles.docHeader}>
+                  <div className={styles.docBannerWrapper}>
+                    <img 
+                      src={activeCache.metadata.banner} 
+                      alt="Program Header" 
+                      className={styles.docBannerImg} 
+                    />
+                    {activeCache?.metadata?.logo && (
+                      <div className={styles.docLogoWrapper}>
+                        <img src={activeCache.metadata.logo} alt="Logo" className={styles.docLogo} />
+                      </div>
+                    )}
+                  </div>
+                </header>
+              )}
+
+              {(activeCache?.metadata?.['teacher resources'] || activeCache?.metadata?.page) && (
+                <div className={styles.docActions}>
+                  {activeCache.metadata['teacher resources'] && (
+                    <a 
+                      href={activeCache.metadata['teacher resources']} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={styles.docResourceBtn}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                      </svg>
+                      <span>Teacher Resources</span>
+                    </a>
+                  )}
+                  {activeCache.metadata.page && (
+                    <div className={styles.docPageBadge}>
+                      <span>Page {activeCache.metadata.page}</span>
                     </div>
                   )}
                 </div>
-              </header>
-            )}
+              )}
 
-            <div 
-              className={styles.markdownBody}
-              dangerouslySetInnerHTML={{ __html: activeCache?.content || '' }} 
-            />
-          </article>
+              <div 
+                className={styles.markdownBody}
+                dangerouslySetInnerHTML={{ __html: activeCache?.content || '' }} 
+              />
+            </article>
 
           <div className={`${styles.contentLoading} ${(!activeCache && activeTabId) ? '' : styles.hideAlways}`}>
             <span>Preparing visualization stage...</span>

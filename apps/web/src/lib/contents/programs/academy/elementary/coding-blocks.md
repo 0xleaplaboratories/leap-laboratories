@@ -4,77 +4,45 @@ description: "A comprehensive demonstration of GFM and Scientific Math features.
 lastUpdated: "2026-04-21T12:32:00Z"
 banner: "/assets/images/banners/coding-blocks.png"
 logo: "/assets/images/logo-bg.png"
+teacher resources: "https://github.com/0xleaplaboratories/coding-curriculum"
+page: "1"
 ---
 
-# Leap Documentation — GFM Showcase
+# Scratch Programming: Level 1 Learning Track
 
-Welcome to the **Scientific Technical Brief**. This document demonstrates the full range of rendering capabilities now native to the Leap Laboratories platform.
+This syllabus outlines the foundational journey for students learning Scratch. Level 1 focuses on spatial awareness, game logic, basic data handling, and structured programming through three hands-on projects.
 
+## Level 1 Overview
 
-## 1. Mathematical Logic (KaTeX)
-We can now represent universal constants and complex derivations with absolute clarity.
+| Project | Session | Topic | Key Learning Objectives |
+| :---- | :---- | :---- | :---- |
+| **1. Shooting Game** | 1 | Coordinate Awareness | Understanding the X and Y axes, positioning sprites, and Stage boundaries. |
+| | 2 | Conditional Moves | Using if-then blocks to control movement and detect edge collisions. |
+| | 3 | Frames Per Second (FPS) | Introduction to game loops and how timing affects animation smoothness. |
+| | 4 | Controls & Triggers | Mapping keyboard inputs and mouse clicks to specific game actions. |
+| **2. Beetle Maze** | 5 | Conditional Navigation I | Implementing walls/obstacles using color detection and sensing blocks. |
+| | 6 | Conditional Navigation II | Refining movement logic to prevent "glitching" through maze walls. |
+| | 7 | Intro to Variables | Creating and displaying "Lives" or "Timer" to track game state. |
+| | 8 | Functions & Refactoring | Using "My Blocks" to organize code and eliminate repetitive scripts. |
+| | 9 | Dynamic Stages | Using broadcast messages to switch levels and reset sprite positions. |
+| **3. Paddle Pong** | 10 | Degree Awareness | Understanding angles, rotation, and the concept of "bounce" (Reflection). |
+| | 11 | Arithmetic Operators | Using addition, subtraction, and multiplication for speed scaling. |
+| | 12 | Scoring System | Implementing high scores and complex win/loss conditions. |
 
-**Inline Math**: The fundamental identity of complex analysis is $e^{i\pi} + 1 = 0$.
+## Detailed Learning Outcomes
 
-**Block Proof**:
-$$ \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} $$
+### Project 1: Shooting Game (Foundations)
 
----
+- **Spatial Logic:** Students will master the 2D coordinate system (X and Y axes).
+- **Event Handling:** Learning how to start scripts with green flags and key presses.
 
-## 2. GitHub Flavored Markdown (GFM)
+### Project 2: Beetle Maze (Logic & Structure)
 
-### Tabular Data
-| Milestone | Status | Importance | Estimate |
-|:---|:---:|:---:|---:|
-| Core Architecture | Done | Critical | $4,500 |
-| KaTeX Integration | In Progress | High | $1,200 |
-| GFM Stress Test | Active | Normal | $600 |
+- **Algorithm Design:** Creating paths and logical checks for "win" areas versus "wall" areas.
+- **Data Literacy:** Understanding that a variable is a "container" for information that can change.
+- **Broadcasting:** Mastering the "Message" system to allow different sprites to communicate.
 
-### Task Logistics
-- [x] Integrate `remark-gfm` for table support.
-- [x] Configure `rehype-katex` for scientific notation.
-- [ ] Implement dark-mode specific math glyph tuning.
-- [ ] Add auto-linking for academic citations.
+### Project 3: Paddle Pong (Physics & Math)
 
-### Text Emphasis
-The following features are now globally active:
-- **Strikethrough**: No more ~~outdated information~~ in our documents.
-- **Auto-links**: Visit our internal portal at http://localhost:3000
-- **Footnotes**: This research is verified by the central committee[^1].
-
----
-
-## 3. Structural Elements
-
-> "Technology is best when it brings people together periodically and predictably."
-> — *Leap Laboratory Ethos*
-
-### Code Documentation
-```javascript
-// Verification script for the content compiler
-export async function verifyMath() {
-  const formula = '$E=mc^2$';
-  return await compileMarkdown(formula);
-}
-```
-
----
-
-## 4. Multimedia Integration
-You can now embed high-fidelity visual assets directly into the flow of logic.
-
-### Inline Image
-![Coding Blocks Visual](/assets/images/banners/coding-blocks.png)
-
-### Video Embed (HTML5)
-<video width="100%" controls style="border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-  <source src="/assets/videos/video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-### External Integration (YouTube)
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Leap Labs Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"></iframe>
-
----
-
-[^1]: Verified by Leap Labs Council on April 21, 2026.
+- **Mathematical Application:** Using operators to determine the ball's trajectory.
+- **Game Balance:** Learning how to increase difficulty by adjusting variables over time.
