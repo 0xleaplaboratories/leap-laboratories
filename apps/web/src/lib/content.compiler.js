@@ -8,6 +8,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeKatex from 'rehype-katex';
+import rehypeExternalLinks from 'rehype-external-links';
 import rehypeStringify from 'rehype-stringify';
 
 export async function compileMarkdown(markdownContent) {
@@ -18,6 +19,10 @@ export async function compileMarkdown(markdownContent) {
     .use(remarkGemoji)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypeExternalLinks, { 
+      target: '_blank', 
+      rel: ['noopener', 'noreferrer'] 
+    })
     .use(rehypeSlug)
     .use(rehypeHighlight)
     .use(rehypeKatex)
