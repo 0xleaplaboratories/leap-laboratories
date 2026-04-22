@@ -516,7 +516,8 @@
 }
 
 .markdownBody {
-  --gfm-max-width: 800px;
+  --gfm-max-width: 1200px;
+  /* <--- ADJUST DOC WIDTH HERE */
   --gfm-spacing: 16px;
   --gfm-bg-header: rgba(var(--rgb-program-accent), 0.12);
   --gfm-border-subtle: rgba(var(--rgb-program-accent), 0.1);
@@ -524,16 +525,19 @@
   --gfm-code-bg: #282c34;
   --gfm-text-primary: var(--color-text-primary);
   --gfm-text-secondary: var(--color-text-secondary);
-  
+
   color: var(--gfm-text-secondary);
   font-size: var(--font-size-lg);
   line-height: 1.6;
+  width: 100%;
   max-width: var(--gfm-max-width);
+  margin: 0 auto;
+  /* <--- ENFORCES CENTER ALIGNMENT */
   word-wrap: break-word;
-  padding-bottom: 120px; /* Safety buffer for floating buttons */
+  padding-bottom: 120px;
 }
 
-.markdownBody > * + * {
+.markdownBody>*+* {
   margin-top: 24px;
 }
 
@@ -550,19 +554,21 @@
   color: var(--gfm-text-primary);
 }
 
-.markdownBody h1 { 
-  font-size: 2.25em; 
+.markdownBody h1 {
+  font-size: 2.25em;
   padding-bottom: 0.3em;
   border-bottom: 1px solid var(--gfm-bg-header);
 }
 
-.markdownBody h2 { 
-  font-size: 1.5em; 
+.markdownBody h2 {
+  font-size: 1.5em;
   padding-bottom: 0.3em;
   border-bottom: 1px solid var(--gfm-border-subtle);
 }
 
-.markdownBody h3 { font-size: 1.25em; }
+.markdownBody h3 {
+  font-size: 1.25em;
+}
 
 .markdownBody p,
 .markdownBody blockquote,
@@ -616,19 +622,19 @@
   padding-left: 0.2em;
 }
 
-.markdownBody li > ul,
-.markdownBody li > ol {
+.markdownBody li>ul,
+.markdownBody li>ol {
   margin-top: 8px;
   margin-bottom: 8px;
   padding-left: 1.5em;
 }
 
-.markdownBody li > ul li::before {
+.markdownBody li>ul li::before {
   content: "◦";
   color: var(--gfm-text-secondary);
 }
 
-.markdownBody li + li {
+.markdownBody li+li {
   margin-top: 0.5em;
 }
 
@@ -649,7 +655,7 @@
   background-color: var(--gfm-code-bg);
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: var(--gfm-spacing);
 }
 
@@ -787,7 +793,7 @@
 
 .contentPanelFullscreen .markdownBody {
   margin: 0 auto;
-  max-width: 960px;
+  max-width: var(--gfm-max-width);
   padding: var(--space-2xl) var(--space-xl) var(--space-3xl) var(--space-xl);
   transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
