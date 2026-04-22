@@ -517,7 +517,7 @@
 
 .markdownBody {
   --gfm-max-width: 1200px;
-  /* <--- ADJUST DOC WIDTH HERE */
+  
   --gfm-spacing: 16px;
   --gfm-bg-header: rgba(var(--rgb-program-accent), 0.12);
   --gfm-border-subtle: rgba(var(--rgb-program-accent), 0.1);
@@ -532,7 +532,7 @@
   width: 100%;
   max-width: var(--gfm-max-width);
   margin: 0 auto;
-  /* <--- ENFORCES CENTER ALIGNMENT */
+  
   word-wrap: break-word;
   padding-bottom: 120px;
 }
@@ -986,7 +986,7 @@
 
 .pageBtnNext {
   margin-left: auto;
-  /* Shift left to avoid overlapping with Fullscreen FAB (56px width + gap) */
+  
   margin-right: 72px;
 }
 
