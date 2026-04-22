@@ -27,7 +27,7 @@ export const metadata = {
     siteName: 'Leap Laboratories',
     images: [
       {
-        url: '/hero-bg.png', // Next.js will now resolve this using metadataBase
+        url: 'assets/images/hero-bg.png', // Next.js will now resolve this using metadataBase
         width: 1200,
         height: 630,
         alt: 'Leap Laboratories Hero Preview',
@@ -40,7 +40,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Leap Laboratories',
     description: 'Leap Laboratories - System Development and Educational Platform.',
-    images: ['/hero-bg.png'],
+    images: ['assets/images/hero-bg.png'],
   },
 };
 
