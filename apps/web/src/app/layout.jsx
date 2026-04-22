@@ -12,10 +12,31 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata = {
   title: 'Leap Laboratories',
-  description: 'Leap Academy and Leap Labs — learning, research, and development.',
+  description: 'Leap Laboratories - System Development and Educational Platform.',
   google: 'notranslate',
   icons: {
     icon: '/logo-square.png',
+  },
+  openGraph: {
+    title: 'Leap Laboratories',
+    description: 'Leap Laboratories - System Development and Educational Platform.',
+    url: 'https://leaplabs-pi.vercel.app',
+    siteName: 'Leap Laboratories',
+    images: [
+      {
+        url: '/hero-bg.png',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Leap Laboratories',
+    description: 'Leap Laboratories - System Development and Educational Platform.',
+    images: ['/hero-bg.png'],
   },
 };
 
