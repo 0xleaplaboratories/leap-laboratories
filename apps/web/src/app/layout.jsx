@@ -10,7 +10,10 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+const SITE_URL = 'https://leaplabs-pi.vercel.app';
+
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Leap Laboratories',
   description: 'Leap Laboratories - System Development and Educational Platform.',
   google: 'notranslate',
@@ -20,13 +23,14 @@ export const metadata = {
   openGraph: {
     title: 'Leap Laboratories',
     description: 'Leap Laboratories - System Development and Educational Platform.',
-    url: 'https://leaplabs-pi.vercel.app',
+    url: SITE_URL,
     siteName: 'Leap Laboratories',
     images: [
       {
-        url: '/hero-bg.png',
+        url: '/hero-bg.png', // Next.js will now resolve this using metadataBase
         width: 1200,
         height: 630,
+        alt: 'Leap Laboratories Hero Preview',
       },
     ],
     locale: 'en_US',
