@@ -40,15 +40,21 @@ This syllabus outlines the foundational journey for students learning Scratch. L
 - **Spatial Logic:** Students will master the 2D coordinate system (X and Y axes).
 - **Event Handling:** Learning how to start scripts with green flags and key presses.
 
+<iframe src="https://scratch.mit.edu/projects/1310730369/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
 ### Project 2: Beetle Maze (Logic & Structure)
 
 - **Algorithm Design:** Creating paths and logical checks for "win" areas versus "wall" areas.
 - **Data Literacy:** Understanding that a variable is a "container" for information that can change.
 - **Broadcasting:** Mastering the "Message" system to allow different sprites to communicate.
 
+<iframe src="https://scratch.mit.edu/projects/1310732505/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
 ### Project 3: Paddle Pong (Physics & Math)
 
 - **Mathematical Application:** Using operators to determine the ball's trajectory.
 - **Game Balance:** Learning how to increase difficulty by adjusting variables over time.
 
-Have access to our resources at: [Leap Labs - Coding Curriculum](https://github.com/0xleaplaboratories/coding-curriculum)
+<iframe src="https://scratch.mit.edu/projects/1310733653/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+Have access to our resources at: [Coding Level 1](https://github.com/0xleaplaboratories/coding-curriculum)
