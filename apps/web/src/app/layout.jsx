@@ -15,7 +15,7 @@ const SITE_URL = 'https://leaplabs-pi.vercel.app';
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: 'Leap Laboratories',
-  description: 'Leap Laboratories - A system development and educational platform dedicated to advancing research, technical learning, and innovative software engineering.',
+  description: 'An advanced ecosystem for system development and technical education, dedicated to bridging the gap between technical knowledge and innovative software engineering.',
   authors: [{ name: 'Angga Sudarman' }],
   google: 'notranslate',
   icons: {
@@ -23,13 +23,15 @@ export const metadata = {
   },
   openGraph: {
     title: 'Leap Laboratories',
-    description: 'Leap Laboratories - A System development and educational platform dedicated to advancing research, technical learning, and innovative software engineering.',
+    description: 'An advanced ecosystem for system development and technical education, dedicated to bridging the gap between technical knowledge and innovative software engineering.',
     url: SITE_URL,
     siteName: 'Leap Laboratories',
     images: [
       {
-        url: '/assets/images/logo-bg.png',
-        alt: 'Leap Laboratories System Development and Educational Platform',
+        url: '/assets/images/share-icon.png',
+        width: 1024,
+        height: 1024,
+        alt: 'Leap Laboratories logo',
       },
     ],
     locale: 'en_US',
@@ -38,8 +40,8 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Leap Laboratories',
-    description: 'Leap Laboratories - A premier system development and educational platform dedicated to advancing research, technical learning, and innovative software engineering through Leap Academy.',
-    images: ['/assets/images/logo-bg.png'],
+    description: 'An advanced ecosystem for system development and technical education, dedicated to bridging the gap between technical knowledge and innovative software engineering.',
+    images: ['/assets/images/share-icon.png'],
   },
 };
 
