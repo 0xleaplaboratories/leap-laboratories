@@ -1002,3 +1002,39 @@
   opacity: 0;
   pointer-events: none;
 }
+
+@media (min-width: 2560px) {
+  .markdownBody {
+    --gfm-max-width: 1600px;
+    --gfm-spacing: 32px;
+  }
+
+  .markdownBody pre,
+  .markdownBody table,
+  .markdownBody code:not(pre code) {
+    border-width: 2px;
+    padding: 24px;
+  }
+
+  .contentPanelFullscreen .markdownBody {
+    max-width: 2000px;
+  }
+
+  .fullscreenBtn,
+  .pageBtn {
+    width: 80px;
+    height: 80px;
+    font-size: var(--font-size-xl);
+    border-width: 2px;
+  }
+
+  .paginationActions {
+    bottom: var(--space-2xl);
+    left: var(--space-2xl);
+    right: var(--space-2xl);
+  }
+
+  .pageBtnNext {
+    margin-right: 100px;
+  }
+}

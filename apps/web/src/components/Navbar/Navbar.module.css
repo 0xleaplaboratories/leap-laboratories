@@ -266,3 +266,20 @@
     height: calc(100px * var(--nav-scale));
   }
 }
+
+@media (min-width: 2560px) {
+  .navbar {
+    --nav-scale: 1.25;
+    border-bottom-width: 2px;
+  }
+
+  .navbar__nav-link::after {
+    height: 3px;
+  }
+
+  .navbar__hamburger {
+    width: 80px;
+    height: 80px;
+    font-size: 3rem;
+  }
+}

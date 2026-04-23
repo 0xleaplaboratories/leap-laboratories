@@ -405,3 +405,39 @@
     text-align: center;
   }
 }
+
+@media (min-width: 2560px) {
+  .heroTitleAnimated {
+    font-size: 5.5rem;
+  }
+
+  .authWrapper {
+    max-width: 750px;
+  }
+
+  .authCard {
+    min-height: 750px;
+    border-width: 2px;
+    border-radius: var(--border-radius-lg);
+  }
+
+  .appDescription {
+    font-size: 1.5rem;
+  }
+
+  .roleSelect,
+  .emailInput,
+  .oauthBtn,
+  .drawerToggle {
+    font-size: 1.4rem;
+    padding: 24px 32px;
+    border-width: 2px;
+    border-radius: var(--border-radius-md);
+  }
+
+  .tab {
+    padding: var(--space-xl) var(--space-2xl);
+    font-size: 1.4rem;
+    border-bottom-width: 6px;
+  }
+}

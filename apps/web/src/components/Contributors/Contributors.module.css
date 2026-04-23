@@ -413,3 +413,31 @@
     height: 60px;
   }
 }
+
+@media (min-width: 2560px) {
+  .section {
+    --card-max-width: 800px;
+    --social-height: 120px;
+    --name-font-desktop: 3.5rem;
+  }
+
+  .leftZone {
+    flex: 0 0 450px;
+  }
+
+  .card {
+    border-width: 2px;
+    border-radius: 60px;
+  }
+
+  .tag {
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-width: 2px;
+  }
+
+  .socialIcon {
+    width: 32px;
+    height: 32px;
+  }
+}
