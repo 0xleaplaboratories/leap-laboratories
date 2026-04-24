@@ -287,15 +287,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .cardWrapper:nth-child(even) {
-    margin-top: var(--space-xl);
-    padding-right: var(--space-3xl);
-  }
-
-  .cardWrapper:nth-child(odd) {
-    padding-left: var(--space-3xl);
+    padding: 0 var(--space-lg);
   }
 
   .card {
