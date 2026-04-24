@@ -416,35 +416,35 @@
 
 @media (min-width: 2560px) {
   .section {
-    --card-max-width: 960px;
+    --card-max-width: 1400px;
     --card-photo-flex: 3;
     --card-body-flex: 2;
-    --social-height: 140px;
-    --name-font-desktop: 3.8rem;
+    --social-height: 160px;
+    --name-font-desktop: 4.5rem;
   }
 
   .leftZone {
-    flex: 0 0 550px;
+    flex: 0 0 650px;
   }
 
   .card {
     border-width: 2px;
-    border-radius: 80px;
+    border-radius: 100px;
   }
 
   .cardBody {
-    padding: var(--space-2xl) !important;
-    gap: var(--space-md);
+    padding: var(--space-3xl) !important;
+    gap: var(--space-lg);
   }
 
   .tag {
-    font-size: 1.1rem;
-    padding: 10px 20px;
+    font-size: 1.25rem;
+    padding: 12px 24px;
     border-width: 2px;
   }
 
   .socialIcon {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
   }
 }
