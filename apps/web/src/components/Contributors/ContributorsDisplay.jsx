@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import ContributorCard from './ContributorCard';
-import styles from './Contributors.module.css';
+import styles from './ContributorsDisplay.module.css';
 
 export default function ContributorsDisplay({ title, tagline, profiles }) {
   const [currentIndex, setCurrentIndex] = useState(0);

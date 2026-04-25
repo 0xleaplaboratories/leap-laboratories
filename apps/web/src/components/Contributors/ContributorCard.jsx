@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import styles from './Contributors.module.css';
+import styles from './ContributorsCard.module.css';
 
 const SOCIAL_ICON_MAP = {
   github: {
