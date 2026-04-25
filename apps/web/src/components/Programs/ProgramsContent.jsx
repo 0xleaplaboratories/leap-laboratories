@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { fetchProgramContent } from '@/lib/content.server';
-import styles from './Programs.module.css';
+import styles from './ProgramsContent.module.css';
 
 export default function ProgramsContent({ openTabs, activeTabId, onTabClick, onTabClose }) {
   const [isFullscreen, setIsFullscreen] = useState(false);

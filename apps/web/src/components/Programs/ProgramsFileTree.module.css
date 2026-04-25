@@ -1,0 +1,121 @@
+.fileTree {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fileTreeBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-xs) 0;
+}
+
+.fileTreeBody::-webkit-scrollbar {
+  width: 3px;
+}
+
+.fileTreeBody::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fileTreeBody::-webkit-scrollbar-thumb {
+  background: rgba(var(--rgb-program-accent), 0.15);
+  border-radius: 2px;
+}
+
+.fileTreeBody::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--rgb-program-accent), 0.3);
+}
+
+.treeFolder {
+  width: 100%;
+}
+
+.treeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: var(--space-md);
+  background: none;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  text-align: left;
+  cursor: pointer;
+  transition: all 150ms ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.treeRowActive {
+  background-color: hsla(var(--hue-accent), 65%, 60%, 0.15);
+  color: var(--color-text-primary);
+  opacity: 1;
+}
+
+.treeRow:hover::before,
+.treeRowActive::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-bg-accent);
+  border-radius: 0 1px 1px 0;
+}
+
+.treeRowDisabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  background-image: none;
+}
+
+.treeRowDisabled:hover {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+}
+
+.treeRowDisabled:hover::before {
+  display: none;
+}
+
+.treeArrow {
+  font-size: 8px;
+  color: rgba(248, 248, 242, 0.4);
+  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1), color 180ms ease;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.treeArrowOpen {
+  transform: rotate(90deg);
+  color: var(--color-text-primary);
+}
+
+.treeIcon {
+  flex-shrink: 0;
+  opacity: 1;
+  width: 14px;
+  height: 14px;
+  filter: brightness(0) invert(1) opacity(0.6);
+  transition: all 150ms ease;
+}
+
+.treeRow:hover .treeIcon,
+.treeRowActive .treeIcon {
+  filter: invert(56%) sepia(21%) saturate(1637%) hue-rotate(327deg) brightness(92%) contrast(85%);
+  opacity: 1;
+}
+
+.treeLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-md);
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import styles from './Programs.module.css';
+import styles from './ProgramsFileTree.module.css';
 
 function TreeNode({ node, depth, openFolderIds, onFolderToggle, onLeafClick, activeTabId }) {
   const isFolder   = node.id.includes('folder') ? true : (node.type === 'folder');

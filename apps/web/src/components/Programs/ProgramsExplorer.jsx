@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import ProgramsFileTree from './ProgramsFileTree';
 import ProgramsContent from './ProgramsContent';
-import styles from './Programs.module.css';
+import styles from './ProgramsExplorer.module.css';
 
 const DEFAULT_LEFT_WIDTH_PERCENT = 30;
 const MIN_LEFT_WIDTH_PERCENT     = 15;
