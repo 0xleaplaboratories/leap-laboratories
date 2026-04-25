@@ -423,6 +423,11 @@
   transform: translateZ(0);
 }
 
+.contentPanelFullscreen .docBannerImg {
+  max-height: 50vh;
+  object-fit: cover;
+}
+
 .docLogoWrapper {
   position: absolute;
   bottom: -32px;
