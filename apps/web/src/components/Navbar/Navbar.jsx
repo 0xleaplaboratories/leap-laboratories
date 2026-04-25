@@ -12,6 +12,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [content, setContent] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function Navbar() {
   useEffect(() => {
     let idleTimer;
 
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || isHovered) {
       setIsVisible(true);
       return;
     }
@@ -75,7 +76,7 @@ export default function Navbar() {
       window.removeEventListener('scroll', handleScroll);
       if (idleTimer) clearTimeout(idleTimer);
     };
-  }, [lastScrollY, isMobileMenuOpen]);
+  }, [lastScrollY, isMobileMenuOpen, isHovered]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -132,6 +133,8 @@ export default function Navbar() {
   return (
     <header 
       className={`${styles.navbar} ${!isVisible ? styles['navbar--hidden'] : ''}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={() => isMobileMenuOpen && closeMenu()}
     >
       <div className={styles.navbar__container}>
