@@ -395,6 +395,10 @@
   height: 100%;
 }
 
+.contentPanelFullscreen .docHeader {
+  margin: 0;
+}
+
 .contentPanelFullscreen .markdownBody {
   margin: 0 auto;
   max-width: var(--gfm-max-width);
@@ -421,11 +425,6 @@
   filter: contrast(1.1) brightness(0.9);
   will-change: filter;
   transform: translateZ(0);
-}
-
-.contentPanelFullscreen .docBannerImg {
-  max-height: 50vh;
-  object-fit: cover;
 }
 
 .docLogoWrapper {
