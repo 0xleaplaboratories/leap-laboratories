@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import styles from './Hero.module.css';
+import styles from './HeroHeadline.module.css';
 
 export default function HeroHeadline({ phrases }) {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);

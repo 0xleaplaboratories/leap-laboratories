@@ -53,294 +53,9 @@
   transform: translateY(0vh);
 }
 
-.headlineWrapper {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.heroTitleAnimated {
-  font-size: clamp(2.2rem, 4vw, 3.6rem);
-  font-weight: 800;
-  line-height: 1.15;
-  margin: 0;
-  white-space: nowrap;
-  break-inside: avoid;
-  text-transform: none;
-  letter-spacing: -0.04em;
-  color: var(--color-text-primary);
-  text-align: left;
-  min-width: 0;
-  transition: opacity 0.5s ease;
-}
-
-.fadeOut {
-  opacity: 0;
-}
-
-.cursor {
-  display: inline-block;
-  color: var(--color-text-accent);
-  margin-left: 4px;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  from, to { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.titleLearn,
-.titleBuild {
-  color: var(--color-bg-accent);
-}
-
-.authWrapper {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  max-width: 550px;
-}
-
-.authCard {
-  width: 100%;
-  min-height: 600px;
-  background-color: var(--surface-overlay);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--color-border-bright);
-  border-radius: var(--border-radius-lg);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  text-align: left;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  transform: translateX(-50px);
-}
-
-.authCard:focus-within {
-  border-color: var(--color-bg-accent);
-  box-shadow: 0 0 0 1px var(--color-bg-accent), 0 12px 40px rgba(0, 0, 0, 0.4);
-}
-
-.tabs {
-  display: flex;
-  border-bottom: 1px solid var(--color-border-subtle);
-  background-color: hsla(var(--hue-teal), 50%, 15%, 0.3);
-}
-
-.tab {
-  flex: 1;
-  padding: var(--space-lg) var(--space-xl);
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  color: var(--color-text-secondary);
-  opacity: 0.5;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-bottom: 4px solid transparent;
-  transition: all var(--transition-fast);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.tabActive {
-  opacity: 1;
-  color: var(--color-text-primary);
-  border-bottom-color: var(--color-bg-accent);
-}
-
-.tabPanel {
-  padding: var(--space-xl);
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--space-xl);
-  justify-content: flex-start;
-}
-
-.appDescription {
-  font-size: 1.1rem;
-  color: var(--color-text-primary);
-  opacity: 0.9;
-  line-height: 1.6;
-  margin-bottom: var(--space-xs);
-}
-
-.roleWrapper {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  background: rgba(0, 0, 0, 0.35);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--space-md);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.roleLabel {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-secondary);
-}
-
-.roleSelect {
-  flex: 1;
-  padding: 14px 18px;
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-accent);
-  border: 1px solid var(--color-border-bright);
-  border-radius: var(--border-radius-md);
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.authProviders {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.oauthBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  width: 100%;
-  padding: 16px;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-border-bright);
-  border-radius: var(--border-radius-md);
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.oauthBtn:hover {
-  background-color: var(--color-bg-accent);
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.drawerToggle {
-  width: 100%;
-  padding: 22px;
-  background: linear-gradient(135deg, var(--color-bg-accent), #ff8a65);
-  color: var(--color-text-primary);
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-weight: 900;
-  font-size: 1.15rem;
-  cursor: pointer;
-  text-transform: uppercase;
-  margin-top: var(--space-sm);
-  box-shadow: 0 4px 15px rgba(217, 119, 87, 0.3);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.drawerToggle:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 25px rgba(217, 119, 87, 0.5);
-  filter: brightness(1.1);
-}
-
-.divider {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin: 24px 0 8px 0;
-}
-
-.divider::before,
-.divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background-color: var(--color-border-subtle);
-}
-
-.emailBlock {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin-top: 0;
-}
-
-.emailInput {
-  width: 100%;
-  padding: 16px 18px;
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-md);
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-.emailInput:focus {
-  outline: none;
-  border-color: var(--color-bg-accent);
-  background-color: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 0 4px rgba(var(--hue-accent), 100%, 70%, 0.1);
-}
-
-.flowBtns {
-  display: flex;
-  gap: var(--space-sm);
-}
-
-.flowBtn {
-  flex: 1;
-  padding: 12px 24px;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--border-radius-pill);
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-sm);
-}
-
-.flowBtn:hover {
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-primary);
-  transform: translateY(-1px) scale(1.02);
-}
-
-.flowBtnActive {
-  background-color: var(--color-btn-primary);
-  color: var(--color-text-primary);
-  border-color: var(--color-btn-primary);
-}
-
-.flowBtnActive:hover {
-  background-color: var(--color-btn-hover);
-  box-shadow: var(--shadow-accent);
-}
-
 @media (max-width: 1099px) {
   .hero {
-    padding: 0 var(--space-md);
+    padding: 0 12px;
     height: auto;
     min-height: auto;
   }
@@ -358,86 +73,35 @@
     justify-content: center;
   }
 
-  .heroTitleAnimated {
-    font-size: clamp(1.45rem, 7.5vw, 2.4rem);
+  .headlineWrapper {
+    justify-content: center;
     text-align: center;
-    white-space: nowrap;
-    letter-spacing: -0.05em;
+    width: 100%;
   }
 
   .authWrapper {
     width: 100%;
-    max-width: none;
+    max-width: 800px;
+    margin: 0 auto;
     transform: translateX(0);
-  }
-
-  .authCard {
-    min-height: 500px;
-    padding-bottom: var(--space-md);
-    transform: none;
-  }
-
-  .tabPanel {
-    padding: var(--space-lg);
-    gap: var(--space-lg);
-  }
-
-  .appDescription {
-    font-size: 1rem;
-    margin-bottom: var(--space-sm);
-  }
-
-  .authProviders {
-    gap: var(--space-md);
-  }
-
-  .divider {
-    margin: 16px 0 8px 0;
-  }
-
-  .drawerToggle {
-    padding: 18px;
-    font-size: 1.1rem;
-  }
-
-  .headlineWrapper {
-    justify-content: center;
-    text-align: center;
   }
 }
 
-@media (min-width: 2560px) {
-  .heroTitleAnimated {
-    font-size: 5.5rem;
-  }
+.headlineWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
 
+.authWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 550px;
+}
+
+@media (min-width: 2560px) {
   .authWrapper {
     max-width: 750px;
-  }
-
-  .authCard {
-    min-height: 750px;
-    border-width: 2px;
-    border-radius: var(--border-radius-lg);
-  }
-
-  .appDescription {
-    font-size: 1.5rem;
-  }
-
-  .roleSelect,
-  .emailInput,
-  .oauthBtn,
-  .drawerToggle {
-    font-size: 1.4rem;
-    padding: 24px 32px;
-    border-width: 2px;
-    border-radius: var(--border-radius-md);
-  }
-
-  .tab {
-    padding: var(--space-xl) var(--space-2xl);
-    font-size: 1.4rem;
-    border-bottom-width: 6px;
   }
 }

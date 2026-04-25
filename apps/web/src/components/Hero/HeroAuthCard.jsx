@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import styles from './Hero.module.css';
+import styles from './HeroAuthCard.module.css';
 
 function RoleSelector({ roles, selectedRole, onRoleChange }) {
   return (
