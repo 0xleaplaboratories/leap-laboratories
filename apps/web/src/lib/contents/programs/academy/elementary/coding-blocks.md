@@ -2,9 +2,8 @@
 title: "Coding Blocks"
 description: "A comprehensive demonstration of GFM and Scientific Math features."
 lastUpdated: "2026-04-21T12:32:00Z"
-banner: "/assets/images/banners/coding-blocks.png"
-logo: "/assets/images/logo-bg.png"
-teacherResources: "https://github.com/0xleaplaboratories/coding-curriculum"
+banner: "/assets/images/banners/coding-blocks-banner.png"
+logo: "/assets/images/logo-square.png"
 pages:
   - page: 1
     slug: "scratch-level-1"
@@ -57,4 +56,4 @@ This syllabus outlines the foundational journey for students learning Scratch. L
 
 <iframe src="https://scratch.mit.edu/projects/1310733653/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
-Have access to our resources at: [Coding Level 1](https://github.com/0xleaplaboratories/coding-curriculum)
+Have access to teacher resources at: [Coding Level 1](https://github.com/0xleaplaboratories/coding-curriculum)
