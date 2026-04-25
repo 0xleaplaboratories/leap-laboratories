@@ -34,6 +34,18 @@
                 "tiktok": "https://www.tiktok.com/@dimas_sudarman?_r=1&_t=ZS-95ekWhSsmF3"
             },
             "photo": "/assets/images/persons/dimas-a-sudarman.png"
+        },
+        {
+            "name": "Wahyu Permadi",
+            "expertise": [
+                "Fullstack Web Developer",
+                "Coding & Robotics Teacher",
+                "Curriculum Developer"
+            ],
+            "socialMedia": {
+                "github": "https://github.com/0xleaplaboratories"
+            },
+            "photo": "/assets/images/persons/wahyu-permadi.png"
         }
     ]
 }
