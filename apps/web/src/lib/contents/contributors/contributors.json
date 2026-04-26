@@ -3,7 +3,7 @@
     "tagline": "Meet the conscious intelligentsia behind Leap Laboratories.",
     "profile": [
         {
-            "name": "Satoshi Nakamoto",
+            "name": "Anik Fatmawati",
             "expertise": [
                 "Business Development",
                 "Public Relations",
@@ -15,12 +15,13 @@
             "name": "Angga Sudarman",
             "expertise": [
                 "Fullstack Web Developer",
-                "Smart Contract Engineer"
+                "Smart Contract Engineer",
+                "Curriculum Developer"
             ],
             "socialMedia": {
                 "github": "https://github.com/d-democrazy"
             },
-            "photo": "/assets/images/persons/angga-wp-sudarman.png"
+            "photo": "/assets/images/persons/angga-sudarman.png"
         },
         {
             "name": "Dimas Sudarman",
@@ -36,16 +37,25 @@
             "photo": "/assets/images/persons/dimas-a-sudarman.png"
         },
         {
-            "name": "Wahyu Permadi",
+            "name": "Nour Mohammad",
             "expertise": [
-                "Fullstack Web Developer",
-                "Coding & Robotics Teacher",
-                "Curriculum Developer"
+                "Python Programmer",
+                "Coding & Robotics Teacher"
             ],
             "socialMedia": {
                 "github": "https://github.com/0xleaplaboratories"
             },
-            "photo": "/assets/images/persons/wahyu-permadi.png"
+            "photo": "/assets/images/persons/nour-mohammad.png"
+        },
+        {
+            "name": "Bhre Pantheon",
+            "expertise": [
+                "Coding Teacher",
+                "Mechatronics Engineer",
+                "Robotics"
+            ],
+            "socialMedia": {},
+            "photo": "/assets/images/persons/bhre-pantheon.png"
         }
     ]
 }
