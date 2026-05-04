@@ -1,0 +1,168 @@
+{
+    "contact": {
+        "brand": {
+            "logo": "assets/images/logo-square.png",
+            "title": "Leap Laboratories",
+            "taglines": [
+                "Laboratories for System Development and Academy",
+                "Bridging the gap between technical knowledge and innovative software engineering"
+            ]
+        },
+        "programs": [
+            {
+                "tab": "Academy",
+                "href": "/#programs/academy",
+                "children": [
+                    {
+                        "folder": "Early Years",
+                        "href": "/#programs/academy/early-years",
+                        "children": [
+                            {
+                                "name": "Bricks",
+                                "href": "/#programs/academy/early-years/bricks"
+                            },
+                            {
+                                "name": "Coding Blocks Junior",
+                                "href": "/#programs/academy/early-years/coding-blocks-junior"
+                            }
+                        ]
+                    },
+                    {
+                        "folder": "Elementary",
+                        "href": "/#programs/academy/elementary",
+                        "children": [
+                            {
+                                "name": "Coding Blocks",
+                                "href": "/#programs/academy/elementary/coding-blocks"
+                            },
+                            {
+                                "name": "Mechanics",
+                                "href": "/#programs/academy/elementary/mechanics"
+                            },
+                            {
+                                "name": "Robotics",
+                                "href": "/#programs/academy/elementary/robotics"
+                            }
+                        ]
+                    },
+                    {
+                        "folder": "High Schools",
+                        "href": "/#programs/academy/high-schools",
+                        "children": [
+                            {
+                                "name": "Coding Text",
+                                "href": "/#programs/academy/high-schools/coding-text"
+                            },
+                            {
+                                "name": "Mechatronics",
+                                "href": "/#programs/academy/high-schools/mechatronics"
+                            }
+                        ]
+                    },
+                    {
+                        "folder": "Bootcamps",
+                        "href": "/#programs/academy/bootcamps",
+                        "children": [
+                            {
+                                "name": "Back-End Web Development",
+                                "href": "/#programs/academy/bootcamps/back-end-web-development"
+                            },
+                            {
+                                "name": "Data Analysis",
+                                "href": "/#programs/academy/bootcamps/data-analysis"
+                            },
+                            {
+                                "name": "Front-End Web Development",
+                                "href": "/#programs/academy/bootcamps/front-end-web-development"
+                            },
+                            {
+                                "name": "UI/UX Design",
+                                "href": "/#programs/academy/bootcamps/ui-ux-design"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "tab": "Labs",
+                "href": "/#programs/labs",
+                "children": [
+                    {
+                        "folder": "Research",
+                        "href": "/#programs/labs/research",
+                        "children": [
+                            {
+                                "name": "Contact Us",
+                                "href": "/#programs/labs/research/contact-us"
+                            }
+                        ]
+                    },
+                    {
+                        "folder": "System Design and Development",
+                        "href": "/#programs/labs/system-design-and-development",
+                        "children": [
+                            {
+                                "name": "Graphic Design",
+                                "href": "/#programs/labs/system-design-and-development/graphic-design"
+                            },
+                            {
+                                "name": "Illustrations",
+                                "href": "/#programs/labs/system-design-and-development/illustrations"
+                            },
+                            {
+                                "name": "Modern Web Application",
+                                "href": "/#programs/labs/system-design-and-development/modern-web-application"
+                            },
+                            {
+                                "name": "Motion Graphics",
+                                "href": "/#programs/labs/system-design-and-development/motion-graphics"
+                            },
+                            {
+                                "name": "Photography",
+                                "href": "/#programs/labs/system-design-and-development/photography"
+                            },
+                            {
+                                "name": "UI/UX Web Design",
+                                "href": "/#programs/labs/system-design-and-development/ui-ux-web-design"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "links": [
+            {
+                "group": "Society",
+                "children": [
+                    {
+                        "name": "About Us",
+                        "href": "/about-us"
+                    },
+                    {
+                        "name": "Blog",
+                        "href": "/blog"
+                    }
+                ]
+            },
+            {
+                "group": "Support",
+                "children": [
+                    {
+                        "name": "Contact Us",
+                        "href": "/contact-us"
+                    },
+                    {
+                        "name": "Terms and Conditions",
+                        "href": "/terms-and-conditions"
+                    },
+                    {
+                        "name": "Privacy Policy",
+                        "href": "/privacy-policy"
+                    }
+                ]
+            }
+        ],
+        "map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.6337847266295!2d111.967508!3d-7.828528299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7857dfd63b2339%3A0xe9872103fad2e608!2sLeap%20Laboratories!5e0!3m2!1sen!2sid!4v1777663785785!5m2!1sen!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+        "copyright": "&copy;2026 Leap Laboratories. All Rights Reserved."
+    }
+}
