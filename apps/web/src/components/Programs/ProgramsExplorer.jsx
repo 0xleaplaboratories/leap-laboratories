@@ -32,6 +32,101 @@ export default function ProgramsExplorer({ programs }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Handle Deep Linking from URL Hash
+  useEffect(() => {
+    if (!hasMounted || !programs.length) return;
+
+    const handleHashLink = () => {
+      const hash = window.location.hash;
+      if (!hash.startsWith('#programs/')) return;
+
+      const fullPath = hash.replace('#programs/', '');
+      const parts = fullPath.split('/');
+      const rootId = parts[0];
+
+      // Match the internal ID format (hyphenated) for searching
+      const fullId = fullPath.replace(/\//g, '-');
+
+      // 1. Switch to the correct Root Tab (Academy / Labs)
+      if (rootId) {
+        const rootExists = programs.find(p => p.id === rootId);
+        if (rootExists) {
+          setActiveRootId(rootId);
+          
+          // Explicit scroll to ensure precise landing
+          setTimeout(() => {
+            const element = document.getElementById(`programs/${rootId}`);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 100);
+        }
+      }
+
+      // 2. Search for the Deep Node (Folder or File)
+      const findNodeAndPath = (nodes, targetId, currentPath = []) => {
+        for (const node of nodes) {
+          if (node.id === targetId) return { node, path: currentPath };
+          if (node.children) {
+            const result = findNodeAndPath(node.children, targetId, [...currentPath, node.id]);
+            if (result) return result;
+          }
+        }
+        return null;
+      }
+
+      const target = findNodeAndPath(programs, fullId);
+      if (target) {
+        const { node, path } = target;
+
+        // 2. ALWAYS expand ancestor folders + target folder to show the structure
+        setOpenFolderIds(prev => {
+          const next = new Set(prev);
+          path.forEach(id => next.add(id));
+          if (node.type === 'folder') {
+            next.add(node.id);
+          }
+          return next;
+        });
+
+        // 3. Metadata Guard: Stop here if content is disabled
+        if (node.meta?.disabled) return;
+
+        // 4. Open the file if it's an active leaf
+        if (node.type === 'leaf') {
+          setOpenTabs(prev => {
+            const alreadyOpen = prev.some(t => t.id === node.id);
+            if (alreadyOpen) return prev;
+            return [...prev, { id: node.id, label: node.label, href: node.href }];
+          });
+          setActiveTabId(node.id);
+        }
+      }
+    };
+
+    // Run once on mount/programs-load
+    handleHashLink();
+
+    // Listen for changes
+    window.addEventListener('hashchange', handleHashLink);
+    
+    // Supplement with click listener for same-page hash links (like from footer)
+    const handleGlobalClick = (e) => {
+      const target = e.target.closest('a');
+      if (target && target.hash && target.hash.startsWith('#programs/')) {
+        // Small delay to let the browser update the hash
+        setTimeout(handleHashLink, 50);
+      }
+    };
+    
+    window.addEventListener('click', handleGlobalClick);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashLink);
+      window.removeEventListener('click', handleGlobalClick);
+    };
+  }, [hasMounted, programs]);
+
   const handleFolderToggle = useCallback((folderId) => {
     setOpenFolderIds((prev) => {
       const next = new Set(prev);
@@ -169,6 +264,7 @@ export default function ProgramsExplorer({ programs }) {
           {programs.map(root => (
             <button
               key={root.id}
+              id={`programs/${root.id}`}
               className={`${styles.rootTab} ${activeRootId === root.id ? styles.rootTabActive : ''}`}
               onClick={() => setActiveRootId(root.id)}
             >
